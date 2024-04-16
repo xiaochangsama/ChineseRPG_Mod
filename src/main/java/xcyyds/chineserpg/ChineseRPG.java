@@ -22,4 +22,5 @@ public class ChineseRPG implements ModInitializer {
 
 		LOGGER.info("Hello Fabric world!I'm ChineseRPG!");
 	}
+
 }
