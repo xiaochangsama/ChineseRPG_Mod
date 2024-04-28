@@ -1,6 +1,11 @@
 package xcyyds.chineserpg.event;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
+import net.minecraft.entity.EntityPose;
+import net.minecraft.util.ActionResult;
+
+import static net.minecraft.util.ActionResult.PASS;
 
 public class FabricEventManager {
     public static void registryEvent() {
@@ -26,6 +31,15 @@ public class FabricEventManager {
         // example:
         ServerTickEvents.START_WORLD_TICK.register((server) -> {
             // do something every tick
+//            server.getRandomAlivePlayer().setPose(EntityPose.SLEEPING);
+
         });
-    }
-}
+        AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
+            player.setPose(EntityPose.DIGGING);
+            return PASS;
+        });
+
+            }
+        }
+
+
