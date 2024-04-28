@@ -1,11 +1,15 @@
 {
-	"required": true,
-	"package": "xcyyds.chineserpg.mixin",
-	"compatibilityLevel": "JAVA_17",
-	"mixins": [
-      "ChineseRPGMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
+  "required": true,
+  "package": "xcyyds.chineserpg.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "ChineseRPGMixin",
+    "EntityAccessor",
+    "EntityMixin",
+    "LivingEntityMixin",
+    "PlayerEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
 	}
 }

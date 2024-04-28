@@ -35,7 +35,7 @@ public class FabricEventManager {
 
         });
         AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
-            player.setPose(EntityPose.DIGGING);
+//            player.setPose(EntityPose.CROUCHING);
             return PASS;
         });
 
