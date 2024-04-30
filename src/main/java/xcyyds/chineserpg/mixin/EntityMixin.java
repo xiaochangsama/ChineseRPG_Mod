@@ -28,14 +28,15 @@ public abstract class EntityMixin {
 
     @Inject(at = @At("RETURN"), method = "setPose")
     private void setPoseReturn(EntityPose pose, CallbackInfo ci){
-        if(this.getType() == EntityType.PLAYER){
+        //在Entity类判断玩家，估摸着会造成一定性能损耗，建议直接在PlayerEntity类中写
+//        if(this.getType() == EntityType.PLAYER){
 //            DataTracker dataTracker = getDataTracker();
 //
 //            //通过EntityAccessor类访问原本不能访问的字段
 //            TrackedData<EntityPose> POSE = ((EntityAccessor)this).getPOSE();
 //
 //            dataTracker.set(POSE,EntityPose.SLEEPING );
-        }
+//        }
     }
 
 }
