@@ -1,13 +1,10 @@
 package xcyyds.chineserpg.mixin;
 
-import com.google.common.collect.ImmutableList;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,21 +19,23 @@ public abstract class EntityMixin {
 
     @Shadow public abstract DataTracker getDataTracker();
 
+    @Shadow public abstract boolean isPlayer();
+
     @Inject(at = @At("HEAD"), method = "tick")
     private void tickHead(CallbackInfo ci){
     }
 
     @Inject(at = @At("RETURN"), method = "setPose")
     private void setPoseReturn(EntityPose pose, CallbackInfo ci){
-        //在Entity类判断玩家，估摸着会造成一定性能损耗，建议直接在PlayerEntity类中写
-//        if(this.getType() == EntityType.PLAYER){
+
+        if(this.isPlayer()){
 //            DataTracker dataTracker = getDataTracker();
 //
 //            //通过EntityAccessor类访问原本不能访问的字段
 //            TrackedData<EntityPose> POSE = ((EntityAccessor)this).getPOSE();
 //
 //            dataTracker.set(POSE,EntityPose.SLEEPING );
-//        }
+        }
     }
 
 }
