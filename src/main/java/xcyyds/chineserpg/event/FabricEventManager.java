@@ -10,7 +10,7 @@ import static net.minecraft.util.ActionResult.PASS;
 public class FabricEventManager {
     public static void registryEvent() {
         // register events here
-
+        PlayerTravelEventHandler.register();
 //        // example:
 //        /* 当玩家击打不能徒手挖掘的方块的时候，给予提示信息
 //         * 想要mixin新的事件，只需要三步
