@@ -1,5 +1,6 @@
 package top.xcyyds.chineserpg.mixin;
 
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
@@ -10,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import top.xcyyds.chineserpg.PlayerDataStorage;
+import top.xcyyds.chineserpg.network.PlayerDataSyncHandler;
 
 @Mixin(ServerPlayerEntity.class)
 public class ServerPlayerEntityMixin {
@@ -36,6 +38,9 @@ public class ServerPlayerEntityMixin {
             if (nbt != null) {
                 player.readCustomDataFromNbt(nbt);
                 PlayerDataStorage.remove(player.getUuid());
+
+                // 发送数据到客户端
+                PlayerDataSyncHandler.send(player, nbt);
             }
         }
     }
