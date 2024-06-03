@@ -1,16 +1,13 @@
 package xcyyds.chineserpg.mixin;
 
-import com.mojang.authlib.GameProfile;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.packet.s2c.play.TitleS2CPacket;
 import net.minecraft.text.Text;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -21,9 +18,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Mixin(PlayerEntity.class)
-public abstract class PlayerEntityMixin extends Entity {
+public abstract class PlayerEntityMixin extends LivingEntity {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PlayerEntityMixin.class);
+
+    protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
+        super(entityType, world);
+    }
+
 
     @Shadow public abstract void sendMessage(Text message, boolean overlay);
 
@@ -31,11 +33,6 @@ public abstract class PlayerEntityMixin extends Entity {
     private static final TrackedData<Float> INNER_POWER_MAX = DataTracker.registerData(PlayerEntityMixin.class, TrackedDataHandlerRegistry.FLOAT);
     private static final TrackedData<Integer> JUMP_COUNT = DataTracker.registerData(PlayerEntityMixin.class, TrackedDataHandlerRegistry.INTEGER);
 
-    private NbtCompound customData;
-
-    public PlayerEntityMixin(EntityType<?> type, World world) {
-        super(type, world);
-    }
 
     @Inject(at = @At("HEAD"), method = "initDataTracker")
     private void initDataTracker(CallbackInfo info) {
@@ -50,8 +47,6 @@ public abstract class PlayerEntityMixin extends Entity {
         nbt.putFloat("InnerPower", this.getDataTracker().get(INNER_POWER));
         nbt.putFloat("InnerPowerMax", this.getDataTracker().get(INNER_POWER_MAX));
         nbt.putInt("JumpCount", this.getDataTracker().get(JUMP_COUNT));
-        customData = nbt;
-
     }
 
     @Inject(at = @At("HEAD"), method = "readCustomDataFromNbt")
@@ -59,8 +54,6 @@ public abstract class PlayerEntityMixin extends Entity {
         this.getDataTracker().set(INNER_POWER, nbt.getFloat("InnerPower"));
         this.getDataTracker().set(INNER_POWER_MAX, nbt.getFloat("InnerPowerMax"));
         this.getDataTracker().set(JUMP_COUNT, nbt.getInt("JumpCount"));
-        customData = nbt;
-
     }
 
     @Inject(at = @At("HEAD"), method = "tick")
@@ -75,7 +68,7 @@ public abstract class PlayerEntityMixin extends Entity {
         Float innerPowerMax = this.getDataTracker().get(INNER_POWER_MAX);
         this.getDataTracker().set(INNER_POWER_MAX, innerPowerMax + 1);
 
-//        LOGGER.info("InnerPower: {}", innerPower);
+        LOGGER.info("InnerPower: {}", innerPower);
 //        LOGGER.info("InnerPowerMax: {}", innerPowerMax);
 //        LOGGER.info("JumpCount: {}", jumpCount);
 

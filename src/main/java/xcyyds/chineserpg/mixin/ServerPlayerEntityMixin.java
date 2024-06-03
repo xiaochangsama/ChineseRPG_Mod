@@ -1,12 +1,14 @@
 package xcyyds.chineserpg.mixin;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,8 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
+
 
 //这里的代码解决不了末地返回的问题，但是可以正常运行，暂时保留
 //此类无用
@@ -23,6 +27,10 @@ public abstract class ServerPlayerEntityMixin {
 
     private static final Map<UUID, NbtCompound> playerDataMap = new HashMap<>();
 
+    @Inject(at = @At("HEAD"), method = "onDeath", cancellable = true)
+    private  void onDeath(DamageSource damageSource, CallbackInfo info) {
+
+    }
 //    @Inject(at = @At("HEAD"), method = "moveToWorld")
 //    private void beforeMoveToWorld(ServerWorld destination, CallbackInfoReturnable<Entity> cir) {
 //        ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;

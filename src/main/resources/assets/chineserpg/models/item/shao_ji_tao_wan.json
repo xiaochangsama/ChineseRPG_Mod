@@ -1,6 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "kung_fu:items/dirt_bowl_of_chicken"
-  }
-}
