@@ -24,10 +24,7 @@
 	},
 	"mixins": [
 		"chineserpg.mixins.json",
-		{
-			"config": "chineserpg.client.mixins.json",
-			"environment": "client"
-		}
+		"chineserpg.client.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.15.7",

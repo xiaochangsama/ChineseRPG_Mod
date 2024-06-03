@@ -1,19 +1,32 @@
 package top.xcyyds.chineserpg.mixin;
 
+import com.mojang.authlib.GameProfile;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import top.xcyyds.chineserpg.PlayerDataStorage;
+import top.xcyyds.chineserpg.PlayerPersistentData;
+import top.xcyyds.chineserpg.PlayerPersistentDataProvider;
 import top.xcyyds.chineserpg.network.PlayerDataSyncHandler;
 
 @Mixin(ServerPlayerEntity.class)
-public class ServerPlayerEntityMixin {
+public abstract class ServerPlayerEntityMixin extends PlayerEntity implements PlayerPersistentDataProvider {
+    private final PlayerPersistentData persistentData = new PlayerPersistentData();
+
+    public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
+        super(world, pos, yaw, gameProfile);
+    }
+
+    @Override
+    public PlayerPersistentData getPersistentData() {
+        return persistentData;
+    }
 
     @Inject(method = "copyFrom", at = @At("TAIL"))
     private void copyFrom(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfo info) {
@@ -40,11 +53,12 @@ public class ServerPlayerEntityMixin {
 
                 PlayerDataSyncHandler.send(player, nbt);
 
-                // Ensure the player is alive and has full health
                 if (player.getHealth() <= 0.0F) {
                     player.setHealth(player.getMaxHealth());
                 }
             }
         }
     }
+
+
 }
