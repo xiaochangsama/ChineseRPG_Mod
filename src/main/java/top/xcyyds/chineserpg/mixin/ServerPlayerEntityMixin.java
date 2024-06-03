@@ -5,7 +5,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -25,6 +24,9 @@ public class ServerPlayerEntityMixin {
             NbtCompound nbt = new NbtCompound();
             oldPlayer.writeCustomDataToNbt(nbt);
             PlayerDataStorage.set(oldPlayer.getUuid(), nbt);
+
+            // 发送数据到客户端
+            PlayerDataSyncHandler.send(oldPlayer, nbt);
         }
     }
 

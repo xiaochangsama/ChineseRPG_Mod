@@ -1,6 +1,7 @@
 package top.xcyyds.chineserpg;
 
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.network.ServerPlayerEntity;
 
 public class PlayerPersistentData {
     private float innerPower;
@@ -43,4 +44,6 @@ public class PlayerPersistentData {
     public void setJumpCount(int jumpCount) {
         this.jumpCount = jumpCount;
     }
+
+
 }

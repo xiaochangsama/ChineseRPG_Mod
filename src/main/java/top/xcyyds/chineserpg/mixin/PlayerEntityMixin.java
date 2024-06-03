@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import top.xcyyds.chineserpg.PlayerPersistentData;
 
 @Mixin(PlayerEntity.class)
-public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerPersistentData {
+public abstract class PlayerEntityMixin extends LivingEntity {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PlayerEntityMixin.class);
 
@@ -55,10 +55,5 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerP
         persistentData.setInnerPowerMax(innerPowerMax + 1);
 
         LOGGER.info("InnerPower: {}", innerPower);
-    }
-
-    @Override
-    public PlayerPersistentData getPersistentData() {
-        return persistentData;
     }
 }

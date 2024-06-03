@@ -8,6 +8,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
+import top.xcyyds.chineserpg.PlayerPersistentData;
 
 import static top.xcyyds.chineserpg.ChineseRPG.MODID;
 
@@ -23,6 +24,8 @@ public class PlayerDataSyncHandler {
     public static void receive(MinecraftServer server, ServerPlayerEntity player, PacketByteBuf buf, PacketSender sender) {
         NbtCompound data = buf.readNbt();
         // 这里可以添加接收数据后的处理逻辑，比如更新客户端数据
+        //不确定是否正常
+        player.readCustomDataFromNbt(data);
     }
 
     // 在你的Mod初始化代码中注册消息
