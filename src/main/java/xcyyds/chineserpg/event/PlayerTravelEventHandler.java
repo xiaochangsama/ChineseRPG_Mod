@@ -19,7 +19,6 @@ public class PlayerTravelEventHandler {
                     NbtCompound nbt = playerDataMap.get(player.getUuid());
                     player.readNbt(nbt);
                     playerDataMap.remove(player.getUuid());
-                    System.out.println("Restored data for player: " + player.getUuid());
                 }
             }
         });
@@ -30,7 +29,6 @@ public class PlayerTravelEventHandler {
                 NbtCompound nbt = new NbtCompound();
                 player.writeNbt(nbt);
                 playerDataMap.put(player.getUuid(), nbt);
-                System.out.println("Saved data for player: " + player.getUuid());
             }
         });
     }
