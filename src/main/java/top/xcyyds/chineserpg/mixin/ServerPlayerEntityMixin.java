@@ -19,13 +19,11 @@ public class ServerPlayerEntityMixin {
     private void copyFrom(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfo info) {
         ServerPlayerEntity newPlayer = (ServerPlayerEntity) (Object) this;
 
-        // Check if the player is returning from the End dimension
         if (oldPlayer.getWorld().getRegistryKey() == World.END) {
             NbtCompound nbt = new NbtCompound();
             oldPlayer.writeCustomDataToNbt(nbt);
             PlayerDataStorage.set(oldPlayer.getUuid(), nbt);
 
-            // 发送数据到客户端
             PlayerDataSyncHandler.send(oldPlayer, nbt);
         }
     }
@@ -34,15 +32,18 @@ public class ServerPlayerEntityMixin {
     private void onSpawn(CallbackInfo info) {
         ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
 
-        // Check if the player is returning to the Overworld
         if (player.getWorld().getRegistryKey() == World.OVERWORLD) {
             NbtCompound nbt = PlayerDataStorage.get(player.getUuid());
             if (nbt != null) {
                 player.readCustomDataFromNbt(nbt);
                 PlayerDataStorage.remove(player.getUuid());
 
-                // 发送数据到客户端
                 PlayerDataSyncHandler.send(player, nbt);
+
+                // Ensure the player is alive and has full health
+                if (player.getHealth() <= 0.0F) {
+                    player.setHealth(player.getMaxHealth());
+                }
             }
         }
     }
