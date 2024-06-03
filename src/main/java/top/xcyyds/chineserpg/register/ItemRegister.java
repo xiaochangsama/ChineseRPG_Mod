@@ -1,14 +1,9 @@
-package xcyyds.chineserpg.register;
+package top.xcyyds.chineserpg.register;
 
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroups;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
-import xcyyds.chineserpg.item.ChineseRPGItem;
 
-import static xcyyds.chineserpg.item.ChineseRPGItem.WATER_BOOK_LOW;
+import static top.xcyyds.chineserpg.item.ChineseRPGItem.WATER_BOOK_LOW;
 
 public class ItemRegister {
 

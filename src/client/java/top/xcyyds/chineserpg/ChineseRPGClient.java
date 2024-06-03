@@ -1,4 +1,4 @@
-package xcyyds.chineserpg;
+package top.xcyyds.chineserpg;
 
 import net.fabricmc.api.ClientModInitializer;
 

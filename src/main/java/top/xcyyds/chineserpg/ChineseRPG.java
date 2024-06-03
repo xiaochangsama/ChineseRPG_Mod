@@ -1,10 +1,10 @@
-package xcyyds.chineserpg;
+package top.xcyyds.chineserpg;
 
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import xcyyds.chineserpg.register.ChineseRPGRegister;
+import top.xcyyds.chineserpg.register.ChineseRPGRegister;
 
 public class ChineseRPG implements ModInitializer {
 	// 此记录器用于将文本写入控制台和日志文件。

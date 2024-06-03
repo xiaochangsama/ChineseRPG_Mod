@@ -1,10 +1,9 @@
-package xcyyds.chineserpg.event;
+package top.xcyyds.chineserpg.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;
-import xcyyds.chineserpg.mixin.PlayerEntityMixin;
 
 
 //此接口暂时没用

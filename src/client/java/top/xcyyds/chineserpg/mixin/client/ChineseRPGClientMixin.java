@@ -1,4 +1,4 @@
-package xcyyds.chineserpg.mixin.client;
+package top.xcyyds.chineserpg.mixin.client;
 
 import net.minecraft.client.MinecraftClient;
 import org.spongepowered.asm.mixin.Mixin;

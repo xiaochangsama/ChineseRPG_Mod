@@ -1,11 +1,11 @@
-package xcyyds.chineserpg.register;
+package top.xcyyds.chineserpg.register;
 
 
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
-import static xcyyds.chineserpg.itemgroup.ChineseRPGItemGroup.KUNG_FU_ITEM_GROUP;
+import static top.xcyyds.chineserpg.itemgroup.ChineseRPGItemGroup.KUNG_FU_ITEM_GROUP;
 
 
 public class ItemGroupRegister {
