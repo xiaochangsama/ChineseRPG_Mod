@@ -12,13 +12,10 @@ import java.util.List;
 //这个类继承mc原本的Item，以后用来拓展各种各样的新功能
 public class ChineseRPGItem extends Item {
 
-    //创建物品实例，之后去注册
-    public static Item WATER_BOOK_LOW = new ChineseRPGItem();
 
     //第一种构造函数
-    public ChineseRPGItem() {
-        super(new Settings()
-                .maxCount(16)//用这种方式来向构造函数传入基本修改
+    public ChineseRPGItem(Settings settings) {
+        super(settings//用这种方式来向构造函数传入基本修改
         );
     }
 

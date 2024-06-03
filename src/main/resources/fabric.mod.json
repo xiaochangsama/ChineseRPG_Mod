@@ -3,23 +3,23 @@
 	"id": "chineserpg",
 	"version": "${version}",
 	"name": "ChineseRPG",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Hello!!!",
 	"authors": [
-		"Me!"
+		"XiaoChangSAMA"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://www.xcyyds.top",
+		"sources": "https://github.com/xiaochangsama/ChineseRPG_Mod_Fabric_1.20.1"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/chineserpg/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"xcyyds.chineserpg.ChineseRPG"
+			"top.xcyyds.chineserpg.ChineseRPG"
 		],
 		"client": [
-			"xcyyds.chineserpg.ChineseRPGClient"
+			"top.xcyyds.chineserpg.ChineseRPGClient"
 		]
 	},
 	"mixins": [
