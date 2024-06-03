@@ -14,7 +14,7 @@ import java.util.List;
 public class ChineseRPGItem extends Item {
 
     //创建物品实例，之后去注册
-    public static Item TEST_ITEM = new ChineseRPGItem();
+    public static Item WATER_BOOK_LOW = new ChineseRPGItem();
 
     //第一种构造函数
     public ChineseRPGItem() {

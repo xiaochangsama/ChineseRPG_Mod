@@ -4,7 +4,7 @@ package xcyyds.chineserpg.register;
 import xcyyds.chineserpg.event.FabricEventManager;
 
 import static xcyyds.chineserpg.register.ItemGroupRegister.registryItemGroup;
-import static xcyyds.chineserpg.register.ItemRegister.putItemsIntoItemGroup;
+
 import static xcyyds.chineserpg.register.ItemRegister.registryItem;
 
 public class ChineseRPGRegister {
@@ -18,7 +18,7 @@ public class ChineseRPGRegister {
         一种是用putItemIntoItemGroup()加入原版物品组
         一种是在ChineseRPGItemGroup类中加入自定义物品组
          */
-        putItemsIntoItemGroup();
+
         //注册事件
         FabricEventManager.registryEvent();
     }
