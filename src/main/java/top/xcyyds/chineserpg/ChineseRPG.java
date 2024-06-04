@@ -10,6 +10,7 @@ import top.xcyyds.chineserpg.item.BooksItem;
 import top.xcyyds.chineserpg.itemgroup.ChineseRPGItemGroup;
 import top.xcyyds.chineserpg.network.JumpKeySyncHandler;
 import top.xcyyds.chineserpg.network.PlayerDataSyncHandler;
+import top.xcyyds.chineserpg.registry.MartialArtRegistry;
 
 public class ChineseRPG implements ModInitializer {
 	// 此记录器用于将文本写入控制台和日志文件。
@@ -31,6 +32,9 @@ public class ChineseRPG implements ModInitializer {
 
 		//注册事件
 		FabricEventManager.registryEvent();
+
+		//注册注册表
+		MartialArtRegistry.initializeRegistry();
 
 		//注册服务器接收同步数据包
 		JumpKeySyncHandler.register();

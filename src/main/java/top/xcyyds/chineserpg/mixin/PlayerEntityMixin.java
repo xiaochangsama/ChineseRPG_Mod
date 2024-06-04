@@ -45,16 +45,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Inject(at = @At("HEAD"), method = "tick")
     private void tick(CallbackInfo info) {
 
-        // Data handling logic for testing
-        int jumpCount = playerData.getJumpCount();
-        playerData.setJumpCount(jumpCount + 1);
 
-        float innerPower = playerData.getInnerPower();
-        playerData.setInnerPower(innerPower + 1);
-
-        float innerPowerMax = playerData.getInnerPowerMax();
-        playerData.setInnerPowerMax(innerPowerMax + 1);
-
-//        LOGGER.info("InnerPower: {}", innerPower);
     }
 }

@@ -22,6 +22,7 @@ public class ChineseRPGItemGroup {
             .displayName(Text.translatable("itemGroup.chineserpg.kung_fu_item_group"))
             .entries((context, entries) -> {
                 entries.add(BooksItem.WATER_BOOK_LOW);
+                entries.add(BooksItem.JIANGHU_LIGHT_SKILL_BOOK);
             })
             .build();
     public static void registryItemGroup(){

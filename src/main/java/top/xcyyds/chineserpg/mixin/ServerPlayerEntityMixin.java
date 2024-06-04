@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import top.xcyyds.chineserpg.player.PlayerData;
 import top.xcyyds.chineserpg.player.PlayerDataStorage;
-import top.xcyyds.chineserpg.player.PlayerDataProvider;
+import top.xcyyds.chineserpg.player.IPlayerDataProvider;
 
 /*
 先前通过将数据写入玩家的datatracker中，现在通过PlayerPersistentData来实现；
@@ -21,7 +21,7 @@ import top.xcyyds.chineserpg.player.PlayerDataProvider;
 这个逻辑（将玩家copy和spawn的时候的数据备份并存储，避免玩家从非死亡情况丢失数据）只在服务端玩家实体实现，因此玩家的服务端和客户端数据会不同步，因此需要网络发包的过程来同步数据
  */
 @Mixin(ServerPlayerEntity.class)
-public abstract class ServerPlayerEntityMixin extends PlayerEntity implements PlayerDataProvider {
+public abstract class ServerPlayerEntityMixin extends PlayerEntity implements IPlayerDataProvider {
     private final PlayerData persistentData = new PlayerData();
 
     public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
