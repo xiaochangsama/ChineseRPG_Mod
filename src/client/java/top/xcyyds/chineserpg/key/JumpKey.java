@@ -14,8 +14,7 @@ public class JumpKey {
             boolean isPressed = InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), GLFW.GLFW_KEY_SPACE);
             if (isPressed && !wasPressed) {
                 if (MinecraftClient.getInstance().player != null && MinecraftClient.getInstance().getNetworkHandler() != null) {
-                    // Space key is pressed
-                    System.out.println("Space key was pressed!");
+                    //空格被按下一次，发送一次数据包
                     ClientJumpKeySyncHandler.sendJumpKeyStatus(true);
                 }
             }
