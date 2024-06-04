@@ -55,6 +55,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         float innerPowerMax = playerData.getInnerPowerMax();
         playerData.setInnerPowerMax(innerPowerMax + 1);
 
-        LOGGER.info("InnerPower: {}", innerPower);
+//        LOGGER.info("InnerPower: {}", innerPower);
     }
 }
