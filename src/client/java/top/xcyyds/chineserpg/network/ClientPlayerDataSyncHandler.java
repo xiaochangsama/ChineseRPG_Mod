@@ -14,6 +14,7 @@ public class ClientPlayerDataSyncHandler {
         ClientPlayNetworking.registerGlobalReceiver(new Identifier(MOD_ID, "player_data_sync"), (client, handler, buf, responseSender) -> {
             NbtCompound data = buf.readNbt();
             client.execute(() -> {
+                // 此 lambda 中的所有内容都在渲染线程上运行
                 if (client.player instanceof PlayerDataProvider) {
                     ((PlayerDataProvider) client.player).getPersistentData().readFromNbt(data);
                     client.player.readCustomDataFromNbt(data);
