@@ -4,15 +4,15 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
-import top.xcyyds.chineserpg.PlayerPersistentData;
-import top.xcyyds.chineserpg.PlayerPersistentDataProvider;
+import top.xcyyds.chineserpg.player.PlayerData;
+import top.xcyyds.chineserpg.player.PlayerDataProvider;
 
 @Mixin(ClientPlayerEntity.class)
-public class ClientPlayerEntityMixin implements PlayerPersistentDataProvider {
-    private final PlayerPersistentData persistentData = new PlayerPersistentData();
+public class ClientPlayerEntityMixin implements PlayerDataProvider {
+    private final PlayerData persistentData = new PlayerData();
 
     @Override
-    public PlayerPersistentData getPersistentData() {
+    public PlayerData getPersistentData() {
         return persistentData;
     }
 

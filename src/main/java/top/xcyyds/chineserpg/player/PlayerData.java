@@ -1,9 +1,8 @@
-package top.xcyyds.chineserpg;
+package top.xcyyds.chineserpg.player;
 
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.server.network.ServerPlayerEntity;
 
-public class PlayerPersistentData {
+public class PlayerData {
     private float innerPower;
     private float innerPowerMax;
     private int jumpCount;

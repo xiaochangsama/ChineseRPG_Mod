@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import top.xcyyds.chineserpg.PlayerPersistentData;
+import top.xcyyds.chineserpg.player.PlayerData;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
@@ -21,7 +21,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Shadow public abstract void sendMessage(net.minecraft.text.Text message, boolean actionBar);
 
-    private PlayerPersistentData persistentData = new PlayerPersistentData();
+    private PlayerData playerData = new PlayerData();
 
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
@@ -31,14 +31,14 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Inject(method = "writeCustomDataToNbt", at = @At("HEAD"))
     private void writeCustomDataToNbt(NbtCompound nbt, CallbackInfo info) {
         NbtCompound data = new NbtCompound();
-        persistentData.writeToNbt(data);
-        nbt.put("PlayerPersistentData", data);
+        playerData.writeToNbt(data);
+        nbt.put("PlayerData", data);
     }
 
     @Inject(method = "readCustomDataFromNbt", at = @At("HEAD"))
     private void readCustomDataFromNbt(NbtCompound nbt, CallbackInfo info) {
-        if (nbt.contains("PlayerPersistentData", 10)) {
-            persistentData.readFromNbt(nbt.getCompound("PlayerPersistentData"));
+        if (nbt.contains("PlayerData", 10)) {
+            playerData.readFromNbt(nbt.getCompound("PlayerData"));
         }
     }
 
@@ -46,14 +46,14 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     private void tick(CallbackInfo info) {
 
         // Data handling logic for testing
-        int jumpCount = persistentData.getJumpCount();
-        persistentData.setJumpCount(jumpCount + 1);
+        int jumpCount = playerData.getJumpCount();
+        playerData.setJumpCount(jumpCount + 1);
 
-        float innerPower = persistentData.getInnerPower();
-        persistentData.setInnerPower(innerPower + 1);
+        float innerPower = playerData.getInnerPower();
+        playerData.setInnerPower(innerPower + 1);
 
-        float innerPowerMax = persistentData.getInnerPowerMax();
-        persistentData.setInnerPowerMax(innerPowerMax + 1);
+        float innerPowerMax = playerData.getInnerPowerMax();
+        playerData.setInnerPowerMax(innerPowerMax + 1);
 
         LOGGER.info("InnerPower: {}", innerPower);
     }

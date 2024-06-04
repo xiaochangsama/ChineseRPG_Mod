@@ -1,4 +1,4 @@
-package top.xcyyds.chineserpg;
+package top.xcyyds.chineserpg.player;
 
 import net.minecraft.nbt.NbtCompound;
 
