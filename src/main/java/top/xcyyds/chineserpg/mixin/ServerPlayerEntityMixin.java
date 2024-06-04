@@ -44,8 +44,6 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Pl
             oldPlayer.writeCustomDataToNbt(nbt);
             PlayerDataStorage.set(oldPlayer.getUuid(), nbt);
 
-            //网络发包同步数据
-            PlayerDataSyncHandler.send(oldPlayer, nbt);
         }
     }
 
@@ -59,15 +57,18 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Pl
                 player.readCustomDataFromNbt(nbt);
                 PlayerDataStorage.remove(player.getUuid());
 
-                //网络发包同步数据
-                PlayerDataSyncHandler.send(player, nbt);
-
                 //如果玩家在生成的时候，血量为0，代表玩家是通过死亡的途径生成到世界的（也就是复活了），这时将玩家血量回复到满血
                 if (player.getHealth() <= 0.0F) {
                     player.setHealth(player.getMaxHealth());
                 }
             }
         }
+    }
+
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void onTick(CallbackInfo info) {
+        ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
+        PlayerDataSyncHandler.send(player);
     }
 
 

@@ -1,7 +1,9 @@
 package top.xcyyds.chineserpg;
 
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.network.PacketByteBuf;
+
 
 public class PlayerPersistentData {
     private float innerPower;
@@ -18,6 +20,21 @@ public class PlayerPersistentData {
         innerPower = nbt.getFloat("InnerPower");
         innerPowerMax = nbt.getFloat("InnerPowerMax");
         jumpCount = nbt.getInt("JumpCount");
+    }
+
+    public PacketByteBuf writeToBuf(){
+        PacketByteBuf buf = PacketByteBufs.create();
+        buf.writeFloat(innerPower);
+        buf.writeFloat(innerPowerMax);
+        buf.writeInt(jumpCount);
+        return buf;
+    }
+    public void readFromBuf(PacketByteBuf buf){
+        innerPower = buf.readFloat();
+        innerPowerMax = buf.readFloat();
+        jumpCount = buf.readInt();
+
+
     }
 
     // Getters and Setters for the fields
