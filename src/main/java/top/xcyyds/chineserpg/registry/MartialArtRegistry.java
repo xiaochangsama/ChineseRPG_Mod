@@ -1,21 +1,25 @@
 package top.xcyyds.chineserpg.registry;
 
+import top.xcyyds.chineserpg.martialart.MartialArt;
+import top.xcyyds.chineserpg.martialart.MartialArts;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class MartialArtRegistry {
-    private static final Map<String, top.xcyyds.chineserpg.registry.MartialArt> registry = new HashMap<>();
+    private static final Map<UUID, MartialArt> registry = new HashMap<>();
 
-    public static void registerMartialArt(top.xcyyds.chineserpg.registry.MartialArt martialArt) {
-        registry.put(martialArt.getName(), martialArt);
+    public static void registerMartialArt(MartialArt martialArt) {
+        registry.put(martialArt.getUuid(), martialArt);
     }
 
-    public static top.xcyyds.chineserpg.registry.MartialArt getMartialArt(String name) {
-        return registry.get(name);
+    public static MartialArt getMartialArt(UUID uuid) {
+        return registry.get(uuid);
     }
 
     public static void initializeRegistry() {
-        // 初始化时将江湖轻功写入注册表
-        registerMartialArt(new top.xcyyds.chineserpg.registry.MartialArt("江湖轻功", "轻功", 10, 100, "江湖中流传的轻功绝学", "某位大师"));
+        // Register all predefined martial arts
+        MartialArts.registerAll();
     }
 }

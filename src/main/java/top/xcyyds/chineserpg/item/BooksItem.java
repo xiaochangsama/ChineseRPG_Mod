@@ -9,7 +9,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
-
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -18,10 +17,11 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import top.xcyyds.chineserpg.player.IPlayerDataProvider;
 import top.xcyyds.chineserpg.player.PlayerData;
-
-import top.xcyyds.chineserpg.registry.MartialArt;
+import top.xcyyds.chineserpg.martialart.MartialArt;
+import top.xcyyds.chineserpg.registry.MartialArtRegistry;
 
 import java.util.List;
+import java.util.UUID;
 
 public class BooksItem extends ChineseRPGItem {
 
@@ -64,13 +64,15 @@ public class BooksItem extends ChineseRPGItem {
             // 将武功存储到PlayerData中
             PlayerData playerData = ((IPlayerDataProvider) user).getPlayerData();
 
-            if (playerData.addSkill(martialArt.getName())) {
+            if (playerData.addSkill(martialArt.getUuid())) {
                 user.sendMessage(Text.literal("你学会了 " + martialArt.getName() + "！").formatted(Formatting.GOLD, Formatting.BOLD), true);
                 return new TypedActionResult<>(ActionResult.SUCCESS, stack);
-            } else if (!playerData.getEquippedSkill().equals(martialArt.getName())) {
-                playerData.equipSkill(martialArt.getName());
+            } else if (!martialArt.getUuid().equals(playerData.getEquippedSkill())) {
+                playerData.equipSkill(martialArt.getUuid());
                 user.sendMessage(Text.literal("你装备了 " + martialArt.getName() + "！").formatted(Formatting.GOLD, Formatting.BOLD), true);
                 return new TypedActionResult<>(ActionResult.SUCCESS, stack);
+            }else{
+                user.sendMessage(Text.literal("你已经装备了 " + martialArt.getName() + "！").formatted(Formatting.DARK_RED, Formatting.BOLD), true);
             }
         }
         return new TypedActionResult<>(ActionResult.PASS, stack);

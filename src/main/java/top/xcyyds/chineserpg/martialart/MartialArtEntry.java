@@ -1,4 +1,4 @@
-package top.xcyyds.chineserpg.item;
+package top.xcyyds.chineserpg.martialart;
 
 import net.minecraft.nbt.NbtCompound;
 

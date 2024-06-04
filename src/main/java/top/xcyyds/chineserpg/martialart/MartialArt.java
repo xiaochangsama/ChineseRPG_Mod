@@ -1,13 +1,14 @@
-package top.xcyyds.chineserpg.registry;
+package top.xcyyds.chineserpg.martialart;
 
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
-import top.xcyyds.chineserpg.item.MartialArtEntry;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class MartialArt {
+    private UUID uuid;
     private String name;
     private String type;
     private int level;
@@ -17,6 +18,7 @@ public class MartialArt {
     private List<MartialArtEntry> entries;
 
     public MartialArt(String name, String type, int level, float completeness, String description, String author) {
+        this.uuid = UUID.randomUUID();
         this.name = name;
         this.type = type;
         this.level = level;
@@ -26,11 +28,20 @@ public class MartialArt {
         this.entries = new ArrayList<>();
     }
 
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
     public void addEntry(MartialArtEntry entry) {
         this.entries.add(entry);
     }
 
     public void writeToNbt(NbtCompound nbt) {
+        nbt.putUuid("UUID", uuid);
         nbt.putString("Name", name);
         nbt.putString("Type", type);
         nbt.putInt("Level", level);
@@ -48,6 +59,7 @@ public class MartialArt {
     }
 
     public static MartialArt readFromNbt(NbtCompound nbt) {
+        UUID uuid = nbt.getUuid("UUID");
         String name = nbt.getString("Name");
         String type = nbt.getString("Type");
         int level = nbt.getInt("Level");
@@ -56,6 +68,7 @@ public class MartialArt {
         String author = nbt.getString("Author");
 
         MartialArt martialArt = new MartialArt(name, type, level, completeness, description, author);
+        martialArt.setUuid(uuid);
 
         NbtList entriesNbt = nbt.getList("Entries", 10);
         for (int i = 0; i < entriesNbt.size(); i++) {

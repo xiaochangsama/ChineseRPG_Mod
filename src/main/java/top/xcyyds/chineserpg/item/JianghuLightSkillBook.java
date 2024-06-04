@@ -8,7 +8,8 @@ import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
-import top.xcyyds.chineserpg.registry.MartialArt;
+import top.xcyyds.chineserpg.martialart.MartialArt;
+import top.xcyyds.chineserpg.martialart.MartialArts;
 
 public class JianghuLightSkillBook extends BooksItem {
 
@@ -19,30 +20,8 @@ public class JianghuLightSkillBook extends BooksItem {
     public static ItemStack createJianghuLightSkillBook() {
         ItemStack itemStack = new ItemStack(BooksItem.JIANGHU_LIGHT_SKILL_BOOK);
 
-        // 初始化武功数据
-        MartialArt jianghuLightSkill = new MartialArt(
-                "江湖轻功", // 名称
-                "轻功", // 类型
-                1, // 等级
-                100.0f, // 完整度
-                "不知是何人所创的轻功，广为流传。", // 描述
-                "江湖人士" // 作者
-        );
-
-        // 创建武功词条
-        MartialArtEntry entry = new MartialArtEntry(
-                "左脚蹬右脚", // 名称
-                1, // 等级
-                "二段跳", // 主属性类型
-                "二段跳", // 跳跃类型
-                1, // 跳跃次数
-                0.0f, // 内力消耗
-                0.0f, // 减伤高度
-                0.0f, // 减伤比例
-                0.0f // 闪避率
-        );
-
-        jianghuLightSkill.addEntry(entry);
+        // 获取预定义的江湖轻功武功实例
+        MartialArt jianghuLightSkill = MartialArts.JIANGHU_LIGHT_SKILL;
 
         // 将武功数据存入书籍的 NBT
         NbtCompound nbt = new NbtCompound();
@@ -50,8 +29,7 @@ public class JianghuLightSkillBook extends BooksItem {
         itemStack.setNbt(nbt);
 
         // 设置物品的名称为武功的名称，并且为金色
-        itemStack.setCustomName(Text.literal(jianghuLightSkill.getName()).formatted(Formatting.GOLD,Formatting.BOLD));
-
+        itemStack.setCustomName(Text.literal(jianghuLightSkill.getName()).formatted(Formatting.GOLD, Formatting.BOLD));
 
         return itemStack;
     }

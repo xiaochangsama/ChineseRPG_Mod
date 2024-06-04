@@ -4,16 +4,18 @@ import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;
+import net.minecraft.server.network.ServerPlayerEntity;
+import top.xcyyds.chineserpg.player.PlayerData;
+import top.xcyyds.chineserpg.player.IPlayerDataProvider;
+import top.xcyyds.chineserpg.player.PlayerTick;
 
-
-//此接口暂时没用
 public interface PlayerTickCallback {
     Event<PlayerTickCallback> EVENT = EventFactory.createArrayBacked(PlayerTickCallback.class,
             (listeners) -> (player) -> {
                 for (PlayerTickCallback listener : listeners) {
                     ActionResult result = listener.interact(player);
 
-                    if(result != ActionResult.PASS) {
+                    if (result != ActionResult.PASS) {
                         return result;
                     }
                 }
@@ -22,6 +24,4 @@ public interface PlayerTickCallback {
             });
 
     ActionResult interact(PlayerEntity player);
-
-
 }
