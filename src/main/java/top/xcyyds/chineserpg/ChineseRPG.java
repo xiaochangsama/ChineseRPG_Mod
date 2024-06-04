@@ -38,7 +38,6 @@ public class ChineseRPG implements ModInitializer {
 		//注册事件
 		FabricEventManager.registryEvent();
 
-		PlayerDataSyncHandler.registerServerReceiver();
 
 		LOGGER.info("Hello Fabric world!I'm ChineseRPG!");
 	}

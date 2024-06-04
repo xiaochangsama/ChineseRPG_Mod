@@ -15,6 +15,12 @@ import top.xcyyds.chineserpg.PlayerPersistentData;
 import top.xcyyds.chineserpg.PlayerPersistentDataProvider;
 import top.xcyyds.chineserpg.network.PlayerDataSyncHandler;
 
+/*
+先前通过将数据写入玩家的datatracker中，现在通过PlayerPersistentData来实现；
+因为datatracker存储的数据以及交互逻辑过于复杂，我们的数据很难在其中存储和同步，所以使用PlayerPersistentData来实现更合适
+
+这个逻辑（将玩家copy和spawn的时候的数据备份并存储，避免玩家从非死亡情况丢失数据）只在服务端玩家实体实现，因此玩家的服务端和客户端数据会不同步，因此需要网络发包的过程来同步数据
+ */
 @Mixin(ServerPlayerEntity.class)
 public abstract class ServerPlayerEntityMixin extends PlayerEntity implements PlayerPersistentDataProvider {
     private final PlayerPersistentData persistentData = new PlayerPersistentData();
@@ -22,6 +28,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Pl
     public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
         super(world, pos, yaw, gameProfile);
     }
+
 
     @Override
     public PlayerPersistentData getPersistentData() {
@@ -37,6 +44,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Pl
             oldPlayer.writeCustomDataToNbt(nbt);
             PlayerDataStorage.set(oldPlayer.getUuid(), nbt);
 
+            //网络发包同步数据
             PlayerDataSyncHandler.send(oldPlayer, nbt);
         }
     }
@@ -51,8 +59,10 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Pl
                 player.readCustomDataFromNbt(nbt);
                 PlayerDataStorage.remove(player.getUuid());
 
+                //网络发包同步数据
                 PlayerDataSyncHandler.send(player, nbt);
 
+                //如果玩家在生成的时候，血量为0，代表玩家是通过死亡的途径生成到世界的（也就是复活了），这时将玩家血量回复到满血
                 if (player.getHealth() <= 0.0F) {
                     player.setHealth(player.getMaxHealth());
                 }

@@ -27,6 +27,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         super(entityType, world);
     }
 
+    //通过mixin方法，将persistentData（动态数据）写入到nbt中
     @Inject(method = "writeCustomDataToNbt", at = @At("HEAD"))
     private void writeCustomDataToNbt(NbtCompound nbt, CallbackInfo info) {
         NbtCompound data = new NbtCompound();
