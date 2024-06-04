@@ -10,13 +10,13 @@ import net.minecraft.util.Identifier;
 import net.minecraft.nbt.NbtCompound;
 import top.xcyyds.chineserpg.PlayerPersistentDataProvider;
 
-import static top.xcyyds.chineserpg.ChineseRPG.MODID;
+import static top.xcyyds.chineserpg.ChineseRPG.MOD_ID;
 
 public class PlayerDataSyncHandler {
     public static void send(ServerPlayerEntity player, NbtCompound data) {
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeNbt(data);
-        ServerPlayNetworking.send(player, new Identifier(MODID, "player_data_sync"), buf);
+        ServerPlayNetworking.send(player, new Identifier(MOD_ID, "player_data_sync"), buf);
     }
 
     public static void receive(MinecraftServer server, ServerPlayerEntity player, PacketByteBuf buf, PacketSender responseSender) {
@@ -29,7 +29,7 @@ public class PlayerDataSyncHandler {
     }
 
     public static void registerServerReceiver() {
-        ServerPlayNetworking.registerGlobalReceiver(new Identifier(MODID, "player_data_sync"), (server, player, handler, buf, responseSender) -> {
+        ServerPlayNetworking.registerGlobalReceiver(new Identifier(MOD_ID, "player_data_sync"), (server, player, handler, buf, responseSender) -> {
             receive(server, player, buf, responseSender);
         });
     }

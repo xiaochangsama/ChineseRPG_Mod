@@ -15,7 +15,7 @@ public class ChineseRPG implements ModInitializer {
 	// 使用您的mod id作为记录器的名称被认为是最佳实践。
 	// 这样，很清楚哪个mod写了信息，警告和错误。
     public static final Logger LOGGER = LoggerFactory.getLogger("chineserpg");
-	public static final String MODID = "chineserpg";
+	public static final String MOD_ID = "chineserpg";
 	@Override
 	public void onInitialize() {
 	// 一旦Minecraft处于mod-load-ready状态，此代码就会运行。
