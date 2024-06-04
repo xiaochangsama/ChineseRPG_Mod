@@ -10,6 +10,10 @@ import net.minecraft.util.Identifier;
 import top.xcyyds.chineserpg.item.BooksItem;
 import top.xcyyds.chineserpg.item.ChineseRPGItem;
 
+        /* 有两种方式可以将物品放到物品组：
+        一种是用putItemIntoItemGroup()加入原版物品组
+        一种是在ChineseRPGItemGroup类中加入自定义物品组
+         */
 
 //直接在这里创建物品组，之后去注册
 public class ChineseRPGItemGroup {

@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
+import top.xcyyds.chineserpg.network.ClientJumpKeySyncHandler;
 
 public class JumpKey {
     private static KeyBinding keyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
@@ -16,7 +17,7 @@ public class JumpKey {
     public void registryJumpKey() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (keyBinding.wasPressed()) {
-
+                ClientJumpKeySyncHandler.sendJumpKeyStatus(true);
             }
         });
     }

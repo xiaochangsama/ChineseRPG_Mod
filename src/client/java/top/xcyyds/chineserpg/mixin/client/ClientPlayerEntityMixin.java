@@ -12,7 +12,7 @@ public class ClientPlayerEntityMixin implements PlayerDataProvider {
     private final PlayerData persistentData = new PlayerData();
 
     @Override
-    public PlayerData getPersistentData() {
+    public PlayerData getPlayerData() {
         return persistentData;
     }
 

@@ -30,15 +30,16 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Pl
 
 
     @Override
-    public PlayerData getPersistentData() {
+    public PlayerData getPlayerData() {
         return persistentData;
     }
 
+    @SuppressWarnings("UnreachableCode")
     @Inject(method = "copyFrom", at = @At("TAIL"))
     private void copyFrom(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfo info) {
         ServerPlayerEntity newPlayer = (ServerPlayerEntity) (Object) this;
 
-        if (oldPlayer.getWorld().getRegistryKey() == World.END) {
+        if (alive) {
             NbtCompound nbt = new NbtCompound();
             oldPlayer.writeCustomDataToNbt(nbt);
             PlayerDataStorage.set(oldPlayer.getUuid(), nbt);
@@ -48,12 +49,15 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Pl
         }
     }
 
+    @SuppressWarnings("UnreachableCode")
     @Inject(method = "onSpawn", at = @At("HEAD"))
     private void onSpawn(CallbackInfo info) {
         ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
 
-        if (player.getWorld().getRegistryKey() == World.OVERWORLD) {
+
+
             NbtCompound nbt = PlayerDataStorage.get(player.getUuid());
+            //如果nbt数据存在
             if (nbt != null) {
                 player.readCustomDataFromNbt(nbt);
                 PlayerDataStorage.remove(player.getUuid());
@@ -61,12 +65,10 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Pl
 //                //网络发包同步数据
 //                PlayerDataSyncHandler.send(player, nbt);
 
-                //如果玩家在生成的时候，血量为0，代表玩家是通过死亡的途径生成到世界的（也就是复活了），这时将玩家血量回复到满血
-                if (player.getHealth() <= 0.0F) {
-                    player.setHealth(player.getMaxHealth());
-                }
+
+
             }
-        }
+
     }
 
 
