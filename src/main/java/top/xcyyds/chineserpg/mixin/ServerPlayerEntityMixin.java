@@ -37,15 +37,13 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements IP
     @SuppressWarnings("UnreachableCode")
     @Inject(method = "copyFrom", at = @At("TAIL"))
     private void copyFrom(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfo info) {
-        ServerPlayerEntity newPlayer = (ServerPlayerEntity) (Object) this;
 
         if (alive) {
             NbtCompound nbt = new NbtCompound();
-            oldPlayer.writeCustomDataToNbt(nbt);
+            //将自定义数据写入nbt
+            ((IPlayerDataProvider) oldPlayer).getPlayerData().writeToNbt(nbt);
             PlayerDataStorage.set(oldPlayer.getUuid(), nbt);
 
-//            //网络发包同步数据
-//            PlayerDataSyncHandler.send(oldPlayer, nbt);
         }
     }
 
@@ -60,15 +58,24 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements IP
             //如果nbt数据存在
             if (nbt != null) {
                 player.readCustomDataFromNbt(nbt);
+                this.getPlayerData().readFromNbt(nbt);
                 PlayerDataStorage.remove(player.getUuid());
-
-//                //网络发包同步数据
-//                PlayerDataSyncHandler.send(player, nbt);
-
-
 
             }
 
+    }
+    @Inject(method = "writeCustomDataToNbt", at = @At("HEAD"))
+    private void writeCustomDataToNbt(NbtCompound nbt, CallbackInfo info) {
+        NbtCompound data = new NbtCompound();
+        this.getPlayerData().writeToNbt(data);
+        nbt.put("PlayerData", data);
+    }
+
+    @Inject(method = "readCustomDataFromNbt", at = @At("HEAD"))
+    private void readCustomDataFromNbt(NbtCompound nbt, CallbackInfo info) {
+        if (nbt.contains("PlayerData", 10)) {
+            this.getPlayerData().readFromNbt(nbt.getCompound("PlayerData"));
+        }
     }
 
 
