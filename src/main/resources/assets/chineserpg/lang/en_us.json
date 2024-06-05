@@ -5,6 +5,21 @@
   "item.chineserpg.gold_book_low": "Book",
   "item.chineserpg.wood_book_low": "Book",
   "item.chineserpg.jianghu_light_skill": "Jianghu Light Skill",
-  "itemGroup.chineserpg.kung_fu_item_group": "[ChineseRPG] Items"
+  "itemGroup.chineserpg.kung_fu_item_group": "[ChineseRPG] Items",
+  "tooltip.chineserpg.scrap": "§8Scrap",
+  "tooltip.chineserpg.basic_skill": "§7Basic Skill",
+  "tooltip.chineserpg.third_rate_skill": "§aThird-rate Skill",
+  "tooltip.chineserpg.second_rate_skill": "§bSecond-rate Skill",
+  "tooltip.chineserpg.first_rate_skill": "§9First-rate Skill",
+  "tooltip.chineserpg.top_skill": "§5Top Skill",
+  "tooltip.chineserpg.epic_skill": "§cEpic Skill",
+  "tooltip.chineserpg.semi_immortal_skill": "§4Semi-immortal Skill",
+  "tooltip.chineserpg.unknown_level": "§6Unknown Level",
+  "tooltip.chineserpg.tattered_pages": "§8Tattered Pages",
+  "tooltip.chineserpg.scatter_fragments": "§8Scatter Fragments",
+  "tooltip.chineserpg.normal_fragment": "§7Normal Fragment",
+  "tooltip.chineserpg.slightly_damaged": "§7Slightly Damaged",
+  "tooltip.chineserpg.slightly_worn": "§7Slightly Worn",
+  "tooltip.chineserpg.intact": "§6Intact"
 
 }

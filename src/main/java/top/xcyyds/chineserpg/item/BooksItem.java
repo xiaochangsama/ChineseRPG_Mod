@@ -83,13 +83,27 @@ public class BooksItem extends ChineseRPGItem {
         if (stack.hasNbt()) {
             NbtCompound nbt = stack.getNbt();
             MartialArt martialArt = MartialArt.readFromNbt(nbt);
-            tooltip.add(Text.literal(martialArt.getName()).formatted(Formatting.GOLD));
-            tooltip.add(Text.literal("类别: " + martialArt.getType()).formatted(Formatting.YELLOW));
-            tooltip.add(Text.literal("等级: " + getDisplayLevelName(martialArt.getLevel())).formatted(getDisplayLevelColor(martialArt.getLevel())));
-            tooltip.add(Text.literal("完整度: " + getCompletenessDescription(martialArt.getCompleteness())).formatted(Formatting.BLUE));
-            tooltip.add(Text.literal(martialArt.getDescription()).formatted(Formatting.WHITE));
-            tooltip.add(Text.literal(martialArt.getAuthor() + " 著").formatted(Formatting.GRAY));
+
+            //类型
+            tooltip.add(createTooltipText("§7[类型：" +martialArt.getType()+"§7]", Formatting.GOLD));
+            //名称，作者
+            tooltip.add(createTooltipText("§8[封面]", Formatting.DARK_GRAY));
+            tooltip.add(createTooltipText("§7 《" + martialArt.getName()+"》", Formatting.GOLD));
+            tooltip.add(createTooltipText("           §7——"+ martialArt.getAuthor()+" 著", Formatting.GOLD));
+            //品质，完整度
+            tooltip.add(createTooltipText("§8[外观]", Formatting.DARK_GRAY));
+            tooltip.add(createTooltipText("§7[品质：" + getDisplayLevelName(martialArt.getLevel(),martialArt.getCompleteness())+"§7] "+"  §7[完整度：" + getCompletenessDescription(martialArt.getCompleteness())+"§7] ", getDisplayLevelColor(martialArt.getLevel())));
+            //内容
+            tooltip.add(createTooltipText("§8[内容]", Formatting.DARK_GRAY));
+            tooltip.add(createTooltipText("§7" + martialArt.getDescription(), Formatting.WHITE));
+            //使用方法
+            tooltip.add(createTooltipText("§8[使用方法]", Formatting.DARK_GRAY));
+            tooltip.add(createTooltipText("学习/装备："+"§7右键", Formatting.GOLD));
         }
+    }
+
+    private Text createTooltipText(String text, Formatting color) {
+        return Text.literal(text).formatted(color);
     }
 
     private int calculateDisplayLevel(int level, float completeness) {
@@ -101,16 +115,17 @@ public class BooksItem extends ChineseRPGItem {
         return level;
     }
 
-    private String getDisplayLevelName(int level) {
-        if (level <= 0) return "废品";
-        if (level <= 3) return "基础武功";
-        if (level <= 6) return "三流武功";
-        if (level <= 9) return "二流武功";
-        if (level <= 12) return "一流武功";
-        if (level <= 15) return "顶尖武功";
-        if (level <= 18) return "绝世武功";
-        if (level <= 20) return "准仙级武功";
-        return "未知等级";
+    private String getDisplayLevelName(int level, float completeness) {
+        int _level = calculateDisplayLevel(level, completeness);
+        if (_level <= 0) return "tooltip.chineserpg.scrap";
+        if (_level <= 3) return "tooltip.chineserpg.basic_skill";
+        if (_level <= 6) return "tooltip.chineserpg.third_rate_skill";
+        if (_level <= 9) return "tooltip.chineserpg.second_rate_skill";
+        if (_level <= 12) return "tooltip.chineserpg.first_rate_skill";
+        if (_level <= 15) return "tooltip.chineserpg.top_skill";
+        if (_level <= 18) return "tooltip.chineserpg.epic_skill";
+        if (_level <= 20) return "tooltip.chineserpg.semi_immortal_skill";
+        return "tooltip.chineserpg.unknown_level";
     }
 
     private Formatting getDisplayLevelColor(int level) {
@@ -126,11 +141,11 @@ public class BooksItem extends ChineseRPGItem {
     }
 
     private String getCompletenessDescription(float completeness) {
-        if (completeness < 20) return "破烂残页";
-        if (completeness < 40) return "零散残片";
-        if (completeness < 60) return "普通残本";
-        if (completeness < 80) return "略微残缺";
-        if (completeness < 100) return "轻微磨损";
-        return "完好无缺";
+        if (completeness < 20) return "tooltip.chineserpg.tattered_pages";
+        if (completeness < 40) return "tooltip.chineserpg.scatter_fragments";
+        if (completeness < 60) return "tooltip.chineserpg.normal_fragment";
+        if (completeness < 80) return "tooltip.chineserpg.slightly_damaged";
+        if (completeness < 100) return "tooltip.chineserpg.slightly_worn";
+        return "tooltip.chineserpg.intact";
     }
 }
