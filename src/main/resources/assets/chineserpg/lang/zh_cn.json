@@ -20,5 +20,8 @@
   "tooltip.chineserpg.normal_fragment": "§7普通残本",
   "tooltip.chineserpg.slightly_damaged": "§7略微残缺",
   "tooltip.chineserpg.slightly_worn": "§7轻微磨损",
-  "tooltip.chineserpg.intact": "§6完好无缺"
+  "tooltip.chineserpg.intact": "§6完好无缺",
+  "message.chineserpg.learned_skill": "你学会了 %s！",
+  "message.chineserpg.equipped_skill": "你装备了 %s！",
+  "message.chineserpg.already_equipped_skill": "你已经装备了 %s！"
 }

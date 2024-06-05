@@ -9,10 +9,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.Formatting;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import top.xcyyds.chineserpg.player.IPlayerDataProvider;
@@ -65,14 +62,14 @@ public class BooksItem extends ChineseRPGItem {
             PlayerData playerData = ((IPlayerDataProvider) user).getPlayerData();
 
             if (playerData.addSkill(martialArt.getUuid())) {
-                user.sendMessage(Text.literal("你学会了 " + martialArt.getName() + "！").formatted(Formatting.GOLD, Formatting.BOLD), true);
+                user.sendMessage(Text.translatable("message.chineserpg.learned_skill", martialArt.getName()).formatted(Formatting.AQUA, Formatting.BOLD), true);
                 return new TypedActionResult<>(ActionResult.SUCCESS, stack);
             } else if (!martialArt.getUuid().equals(playerData.getEquippedSkill())) {
                 playerData.equipSkill(martialArt.getUuid());
-                user.sendMessage(Text.literal("你装备了 " + martialArt.getName() + "！").formatted(Formatting.GOLD, Formatting.BOLD), true);
+                user.sendMessage(Text.translatable("message.chineserpg.equipped_skill", martialArt.getName()).formatted(Formatting.GOLD, Formatting.BOLD), true);
                 return new TypedActionResult<>(ActionResult.SUCCESS, stack);
-            }else{
-                user.sendMessage(Text.literal("你已经装备了 " + martialArt.getName() + "！").formatted(Formatting.DARK_RED, Formatting.BOLD), true);
+            } else {
+                user.sendMessage(Text.translatable("message.chineserpg.already_equipped_skill", martialArt.getName()).formatted(Formatting.DARK_RED, Formatting.BOLD), true);
             }
         }
         return new TypedActionResult<>(ActionResult.PASS, stack);
@@ -84,21 +81,30 @@ public class BooksItem extends ChineseRPGItem {
             NbtCompound nbt = stack.getNbt();
             MartialArt martialArt = MartialArt.readFromNbt(nbt);
 
-            //类型
-            tooltip.add(createTooltipText("§7[类型：" +martialArt.getType()+"§7]", Formatting.GOLD));
-            //名称，作者
+            // 类型
+            tooltip.add(createTooltipText("§7[类型：" + martialArt.getType() + "§7]", Formatting.GOLD));
+            // 名称，作者
             tooltip.add(createTooltipText("§8[封面]", Formatting.DARK_GRAY));
-            tooltip.add(createTooltipText("§7 《" + martialArt.getName()+"》", Formatting.GOLD));
-            tooltip.add(createTooltipText("           §7——"+ martialArt.getAuthor()+" 著", Formatting.GOLD));
+            tooltip.add(createTooltipText("§7 《" + martialArt.getName() + "》", Formatting.GOLD));
+            tooltip.add(createTooltipText("           §7——" + martialArt.getAuthor() + " 著", Formatting.GOLD));
+            // 品质，完整度
             //品质，完整度
+            Text quality = Text.translatable(getDisplayLevelName(martialArt.getLevel(), martialArt.getCompleteness())).formatted(getDisplayLevelColor(martialArt.getLevel()));
+            Text completeness = Text.translatable(getCompletenessDescription(martialArt.getCompleteness())).formatted(Formatting.GRAY);
             tooltip.add(createTooltipText("§8[外观]", Formatting.DARK_GRAY));
-            tooltip.add(createTooltipText("§7[品质：" + getDisplayLevelName(martialArt.getLevel(),martialArt.getCompleteness())+"§7] "+"  §7[完整度：" + getCompletenessDescription(martialArt.getCompleteness())+"§7] ", getDisplayLevelColor(martialArt.getLevel())));
-            //内容
+            tooltip.add(Text.literal("§7[品质：").formatted(Formatting.GRAY)
+                    .append(quality)
+                    .append("§7] §7[完整度：")
+                    .append(completeness)
+                    .append("§7]"));
+            // 内容
             tooltip.add(createTooltipText("§8[内容]", Formatting.DARK_GRAY));
-            tooltip.add(createTooltipText("§7" + martialArt.getDescription(), Formatting.WHITE));
-            //使用方法
+            for (int i = 0; i < Math.min(martialArt.getDescription().size(), 8); i++) {
+                tooltip.add(createTooltipText("§7" + martialArt.getDescription().get(i), Formatting.WHITE));
+            }
+            // 使用方法
             tooltip.add(createTooltipText("§8[使用方法]", Formatting.DARK_GRAY));
-            tooltip.add(createTooltipText("学习/装备："+"§7右键", Formatting.GOLD));
+            tooltip.add(createTooltipText("学习/装备：" + "§7右键", Formatting.GOLD));
         }
     }
 

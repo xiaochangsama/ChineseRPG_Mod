@@ -20,6 +20,8 @@
   "tooltip.chineserpg.normal_fragment": "§7Normal Fragment",
   "tooltip.chineserpg.slightly_damaged": "§7Slightly Damaged",
   "tooltip.chineserpg.slightly_worn": "§7Slightly Worn",
-  "tooltip.chineserpg.intact": "§6Intact"
-
+  "tooltip.chineserpg.intact": "§6Intact",
+  "message.chineserpg.learned_skill": "You have learned %s!",
+  "message.chineserpg.equipped_skill": "You have equipped %s!",
+  "message.chineserpg.already_equipped_skill": "You have already equipped %s!"
 }

@@ -2,6 +2,7 @@ package top.xcyyds.chineserpg.martialart;
 
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.NbtString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +14,11 @@ public class MartialArt {
     private String type;
     private int level;
     private float completeness;
-    private String description;
+    private List<String> description;
     private String author;
     private List<MartialArtEntry> entries;
 
-    public MartialArt(String name, String type, int level, float completeness, String description, String author) {
+    public MartialArt(String name, String type, int level, float completeness, List<String> description, String author) {
         this.uuid = UUID.randomUUID();
         this.name = name;
         this.type = type;
@@ -46,7 +47,13 @@ public class MartialArt {
         nbt.putString("Type", type);
         nbt.putInt("Level", level);
         nbt.putFloat("Completeness", completeness);
-        nbt.putString("Description", description);
+
+        NbtList descriptionNbt = new NbtList();
+        for (String line : description) {
+            descriptionNbt.add(NbtString.of(line));
+        }
+        nbt.put("Description", descriptionNbt);
+
         nbt.putString("Author", author);
 
         NbtList entriesNbt = new NbtList();
@@ -64,7 +71,13 @@ public class MartialArt {
         String type = nbt.getString("Type");
         int level = nbt.getInt("Level");
         float completeness = nbt.getFloat("Completeness");
-        String description = nbt.getString("Description");
+
+        NbtList descriptionNbt = nbt.getList("Description", 8);
+        List<String> description = new ArrayList<>();
+        for (int i = 0; i < descriptionNbt.size(); i++) {
+            description.add(descriptionNbt.getString(i));
+        }
+
         String author = nbt.getString("Author");
 
         MartialArt martialArt = new MartialArt(name, type, level, completeness, description, author);
@@ -111,11 +124,11 @@ public class MartialArt {
         this.completeness = completeness;
     }
 
-    public String getDescription() {
+    public List<String> getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(List<String> description) {
         this.description = description;
     }
 

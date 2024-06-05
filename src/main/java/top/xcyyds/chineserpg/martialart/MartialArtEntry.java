@@ -5,7 +5,6 @@ import net.minecraft.nbt.NbtCompound;
 public class MartialArtEntry {
     private String name;
     private int level;
-    private String primaryAttributeType;
     private String jumpType;
     private int jumpCount;
     private float innerPowerConsumption;
@@ -13,10 +12,9 @@ public class MartialArtEntry {
     private float fallDamageReduction;
     private float dodgeRate;
 
-    public MartialArtEntry(String name, int level, String primaryAttributeType, String jumpType, int jumpCount, float innerPowerConsumption, float fallDamageHeight, float fallDamageReduction, float dodgeRate) {
+    public MartialArtEntry(String name, int level, String jumpType, int jumpCount, float innerPowerConsumption, float fallDamageHeight, float fallDamageReduction, float dodgeRate) {
         this.name = name;
         this.level = level;
-        this.primaryAttributeType = primaryAttributeType;
         this.jumpType = jumpType;
         this.jumpCount = jumpCount;
         this.innerPowerConsumption = innerPowerConsumption;
@@ -28,7 +26,6 @@ public class MartialArtEntry {
     public void writeToNbt(NbtCompound nbt) {
         nbt.putString("Name", name);
         nbt.putInt("Level", level);
-        nbt.putString("PrimaryAttributeType", primaryAttributeType);
         nbt.putString("JumpType", jumpType);
         nbt.putInt("JumpCount", jumpCount);
         nbt.putFloat("InnerPowerConsumption", innerPowerConsumption);
@@ -40,14 +37,13 @@ public class MartialArtEntry {
     public static MartialArtEntry readFromNbt(NbtCompound nbt) {
         String name = nbt.getString("Name");
         int level = nbt.getInt("Level");
-        String primaryAttributeType = nbt.getString("PrimaryAttributeType");
         String jumpType = nbt.getString("JumpType");
         int jumpCount = nbt.getInt("JumpCount");
         float innerPowerConsumption = nbt.getFloat("InnerPowerConsumption");
         float fallDamageHeight = nbt.getFloat("FallDamageHeight");
         float fallDamageReduction = nbt.getFloat("FallDamageReduction");
         float dodgeRate = nbt.getFloat("DodgeRate");
-        return new MartialArtEntry(name, level, primaryAttributeType, jumpType, jumpCount, innerPowerConsumption, fallDamageHeight, fallDamageReduction, dodgeRate);
+        return new MartialArtEntry(name, level, jumpType, jumpCount, innerPowerConsumption, fallDamageHeight, fallDamageReduction, dodgeRate);
     }
 
     // Getters and Setters
@@ -65,14 +61,6 @@ public class MartialArtEntry {
 
     public void setLevel(int level) {
         this.level = level;
-    }
-
-    public String getPrimaryAttributeType() {
-        return primaryAttributeType;
-    }
-
-    public void setPrimaryAttributeType(String primaryAttributeType) {
-        this.primaryAttributeType = primaryAttributeType;
     }
 
     public String getJumpType() {
