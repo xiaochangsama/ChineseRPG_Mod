@@ -17,6 +17,8 @@ public class PlayerTick {
                 PlayerData playerData = ((IPlayerDataProvider) player).getPlayerData();
                 // 调用updateJumpCount
                 updateJumpCount(player, playerData);
+                // 调用内力恢复
+                playerData.tickRegenerateInnerPower();
 
                 // 同步玩家数据到客户端
                 NbtCompound data = new NbtCompound();
@@ -31,7 +33,7 @@ public class PlayerTick {
             MartialArt equippedMartialArt = playerData.getEquippedMartialArt();
             if (equippedMartialArt != null) {
                 for (MartialArtEntry entry : equippedMartialArt.getEntries()) {
-                    if ("二段跳".equals(entry.getJumpType())) {
+                    if (PlayerJumpHandler.DOUBLE_JUMP.equals(entry.getJumpType())) {
                         playerData.setJumpCount(entry.getJumpCount());
                         break;
                     }

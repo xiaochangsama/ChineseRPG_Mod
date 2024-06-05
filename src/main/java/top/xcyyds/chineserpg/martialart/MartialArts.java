@@ -1,6 +1,7 @@
 package top.xcyyds.chineserpg.martialart;
 
 import top.xcyyds.chineserpg.registry.MartialArtRegistry;
+import top.xcyyds.chineserpg.player.PlayerJumpHandler;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,16 +24,19 @@ public class MartialArts {
                 1, // 等级
                 100.0f, // 完整度
                 description, // 描述
-                "江湖人士" // 作者
+                "江湖人士" ,// 作者
+                UUID.fromString("56A528D5-CC8A-64A0-4EC8-79B7B8F20D9E")
         );
 
         // 创建武功词条
         MartialArtEntry entry = new MartialArtEntry(
                 "左脚蹬右脚", // 名称
                 1, // 等级
-                "二段跳", // 跳跃类型
+                PlayerJumpHandler.DOUBLE_JUMP, // 跳跃类型
                 1, // 跳跃次数
                 0.0f, // 内力消耗
+                0.5, // 跳跃力度
+                10, // 气团数量
                 0.0f, // 减伤高度
                 0.0f, // 减伤比例
                 0.0f // 闪避率

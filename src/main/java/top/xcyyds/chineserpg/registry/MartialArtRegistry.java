@@ -1,25 +1,29 @@
 package top.xcyyds.chineserpg.registry;
 
+import net.minecraft.server.world.ServerWorld;
 import top.xcyyds.chineserpg.martialart.MartialArt;
 import top.xcyyds.chineserpg.martialart.MartialArts;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 public class MartialArtRegistry {
-    private static final Map<UUID, MartialArt> registry = new HashMap<>();
+    private static MartialArtRegistryData registryData;
 
     public static void registerMartialArt(MartialArt martialArt) {
-        registry.put(martialArt.getUuid(), martialArt);
+        if (registryData != null) {
+            registryData.registerMartialArt(martialArt);
+        }
     }
 
     public static MartialArt getMartialArt(UUID uuid) {
-        return registry.get(uuid);
+        if (registryData != null) {
+            return registryData.getMartialArt(uuid);
+        }
+        return null;
     }
 
-    public static void initializeRegistry() {
-        // Register all predefined martial arts
+    public static void initializeRegistry(ServerWorld world) {
+        registryData = MartialArtRegistryData.get(world);
         MartialArts.registerAll();
     }
 }

@@ -18,6 +18,16 @@ public class MartialArt {
     private String author;
     private List<MartialArtEntry> entries;
 
+    public MartialArt(String name, String type, int level, float completeness, List<String> description, String author,UUID  uuid) {
+        this.uuid = uuid;
+        this.name = name;
+        this.type = type;
+        this.level = level;
+        this.completeness = completeness;
+        this.description = description;
+        this.author = author != null ? author : "江湖人士";
+        this.entries = new ArrayList<>();
+    }
     public MartialArt(String name, String type, int level, float completeness, List<String> description, String author) {
         this.uuid = UUID.randomUUID();
         this.name = name;
@@ -28,6 +38,7 @@ public class MartialArt {
         this.author = author != null ? author : "江湖人士";
         this.entries = new ArrayList<>();
     }
+
 
     public UUID getUuid() {
         return uuid;

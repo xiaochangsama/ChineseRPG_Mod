@@ -23,5 +23,6 @@
   "tooltip.chineserpg.intact": "§6完好无缺",
   "message.chineserpg.learned_skill": "你学会了 %s！",
   "message.chineserpg.equipped_skill": "你装备了 %s！",
-  "message.chineserpg.already_equipped_skill": "你已经装备了 %s！"
+  "message.chineserpg.already_equipped_skill": "你已经装备了 %s！",
+  "message.chineserpg.insufficient_inner_power":"内力不足！"
 }

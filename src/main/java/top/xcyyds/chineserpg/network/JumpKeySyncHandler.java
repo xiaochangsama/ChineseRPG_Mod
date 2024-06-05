@@ -16,21 +16,13 @@ public class JumpKeySyncHandler {
     public static void register() {
         ServerPlayNetworking.registerGlobalReceiver(JUMP_KEY_SYNC, (server, player, handler, buf, responseSender) -> {
             boolean isJumping = buf.readBoolean();
+            boolean isOnGround = buf.readBoolean();
 
             server.execute(() -> {
-                if (player != null && isJumping) {
+                if (player != null) {
                     PlayerData playerData = ((IPlayerDataProvider) player).getPlayerData();
-
-                    // 如果玩家不在地面上，且装备了二段跳，并且跳跃计数大于等于1
-                    if (!player.isOnGround() && playerData.getEquippedMartialArt() != null) {
-                        for (MartialArtEntry entry : playerData.getEquippedMartialArt().getEntries()) {
-                            if ("二段跳".equals(entry.getJumpType()) && playerData.getJumpCount() >= 1) {
-                                PlayerJumpHandler.basicJump(player, JumpConstants.BASE_JUMP_VELOCITY);
-                                playerData.setJumpCount(playerData.getJumpCount() - 1);
-                                break;
-                            }
-                        }
-                    }
+                    playerData.setJumping(isJumping);
+                    playerData.setOnGround(isOnGround);  // 保存玩家是否在地面上的状态
                 }
             });
         });
