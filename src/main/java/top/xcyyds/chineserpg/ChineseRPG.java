@@ -1,6 +1,10 @@
 package top.xcyyds.chineserpg;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.world.ServerWorld;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import top.xcyyds.chineserpg.event.FabricEventManager;
@@ -30,7 +34,7 @@ public class ChineseRPG implements ModInitializer {
 		PlayerJoinCallback.register();
 
 		// 注册注册表
-		MartialArtRegistry.initializeRegistry();
+		ServerLifecycleEvents.SERVER_STARTED.register(this::onServerStarted);
 
 		// 注册服务器接收同步数据包
 		JumpKeySyncHandler.register();
@@ -39,5 +43,10 @@ public class ChineseRPG implements ModInitializer {
 		PlayerTick.register();
 
 		LOGGER.info("Hello Fabric world! I'm ChineseRPG!");
+	}
+	private void onServerStarted(MinecraftServer server) {
+		for (ServerWorld world : server.getWorlds()) {
+			MartialArtRegistry.initializeRegistry(world);
+		}
 	}
 }
