@@ -22,7 +22,7 @@ import top.xcyyds.chineserpg.player.data.PlayerDataStorage;
  */
 @Mixin(ServerPlayerEntity.class)
 public abstract class ServerPlayerEntityMixin extends PlayerEntity implements IPlayerDataProvider {
-    private final PlayerData persistentData = new PlayerData();
+    private final PlayerData playerData = new PlayerData();
 
     public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
         super(world, pos, yaw, gameProfile);
@@ -31,7 +31,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements IP
 
     @Override
     public PlayerData getPlayerData() {
-        return persistentData;
+        return playerData;
     }
 
     @SuppressWarnings("UnreachableCode")
