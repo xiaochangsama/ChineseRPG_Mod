@@ -13,6 +13,7 @@ public class PlayerJumpHandler {
 
     public static final String DOUBLE_JUMP = "二段跳";
 
+    // 不确定目前该类型中的跳跃是否能成功
     public static void basicJump(ServerPlayerEntity player, PlayerData playerData, double velocityIncrease, int particleCount, float innerPowerConsumption) {
         // 获得玩家的速度
         Vec3d currentVelocity = player.getVelocity();
