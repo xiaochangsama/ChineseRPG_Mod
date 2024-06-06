@@ -9,15 +9,15 @@ import top.xcyyds.chineserpg.player.data.PlayerData;
 
 @Mixin(ClientPlayerEntity.class)
 public class ClientPlayerEntityMixin implements IPlayerDataProvider {
-    private final PlayerData persistentData = new PlayerData();
+    private final PlayerData playerData = new PlayerData();
 
     @Override
     public PlayerData getPlayerData() {
-        return persistentData;
+        return playerData;
     }
 
     @Unique
     public void readCustomDataFromNbt(NbtCompound nbt) {
-        persistentData.readFromNbt(nbt);
+        playerData.readFromNbt(nbt);
     }
 }
