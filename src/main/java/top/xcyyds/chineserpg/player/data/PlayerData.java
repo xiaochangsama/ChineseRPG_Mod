@@ -15,8 +15,7 @@ public class PlayerData {
     private float innerPowerMax = 100; // 默认最大内力
     private int jumpCount = 0;
     private float innerPowerRegenRate = 1; // 默认内力回复速度
-    private boolean isJumping = false; // 跳跃状态
-    private boolean isOnGround = true; // 是否在地面上
+
     private final List<UUID> learnedSkills = new ArrayList<>(); // 已学习轻功技能的列表
     private UUID equippedSkill = null; // 当前装备的轻功技能
 
@@ -25,8 +24,7 @@ public class PlayerData {
         nbt.putFloat("InnerPowerMax", innerPowerMax);
         nbt.putInt("JumpCount", jumpCount);
         nbt.putFloat("InnerPowerRegenRate", innerPowerRegenRate);
-        nbt.putBoolean("IsJumping", isJumping);
-        nbt.putBoolean("IsOnGround", isOnGround);
+
 
         // 写入 learnedSkills 列表
         NbtList skillList = new NbtList();
@@ -46,8 +44,7 @@ public class PlayerData {
         innerPowerMax = nbt.getFloat("InnerPowerMax");
         jumpCount = nbt.getInt("JumpCount");
         innerPowerRegenRate = nbt.getFloat("InnerPowerRegenRate");
-        isJumping = nbt.getBoolean("IsJumping");
-        isOnGround = nbt.getBoolean("IsOnGround");
+
 
         // 读取 learnedSkills 列表
         NbtList skillList = nbt.getList("LearnedSkills", 8); // 8 是 NbtString 的类型 ID
@@ -150,19 +147,5 @@ public class PlayerData {
         this.innerPowerRegenRate = innerPowerRegenRate;
     }
 
-    public boolean isJumping() {
-        return isJumping;
-    }
 
-    public void setJumping(boolean jumping) {
-        isJumping = jumping;
-    }
-
-    public boolean isOnGround() {
-        return isOnGround;
-    }
-
-    public void setOnGround(boolean onGround) {
-        isOnGround = onGround;
-    }
 }

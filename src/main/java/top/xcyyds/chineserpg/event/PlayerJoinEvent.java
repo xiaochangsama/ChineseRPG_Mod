@@ -6,7 +6,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import top.xcyyds.chineserpg.network.PlayerDataSyncHandler;
 import top.xcyyds.chineserpg.player.data.IPlayerDataProvider;
 
-public class PlayerJoinCallback {
+public class PlayerJoinEvent {
 
     public static void register() {
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {

@@ -3,12 +3,10 @@ package top.xcyyds.chineserpg.network;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.util.Identifier;
 import top.xcyyds.chineserpg.ChineseRPG;
-import top.xcyyds.chineserpg.player.data.IPlayerDataProvider;
-import top.xcyyds.chineserpg.player.data.PlayerData;
 
 
 /**
- * 从客户端收取跳跃按键的状态以及玩家是否在地面上的状态
+ * 当客户端玩家在空中跳跃的时候发送空包
  */
 public class JumpKeySyncHandler {
 
@@ -16,14 +14,12 @@ public class JumpKeySyncHandler {
 
     public static void register() {
         ServerPlayNetworking.registerGlobalReceiver(JUMP_KEY_SYNC, (server, player, handler, buf, responseSender) -> {
-            boolean isJumping = buf.readBoolean();
-            boolean isOnGround = buf.readBoolean();
+
 
             server.execute(() -> {
                 if (player != null) {
-                    PlayerData playerData = ((IPlayerDataProvider) player).getPlayerData();
-                    playerData.setJumping(isJumping);
-                    playerData.setOnGround(isOnGround);  // 保存玩家是否在地面上的状态
+
+
                 }
             });
         });

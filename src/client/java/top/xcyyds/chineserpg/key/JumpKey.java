@@ -6,8 +6,7 @@ import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 import top.xcyyds.chineserpg.network.ClientJumpKeySyncHandler;
 
-import java.util.Objects;
-
+//每一tick检测，只会在空中点按空格的时候发包
 public class JumpKey {
     private static boolean wasPressed = false;
     private static boolean wasOnGround = false;
@@ -19,9 +18,11 @@ public class JumpKey {
             if (MinecraftClient.getInstance().player != null) {
                 boolean isOnGround = MinecraftClient.getInstance().player.isOnGround();
 
-            if ((isPressed && !wasPressed) && (isOnGround == wasOnGround ) ) {
+
+            if (isPressed && !wasPressed && (isOnGround == wasOnGround ) ) {
                 if (MinecraftClient.getInstance().player != null && MinecraftClient.getInstance().getNetworkHandler() != null) {
-                    ClientJumpKeySyncHandler.sendJumpKeyStatus(true, isOnGround);
+                    //发包
+                    ClientJumpKeySyncHandler.sendJumpKeyStatus();
                 }
             }
             wasPressed = isPressed;

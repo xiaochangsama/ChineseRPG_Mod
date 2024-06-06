@@ -9,18 +9,16 @@ import top.xcyyds.chineserpg.ChineseRPG;
 
 
 /**
- * 从客户端向服务端发送键盘空格被按压的状态和玩家是否在地面上的状态
+ * 当玩家在空中跳跃的时候，从客户端向服务端发送空包
  */
 public class ClientJumpKeySyncHandler {
 
     public static final Identifier JUMP_KEY_SYNC = new Identifier(ChineseRPG.MOD_ID, "jump_key_sync");
 
-    //发送客户端键盘空格被按压的状态和玩家是否在地面上
-    public static void sendJumpKeyStatus(boolean isJumping, boolean isOnGround) {
+    //只会在空中的时候发包，所以发送空包
+    public static void sendJumpKeyStatus() {
         if (MinecraftClient.getInstance().getNetworkHandler() != null) {
             PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
-            buf.writeBoolean(isJumping);
-            buf.writeBoolean(isOnGround);
 
             ClientPlayNetworking.send(JUMP_KEY_SYNC, buf);
         }

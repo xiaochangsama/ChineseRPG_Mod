@@ -2,17 +2,16 @@ package top.xcyyds.chineserpg;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.xcyyds.chineserpg.event.FabricEventManager;
-import top.xcyyds.chineserpg.event.PlayerJoinCallback;
+import top.xcyyds.chineserpg.event.PlayerJoinEvent;
+import top.xcyyds.chineserpg.event.PlayerTickEvent;
+import top.xcyyds.chineserpg.event.PlayerTravelEvent;
 import top.xcyyds.chineserpg.item.BooksItem;
 import top.xcyyds.chineserpg.itemgroup.ChineseRPGItemGroup;
 import top.xcyyds.chineserpg.network.JumpKeySyncHandler;
-import top.xcyyds.chineserpg.player.PlayerTick;
 import top.xcyyds.chineserpg.registry.MartialArtRegistry;
 
 public class ChineseRPG implements ModInitializer {
@@ -28,10 +27,13 @@ public class ChineseRPG implements ModInitializer {
 		ChineseRPGItemGroup.registryItemGroup();
 
 		// 注册事件
-		FabricEventManager.registryEvent();
+		// 注册玩家（服务器每一刻结尾）每一刻的更新逻辑
+		PlayerTickEvent.register();
+		// 注册玩家加入世界逻辑
+		PlayerJoinEvent.register();
+		// 注册玩家移动前，可操作玩家速度的安全区逻辑
+		PlayerTravelEvent.register();
 
-		// 注册玩家加入事件
-		PlayerJoinCallback.register();
 
 		// 注册注册表
 		ServerLifecycleEvents.SERVER_STARTED.register(this::onServerStarted);
@@ -39,8 +41,7 @@ public class ChineseRPG implements ModInitializer {
 		// 注册服务器接收同步数据包
 		JumpKeySyncHandler.register();
 
-		// 注册玩家每一刻的更新逻辑
-		PlayerTick.register();
+
 
 		LOGGER.info("Hello Fabric world! I'm ChineseRPG!");
 	}
