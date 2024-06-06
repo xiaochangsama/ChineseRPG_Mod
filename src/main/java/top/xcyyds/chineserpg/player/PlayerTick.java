@@ -23,7 +23,7 @@ public class PlayerTick {
                 // 调用内力恢复
                 playerData.tickRegenerateInnerPower();
 
-                // 同步玩家数据到客户端
+                // 同步全部玩家数据到客户端，之后可能要更改数据同步量节省网络消耗
                 NbtCompound data = new NbtCompound();
                 playerData.writeToNbt(data);
                 PlayerDataSyncHandler.send(player, data);
