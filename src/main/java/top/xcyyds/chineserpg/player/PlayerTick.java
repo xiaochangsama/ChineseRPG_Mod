@@ -1,13 +1,16 @@
 package top.xcyyds.chineserpg.player;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.network.ServerPlayerEntity;
 import top.xcyyds.chineserpg.event.PlayerTickCallback;
 import top.xcyyds.chineserpg.martialart.MartialArt;
 import top.xcyyds.chineserpg.martialart.MartialArtEntry;
 import top.xcyyds.chineserpg.network.PlayerDataSyncHandler;
 
+/**
+ * 用于处理玩家的Tick事件
+ */
 public class PlayerTick {
 
     public static void register() {
@@ -15,7 +18,7 @@ public class PlayerTick {
             for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
                 PlayerTickCallback.EVENT.invoker().interact(player);
                 PlayerData playerData = ((IPlayerDataProvider) player).getPlayerData();
-                // 调用updateJumpCount
+                // 调用updateJumpCount，玩家在地面上时更新跳跃次数
                 updateJumpCount(player, playerData);
                 // 调用内力恢复
                 playerData.tickRegenerateInnerPower();
