@@ -17,7 +17,7 @@ public class PlayerData {
     private float innerPowerRegenRate = 1; // 默认内力回复速度
     private boolean isJumping = false; // 跳跃状态
     private boolean isOnGround = true; // 是否在地面上
-    private List<UUID> learnedSkills = new ArrayList<>(); // 已学习轻功技能的列表
+    private final List<UUID> learnedSkills = new ArrayList<>(); // 已学习轻功技能的列表
     private UUID equippedSkill = null; // 当前装备的轻功技能
 
     public void writeToNbt(NbtCompound nbt) {
