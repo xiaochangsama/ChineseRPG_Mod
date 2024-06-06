@@ -7,6 +7,9 @@ import top.xcyyds.chineserpg.event.PlayerTickCallback;
 import top.xcyyds.chineserpg.martialart.MartialArt;
 import top.xcyyds.chineserpg.martialart.MartialArtEntry;
 import top.xcyyds.chineserpg.network.PlayerDataSyncHandler;
+import top.xcyyds.chineserpg.player.data.IPlayerDataProvider;
+import top.xcyyds.chineserpg.player.data.PlayerData;
+import top.xcyyds.chineserpg.player.jump.PlayerJumpHandler;
 
 /**
  * 用于处理玩家的Tick事件

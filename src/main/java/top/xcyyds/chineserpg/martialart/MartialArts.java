@@ -1,7 +1,7 @@
 package top.xcyyds.chineserpg.martialart;
 
+import top.xcyyds.chineserpg.player.jump.PlayerJumpHandler;
 import top.xcyyds.chineserpg.registry.MartialArtRegistry;
-import top.xcyyds.chineserpg.player.PlayerJumpHandler;
 
 import java.util.Arrays;
 import java.util.List;

@@ -10,9 +10,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import top.xcyyds.chineserpg.player.PlayerData;
-import top.xcyyds.chineserpg.player.PlayerDataStorage;
-import top.xcyyds.chineserpg.player.IPlayerDataProvider;
+import top.xcyyds.chineserpg.player.data.IPlayerDataProvider;
+import top.xcyyds.chineserpg.player.data.PlayerData;
+import top.xcyyds.chineserpg.player.data.PlayerDataStorage;
 
 /*
 先前通过将数据写入玩家的datatracker中，现在通过PlayerPersistentData来实现；

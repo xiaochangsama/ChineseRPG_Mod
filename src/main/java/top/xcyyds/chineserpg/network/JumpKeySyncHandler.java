@@ -3,8 +3,8 @@ package top.xcyyds.chineserpg.network;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.util.Identifier;
 import top.xcyyds.chineserpg.ChineseRPG;
-import top.xcyyds.chineserpg.player.IPlayerDataProvider;
-import top.xcyyds.chineserpg.player.PlayerData;
+import top.xcyyds.chineserpg.player.data.IPlayerDataProvider;
+import top.xcyyds.chineserpg.player.data.PlayerData;
 
 
 /**

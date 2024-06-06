@@ -4,7 +4,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import top.xcyyds.chineserpg.network.PlayerDataSyncHandler;
-import top.xcyyds.chineserpg.player.IPlayerDataProvider;
+import top.xcyyds.chineserpg.player.data.IPlayerDataProvider;
 
 public class PlayerJoinCallback {
 

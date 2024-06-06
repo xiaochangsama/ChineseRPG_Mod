@@ -1,13 +1,12 @@
-package top.xcyyds.chineserpg.client;
+package top.xcyyds.chineserpg.hud;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import top.xcyyds.chineserpg.player.IPlayerDataProvider;
-import top.xcyyds.chineserpg.player.PlayerData;
+import top.xcyyds.chineserpg.player.data.IPlayerDataProvider;
+import top.xcyyds.chineserpg.player.data.PlayerData;
 
 public class PlayerHudOverlay implements HudRenderCallback {
 

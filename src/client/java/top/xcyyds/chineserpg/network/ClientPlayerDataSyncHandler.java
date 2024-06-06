@@ -1,9 +1,9 @@
 package top.xcyyds.chineserpg.network;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.util.Identifier;
 import net.minecraft.nbt.NbtCompound;
-import top.xcyyds.chineserpg.player.IPlayerDataProvider;
+import net.minecraft.util.Identifier;
+import top.xcyyds.chineserpg.player.data.IPlayerDataProvider;
 
 import static top.xcyyds.chineserpg.ChineseRPG.MOD_ID;
 

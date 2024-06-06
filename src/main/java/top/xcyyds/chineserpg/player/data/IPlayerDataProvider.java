@@ -1,4 +1,4 @@
-package top.xcyyds.chineserpg.player;
+package top.xcyyds.chineserpg.player.data;
 
 
 public interface IPlayerDataProvider {

@@ -6,6 +6,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+//此类无用
 @Mixin(MinecraftClient.class)
 public class ChineseRPGClientMixin {
 	@Inject(at = @At("HEAD"), method = "run")

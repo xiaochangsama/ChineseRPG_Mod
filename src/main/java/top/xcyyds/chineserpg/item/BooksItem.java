@@ -9,16 +9,17 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import top.xcyyds.chineserpg.player.IPlayerDataProvider;
-import top.xcyyds.chineserpg.player.PlayerData;
 import top.xcyyds.chineserpg.martialart.MartialArt;
-import top.xcyyds.chineserpg.registry.MartialArtRegistry;
+import top.xcyyds.chineserpg.player.data.IPlayerDataProvider;
+import top.xcyyds.chineserpg.player.data.PlayerData;
 
 import java.util.List;
-import java.util.UUID;
 
 public class BooksItem extends ChineseRPGItem {
 
