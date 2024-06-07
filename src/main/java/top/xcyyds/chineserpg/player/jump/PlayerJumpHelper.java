@@ -7,14 +7,7 @@ import net.minecraft.world.World;
 import top.xcyyds.chineserpg.player.data.PlayerData;
 
 public class PlayerJumpHelper {
-    // 生成跳跃气团
-    static void generateJumpParticles(PlayerEntity player, int particleCount) {
-        World world = player.getEntityWorld();
-        Vec3d pos = player.getPos();
-        for (int i = 0; i < particleCount; i++) {
-            world.addParticle(ParticleTypes.CLOUD, pos.x, pos.y, pos.z, 0, 0, 0);
-        }
-    }
+
 
     // 消耗内力
     public static boolean consumeInnerPower(PlayerData playerData, float amount) {
@@ -49,5 +42,25 @@ public class PlayerJumpHelper {
         double z = Math.cos(yaw);
 
         return new Vec3d(x, 0, z);
+    }
+    // 生成最普通的跳跃气团
+    static void generateJumpParticles(PlayerEntity player, int particleCount) {
+        World world = player.getEntityWorld();
+        Vec3d pos = player.getPos();
+        for (int i = 0; i < particleCount; i++) {
+            world.addParticle(ParticleTypes.CLOUD, pos.x, pos.y, pos.z, 0, 0, 0);
+
+        }
+    }
+    //生成环形跳跃气团
+    static void generateRingParticles(PlayerEntity player, int particleCount, double radius) {
+        World world = player.getEntityWorld();
+        Vec3d pos = player.getPos();
+        for (int i = 0; i < particleCount; i++) {
+            double angle = 2 * Math.PI * i / particleCount;
+            double xOffset = radius * Math.cos(angle);
+            double zOffset = radius * Math.sin(angle);
+            world.addParticle(ParticleTypes.CLOUD, pos.x + xOffset, pos.y, pos.z + zOffset, 0, 0, 0);
+        }
     }
 }

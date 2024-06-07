@@ -20,8 +20,8 @@
       "jumpCount": 1,
       "innerPowerConsumption": 10.0,
       "velocityYIncrease": 0.5,
-      "particleCount": 3,
-      "damageReductionHeight": 0.0,
+      "particleCount": 5,
+      "damageReductionHeight": 1.0,
       "damageReductionPercentage": 0.0,
       "dodgeRate": 5.0,
       "directionalVelocity": 0.15

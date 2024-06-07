@@ -1,11 +1,14 @@
 package top.xcyyds.chineserpg.player.jump;
 
+
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Vec3d;
 import top.xcyyds.chineserpg.martialart.MartialArt;
 import top.xcyyds.chineserpg.martialart.MartialArtEntry;
+import top.xcyyds.chineserpg.network.ParticleSyncHandler;
 import top.xcyyds.chineserpg.player.data.PlayerData;
 
 import java.util.List;
@@ -57,8 +60,13 @@ public class PlayerJumpHandler {
                 // 而player.setVelocity(newVelocity)会在客户端和服务端执行并导致不同步和飞天
                 playerData.setPlayerVelocity(newVelocity);
 
-                //生成跳跃气团
-                PlayerJumpHelper.generateJumpParticles(player, particleCount);
+
+                if (player instanceof ServerPlayerEntity) {
+                    ParticleSyncHandler.sendParticlePacket((ServerPlayerEntity) player, player.getPos(), particleCount, 1);
+                } else {
+                    PlayerJumpHelper.generateRingParticles(player, particleCount,0.1);
+                }
+
             }else{
                 player.sendMessage(Text.translatable("message.chineserpg.insufficient_inner_power").formatted(Formatting.DARK_RED, Formatting.BOLD), true);
             }
