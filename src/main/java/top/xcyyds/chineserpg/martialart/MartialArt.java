@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * 注意，在entries中，同一种跳跃类型只能出现一次，所以要在构造方法中添加检查，如果重复采取一定措施
+ */
 public class MartialArt {
     private UUID uuid;
     private String name;
