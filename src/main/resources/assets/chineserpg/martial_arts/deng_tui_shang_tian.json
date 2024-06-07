@@ -17,13 +17,13 @@
       "level": 1,
       "jumpType": "多段跳",
       "jumpCount": 2,
-      "innerPowerConsumption": 20.0,
+      "innerPowerConsumption": 25.0,
       "velocityYIncrease": 0.6,
       "particleCount": 5,
-      "damageReductionHeight": 0.0,
-      "damageReductionRate": 0.0,
-      "dodgeRate": 0.0,
-      "directionalVelocity": 0.1
+      "damageReductionHeight": 3.0,
+      "damageReductionPercentage": 0.0,
+      "dodgeRate": 5.0,
+      "directionalVelocity": 0.25
     }
   ]
 }

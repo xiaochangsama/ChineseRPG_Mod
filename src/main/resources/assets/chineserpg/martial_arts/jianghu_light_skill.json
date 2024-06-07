@@ -23,8 +23,8 @@
       "particleCount": 3,
       "damageReductionHeight": 0.0,
       "damageReductionPercentage": 0.0,
-      "dodgeRate": 0.0,
-      "directionalVelocity": 0.1
+      "dodgeRate": 5.0,
+      "directionalVelocity": 0.15
     }
   ]
 }
