@@ -24,9 +24,11 @@ public class MartialArtEntry {
     private float damageReductionPercentage;
     @SerializedName("dodgeRate")
     private float dodgeRate;
+    @SerializedName("directionalVelocity")
+    private double directionalVelocity; // 朝向加速度
 
     // 构造函数
-    public MartialArtEntry(String name, int level, String jumpType, int jumpCount, float innerPowerConsumption, double velocityYIncrease, int particleCount, float damageReductionHeight, float damageReductionPercentage, float dodgeRate) {
+    public MartialArtEntry(String name, int level, String jumpType, int jumpCount, float innerPowerConsumption, double velocityYIncrease, int particleCount, float damageReductionHeight, float damageReductionPercentage, float dodgeRate, double directionalVelocity) {
         this.name = name;
         this.level = level;
         this.jumpType = jumpType;
@@ -37,6 +39,7 @@ public class MartialArtEntry {
         this.damageReductionHeight = damageReductionHeight;
         this.damageReductionPercentage = damageReductionPercentage;
         this.dodgeRate = dodgeRate;
+        this.directionalVelocity = directionalVelocity;
     }
 
     // Getters and Setters
@@ -61,6 +64,14 @@ public class MartialArtEntry {
         return particleCount;
     }
 
+    public double getDirectionalVelocity() {
+        return directionalVelocity;
+    }
+
+    public void setDirectionalVelocity(double directionalVelocity) {
+        this.directionalVelocity = directionalVelocity;
+    }
+
     // 序列化和反序列化方法
 
     public void writeToNbt(NbtCompound nbt) {
@@ -74,6 +85,7 @@ public class MartialArtEntry {
         nbt.putFloat("DamageReductionHeight", damageReductionHeight);
         nbt.putFloat("DamageReductionPercentage", damageReductionPercentage);
         nbt.putFloat("DodgeRate", dodgeRate);
+        nbt.putDouble("DirectionalVelocity", directionalVelocity);
     }
 
     public static MartialArtEntry readFromNbt(NbtCompound nbt) {
@@ -87,7 +99,8 @@ public class MartialArtEntry {
         float damageReductionHeight = nbt.getFloat("DamageReductionHeight");
         float damageReductionPercentage = nbt.getFloat("DamageReductionPercentage");
         float dodgeRate = nbt.getFloat("DodgeRate");
+        double directionalVelocity = nbt.getDouble("DirectionalVelocity");
 
-        return new MartialArtEntry(name, level, jumpType, jumpCount, innerPowerConsumption, velocityIncrease, particleCount, damageReductionHeight, damageReductionPercentage, dodgeRate);
+        return new MartialArtEntry(name, level, jumpType, jumpCount, innerPowerConsumption, velocityIncrease, particleCount, damageReductionHeight, damageReductionPercentage, dodgeRate, directionalVelocity);
     }
 }

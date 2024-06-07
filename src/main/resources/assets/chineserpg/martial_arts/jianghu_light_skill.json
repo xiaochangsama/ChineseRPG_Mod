@@ -17,13 +17,14 @@
       "name": "左脚蹬右脚",
       "level": 1,
       "jumpType": "多段跳",
-      "jumpCount": 3,
+      "jumpCount": 1,
       "innerPowerConsumption": 10.0,
       "velocityYIncrease": 0.5,
-      "particleCount": 1,
+      "particleCount": 3,
       "damageReductionHeight": 0.0,
       "damageReductionPercentage": 0.0,
-      "dodgeRate": 0.0
+      "dodgeRate": 0.0,
+      "directionalVelocity": 0.5
     }
   ]
 }

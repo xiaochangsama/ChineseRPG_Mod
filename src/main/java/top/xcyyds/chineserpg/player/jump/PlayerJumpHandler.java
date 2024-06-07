@@ -31,28 +31,45 @@ public class PlayerJumpHandler {
             List<MartialArtEntry> martialArtEntries = martialArt.getEntries();
             for (MartialArtEntry martialArtEntry : martialArtEntries) {
                 if (martialArtEntry.getJumpType().equals(Multi_JUMP)) {
-                    basicJump( player, playerData, martialArtEntry.getVelocityYIncrease(), martialArtEntry.getParticleCount(), martialArtEntry.getInnerPowerConsumption());
+                    basicJump(player, playerData, martialArtEntry.getVelocityYIncrease(), martialArtEntry.getParticleCount(), martialArtEntry.getInnerPowerConsumption(), martialArtEntry.getDirectionalVelocity());
                 }
             }
         }
     }
+
     // 不确定目前该类型中的跳跃是否能成功
-    public static void basicJump(PlayerEntity player, PlayerData playerData, double newY, int particleCount, float innerPowerConsumption) {
+    public static void basicJump(PlayerEntity player, PlayerData playerData, double newY, int particleCount, float innerPowerConsumption, double directionalVelocity) {
 
         //默认消耗连跳力1
         if(PlayerJumpHelper.consumeJumpCount(playerData, 1)){
             //消耗内力
             if (PlayerJumpHelper.consumeInnerPower(playerData, innerPowerConsumption)) {
 
-                //这里可能导致bug，因为get到的velocity不确定是什么时候的，可能导致循环等问题
-                Vec3d vec3d =player.getVelocity();
-                playerData.setPlayerVelocity(vec3d.getX(),newY, vec3d.getZ());
+                //获取当前速度
+                Vec3d vec3d = player.getVelocity();
 
-                // 生成跳跃气团
+                //获取玩家面朝的水平方向向量
+                Vec3d direction = getPlayerHorizontalDirection(player);
+
+                //设置新的速度，包括朝向的加速度
+                Vec3d newVelocity = new Vec3d(vec3d.x + direction.x * directionalVelocity, newY, vec3d.z + direction.z * directionalVelocity);
+                player.setVelocity(newVelocity);
+
+                //生成跳跃气团
                 PlayerJumpHelper.generateJumpParticles(player, particleCount);
             }else{
                 player.sendMessage(Text.translatable("message.chineserpg.insufficient_inner_power").formatted(Formatting.DARK_RED, Formatting.BOLD), true);
             }
         }
+    }
+
+    private static Vec3d getPlayerHorizontalDirection(PlayerEntity player) {
+        //计算玩家面朝的水平方向向量
+        float yaw = player.getYaw() * 0.017453292F; //将角度转换为弧度
+
+        double x = -Math.sin(yaw);
+        double z = Math.cos(yaw);
+
+        return new Vec3d(x, 0, z);
     }
 }
