@@ -26,6 +26,6 @@ public abstract class ChineseRPGItem extends Item {
     //物品提示，之后可以设计用按键来打开物品提示
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
-        tooltip.add(Text.of("这个物品来自XiaoChangSAMA"));
+        tooltip.add(Text.of("爱来自XiaoChangSAMA"));
     }
 }

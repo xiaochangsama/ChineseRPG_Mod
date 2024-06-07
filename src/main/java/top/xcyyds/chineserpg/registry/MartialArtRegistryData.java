@@ -5,6 +5,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.PersistentState;
 import top.xcyyds.chineserpg.martialart.MartialArt;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -50,5 +51,9 @@ public class MartialArtRegistryData extends PersistentState {
 
     public MartialArt getMartialArt(UUID uuid) {
         return registry.get(uuid);
+    }
+
+    public Collection<MartialArt> getAllMartialArts() {
+        return registry.values();
     }
 }

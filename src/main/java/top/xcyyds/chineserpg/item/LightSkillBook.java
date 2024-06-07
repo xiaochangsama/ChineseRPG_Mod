@@ -11,25 +11,28 @@ import net.minecraft.world.World;
 import top.xcyyds.chineserpg.martialart.MartialArt;
 import top.xcyyds.chineserpg.martialart.MartialArts;
 
-public class JianghuLightSkillBook extends BooksItem {
+public class LightSkillBook extends BooksItem {
 
-    public JianghuLightSkillBook() {
+    public LightSkillBook() {
         super();
     }
 
-    public static ItemStack createJianghuLightSkillBook() {
-        ItemStack itemStack = new ItemStack(BooksItem.JIANGHU_LIGHT_SKILL_BOOK);
+    // 创建随机的江湖轻功
+    public static ItemStack createRandomLightSkillBook() {
+        ItemStack itemStack = new ItemStack(BooksItem.LIGHT_SKILL_BOOK);
 
-        // 获取预定义的江湖轻功武功实例
-        MartialArt jianghuLightSkill = MartialArts.JIANGHU_LIGHT_SKILL;
+//        // 获取预定义的江湖轻功武功实例
+//        MartialArt jianghuLightSkill = MartialArts.getJianghuLightSkill();
+        //原本是上面那玩意
+        MartialArt randomLightSkill = MartialArts.getRandomLightSkill();
 
         // 将武功数据存入书籍的 NBT
         NbtCompound nbt = new NbtCompound();
-        jianghuLightSkill.writeToNbt(nbt);
+        randomLightSkill.writeToNbt(nbt);
         itemStack.setNbt(nbt);
 
         // 设置物品的名称为武功的名称，并且为金色
-        itemStack.setCustomName(Text.literal(jianghuLightSkill.getName()).formatted(Formatting.GOLD, Formatting.BOLD));
+        itemStack.setCustomName(Text.literal(randomLightSkill.getName()).formatted(Formatting.GOLD, Formatting.BOLD));
 
         return itemStack;
     }
@@ -37,15 +40,15 @@ public class JianghuLightSkillBook extends BooksItem {
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         super.inventoryTick(stack, world, entity, slot, selected);
-        if (!stack.hasNbt() && stack.getItem() instanceof JianghuLightSkillBook) {
+        if (!stack.hasNbt() && stack.getItem() instanceof LightSkillBook) {
             // 初始化江湖轻功书籍数据
-            ItemStack initializedStack = JianghuLightSkillBook.createJianghuLightSkillBook();
+            ItemStack initializedStack = LightSkillBook.createRandomLightSkillBook();
             stack.setNbt(initializedStack.getNbt());
         }
     }
 
     // 用物品的实例注册
     public static void registryItem() {
-        Registry.register(Registries.ITEM, "chineserpg:jianghu_light_skill", BooksItem.JIANGHU_LIGHT_SKILL_BOOK);
+        Registry.register(Registries.ITEM, "chineserpg:jianghu_light_skill", BooksItem.LIGHT_SKILL_BOOK);
     }
 }

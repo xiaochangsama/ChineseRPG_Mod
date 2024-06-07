@@ -1,0 +1,28 @@
+{
+  "name": "蹬腿上天",
+  "type": "轻功",
+  "level": 1,
+  "completeness": 100.0,
+  "description": [
+    "这是一门强劲的轻功，能够使人一跃千里。",
+    "练成此功后，习之者可如腾云驾雾般上天。",
+    "轻功之妙，妙在一个“跃”字。",
+    "——此功由高手所创，威力无穷。"
+  ],
+  "author": "高手",
+  "uuid": "7F9A6B7C-7B90-71EA-D953-E0898312CDB1",
+  "entries": [
+    {
+      "name": "左脚蹬右脚",
+      "level": 1,
+      "jumpType": "多段跳",
+      "jumpCount": 1,
+      "innerPowerConsumption": 20.0,
+      "velocityYIncrease": 0.6,
+      "particleCount": 1,
+      "damageReductionHeight": 0.0,
+      "damageReductionRate": 0.0,
+      "dodgeRate": 0.0
+    }
+  ]
+}
