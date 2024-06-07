@@ -62,18 +62,34 @@ public class BooksItem extends ChineseRPGItem {
             // 将武功存储到PlayerData中
             PlayerData playerData = ((IPlayerDataProvider) user).getPlayerData();
 
-            if (playerData.addSkill(martialArt.getUuid())) {
-                user.sendMessage(Text.translatable("message.chineserpg.learned_skill", martialArt.getName()).formatted(Formatting.AQUA, Formatting.BOLD), true);
+            if (learnMartialArt(playerData, martialArt, user)) {
                 return new TypedActionResult<>(ActionResult.SUCCESS, stack);
-            } else if (!martialArt.getUuid().equals(playerData.getEquippedSkill())) {
-                playerData.equipSkill(martialArt.getUuid());
-                user.sendMessage(Text.translatable("message.chineserpg.equipped_skill", martialArt.getName()).formatted(Formatting.GOLD, Formatting.BOLD), true);
+            } else if (equipMartialArt(playerData, martialArt, user)) {
                 return new TypedActionResult<>(ActionResult.SUCCESS, stack);
             } else {
                 user.sendMessage(Text.translatable("message.chineserpg.already_equipped_skill", martialArt.getName()).formatted(Formatting.DARK_RED, Formatting.BOLD), true);
             }
         }
         return new TypedActionResult<>(ActionResult.PASS, stack);
+    }
+
+    // 学习武功
+    private boolean learnMartialArt(PlayerData playerData, MartialArt martialArt, PlayerEntity user) {
+        if (playerData.addSkill(martialArt.getUuid())) {
+            user.sendMessage(Text.translatable("message.chineserpg.learned_skill", martialArt.getName()).formatted(Formatting.AQUA, Formatting.BOLD), true);
+            return true;
+        }
+        return false;
+    }
+
+    // 装备武功
+    private boolean equipMartialArt(PlayerData playerData, MartialArt martialArt, PlayerEntity user) {
+        if (!martialArt.getUuid().equals(playerData.getEquippedSkill())) {
+            playerData.equipSkill(martialArt.getUuid());
+            user.sendMessage(Text.translatable("message.chineserpg.equipped_skill", martialArt.getName()).formatted(Formatting.GOLD, Formatting.BOLD), true);
+            return true;
+        }
+        return false;
     }
 
     @Override
