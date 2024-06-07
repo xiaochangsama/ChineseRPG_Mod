@@ -6,10 +6,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.xcyyds.chineserpg.event.EndServerTickEvent;
-import top.xcyyds.chineserpg.event.PlayerFallEvent;
-import top.xcyyds.chineserpg.event.PlayerJoinEvent;
-import top.xcyyds.chineserpg.event.PlayerTravelEvent;
+import top.xcyyds.chineserpg.event.*;
 import top.xcyyds.chineserpg.item.BooksItem;
 import top.xcyyds.chineserpg.itemgroup.ChineseRPGItemGroup;
 import top.xcyyds.chineserpg.network.JumpKeySyncHandler;
@@ -36,6 +33,8 @@ public class ChineseRPG implements ModInitializer {
 		PlayerTravelEvent.register();
 
 		PlayerFallEvent.register();
+
+		PlayerDamageEvent.register();
 
 		// 注册注册表
 		ServerLifecycleEvents.SERVER_STARTED.register(this::onServerStarted);
