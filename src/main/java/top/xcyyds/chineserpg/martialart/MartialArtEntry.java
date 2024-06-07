@@ -8,20 +8,20 @@ public class MartialArtEntry {
     private String jumpType;
     private int jumpCount;
     private float innerPowerConsumption;
-    private double velocityIncrease; // 跳跃的力度
+    private double velocityYIncrease; // 跳跃的力度
     private int particleCount; // 跳跃产生的气团数量
     private float damageReductionHeight;
     private float damageReductionPercentage;
     private float dodgeRate;
 
     // 构造函数
-    public MartialArtEntry(String name, int level, String jumpType, int jumpCount, float innerPowerConsumption, double velocityIncrease, int particleCount, float damageReductionHeight, float damageReductionPercentage, float dodgeRate) {
+    public MartialArtEntry(String name, int level, String jumpType, int jumpCount, float innerPowerConsumption, double velocityYIncrease, int particleCount, float damageReductionHeight, float damageReductionPercentage, float dodgeRate) {
         this.name = name;
         this.level = level;
         this.jumpType = jumpType;
         this.jumpCount = jumpCount;
         this.innerPowerConsumption = innerPowerConsumption;
-        this.velocityIncrease = velocityIncrease;
+        this.velocityYIncrease = velocityYIncrease;
         this.particleCount = particleCount;
         this.damageReductionHeight = damageReductionHeight;
         this.damageReductionPercentage = damageReductionPercentage;
@@ -42,8 +42,8 @@ public class MartialArtEntry {
         return innerPowerConsumption;
     }
 
-    public double getVelocityIncrease() {
-        return velocityIncrease;
+    public double getVelocityYIncrease() {
+        return velocityYIncrease;
     }
 
     public int getParticleCount() {
@@ -58,7 +58,7 @@ public class MartialArtEntry {
         nbt.putString("JumpType", jumpType);
         nbt.putInt("JumpCount", jumpCount);
         nbt.putFloat("InnerPowerConsumption", innerPowerConsumption);
-        nbt.putDouble("VelocityIncrease", velocityIncrease);
+        nbt.putDouble("VelocityIncrease", velocityYIncrease);
         nbt.putInt("ParticleCount", particleCount);
         nbt.putFloat("DamageReductionHeight", damageReductionHeight);
         nbt.putFloat("DamageReductionPercentage", damageReductionPercentage);
