@@ -49,7 +49,7 @@ public class PlayerJumpHandler {
                 Vec3d vec3d = player.getVelocity();
 
                 //获取玩家面朝的水平方向向量
-                Vec3d direction = getPlayerHorizontalDirection(player);
+                Vec3d direction = PlayerJumpHelper.getPlayerHorizontalDirection(player);
 
                 //设置新的速度，包括朝向的加速度
                 Vec3d newVelocity = new Vec3d(vec3d.x + direction.x * directionalVelocity, newY, vec3d.z + direction.z * directionalVelocity);
@@ -63,13 +63,4 @@ public class PlayerJumpHandler {
         }
     }
 
-    private static Vec3d getPlayerHorizontalDirection(PlayerEntity player) {
-        //计算玩家面朝的水平方向向量
-        float yaw = player.getYaw() * 0.017453292F; //将角度转换为弧度
-
-        double x = -Math.sin(yaw);
-        double z = Math.cos(yaw);
-
-        return new Vec3d(x, 0, z);
-    }
 }

@@ -40,4 +40,14 @@ public class PlayerJumpHelper {
         }
         return false;
     }
+
+    static Vec3d getPlayerHorizontalDirection(PlayerEntity player) {
+        //计算玩家面朝的水平方向向量
+        float yaw = player.getYaw() * 0.017453292F; //将角度转换为弧度
+
+        double x = -Math.sin(yaw);
+        double z = Math.cos(yaw);
+
+        return new Vec3d(x, 0, z);
+    }
 }
