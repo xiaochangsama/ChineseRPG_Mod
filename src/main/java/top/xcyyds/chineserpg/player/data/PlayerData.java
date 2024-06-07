@@ -172,6 +172,10 @@ public class PlayerData {
         this.playerVelocity = playerVelocity;
         this.velocityDirty = true; // 设置标志
     }
+    public void setPlayerVelocity(double x,double y,double z) {
+        this.playerVelocity = new Vec3d(x,y,z);
+        this.velocityDirty = true; // 设置标志
+    }
 
     public boolean isVelocityDirty() {
         return velocityDirty;
@@ -179,5 +183,8 @@ public class PlayerData {
 
     public void setVelocityDirty(boolean velocityDirty) {
         this.velocityDirty = velocityDirty;
+    }
+    public void setVelocityDirty() {
+        this.velocityDirty = true;
     }
 }
