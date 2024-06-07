@@ -6,8 +6,8 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import top.xcyyds.chineserpg.event.EndServerTickEvent;
 import top.xcyyds.chineserpg.event.PlayerJoinEvent;
-import top.xcyyds.chineserpg.event.PlayerTickEvent;
 import top.xcyyds.chineserpg.event.PlayerTravelEvent;
 import top.xcyyds.chineserpg.item.BooksItem;
 import top.xcyyds.chineserpg.itemgroup.ChineseRPGItemGroup;
@@ -28,7 +28,7 @@ public class ChineseRPG implements ModInitializer {
 
 		// 注册事件
 		// 注册玩家（服务器每一刻结尾）每一刻的更新逻辑
-		PlayerTickEvent.register();
+		EndServerTickEvent.register();
 		// 注册玩家加入世界逻辑
 		PlayerJoinEvent.register();
 		// 注册玩家移动前，可操作玩家速度的安全区逻辑

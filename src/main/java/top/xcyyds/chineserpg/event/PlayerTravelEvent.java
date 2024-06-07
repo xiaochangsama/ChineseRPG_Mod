@@ -7,7 +7,7 @@ import top.xcyyds.chineserpg.player.data.IPlayerDataProvider;
 import top.xcyyds.chineserpg.player.data.PlayerData;
 
 /**
- * 在这个类里可以修改玩家的速度矢量并应用
+ * 将PlayerData种存储的速度更改内容应用
  */
 public class PlayerTravelEvent {
     public static void register() {

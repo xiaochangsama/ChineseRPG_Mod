@@ -28,6 +28,8 @@ public class JumpKeySyncHandler {
 //                    PlayerJumpHandler.toJump(player,playerData);
 //                    sendJumpKeyStatus(player);
                     wasPressed = true;
+
+
                 }
             });
         });

@@ -30,13 +30,13 @@ public class MartialArts {
 
         // 创建武功词条
         MartialArtEntry entry = new MartialArtEntry(
-                "左脚蹬右脚", // 名称
+                "左脚蹬右脚", // 名称,可以生成很多种不同的预设名称
                 1, // 等级
                 PlayerJumpHandler.Multi_JUMP, // 跳跃类型
                 3, // 跳跃次数
                 10.0f, // 内力消耗
-                5, // 跳跃力度
-                10, // 气团数量
+                0.5f, // 跳跃力度
+                1, // 气团数量
                 0.0f, // 减伤高度
                 0.0f, // 减伤比例
                 0.0f // 闪避率

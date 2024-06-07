@@ -24,4 +24,20 @@ public class PlayerJumpHelper {
         }
         return false;
     }
+
+    // 消耗内力
+
+    /**
+     *
+     * @param playerData 玩家属性
+     * @param amount 空中连跳力消耗量
+     * @return 是否允许跳跃
+     */
+    public static boolean consumeJumpCount(PlayerData playerData, int amount) {
+        if (playerData.getJumpCount() >= amount) {
+            playerData.setJumpCount(playerData.getJumpCount() - amount);
+            return true;
+        }
+        return false;
+    }
 }

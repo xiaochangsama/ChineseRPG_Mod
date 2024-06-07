@@ -39,16 +39,20 @@ public class PlayerJumpHandler {
     // 不确定目前该类型中的跳跃是否能成功
     public static void basicJump(PlayerEntity player, PlayerData playerData, double newY, int particleCount, float innerPowerConsumption) {
 
-        if (PlayerJumpHelper.consumeInnerPower(playerData, innerPowerConsumption)) {
+        //默认消耗连跳力1
+        if(PlayerJumpHelper.consumeJumpCount(playerData, 1)){
+            //消耗内力
+            if (PlayerJumpHelper.consumeInnerPower(playerData, innerPowerConsumption)) {
 
-            //这里可能导致bug，因为get到的velocity不确定是什么时候的，可能导致循环等问题
-            Vec3d vec3d =player.getVelocity();
-            playerData.setPlayerVelocity(vec3d.getX(),newY, vec3d.getZ());
+                //这里可能导致bug，因为get到的velocity不确定是什么时候的，可能导致循环等问题
+                Vec3d vec3d =player.getVelocity();
+                playerData.setPlayerVelocity(vec3d.getX(),newY, vec3d.getZ());
 
-            // 生成跳跃气团
-            PlayerJumpHelper.generateJumpParticles(player, particleCount);
-        }else{
-            player.sendMessage(Text.translatable("message.chineserpg.insufficient_inner_power").formatted(Formatting.DARK_RED, Formatting.BOLD), true);
+                // 生成跳跃气团
+                PlayerJumpHelper.generateJumpParticles(player, particleCount);
+            }else{
+                player.sendMessage(Text.translatable("message.chineserpg.insufficient_inner_power").formatted(Formatting.DARK_RED, Formatting.BOLD), true);
+            }
         }
     }
 }

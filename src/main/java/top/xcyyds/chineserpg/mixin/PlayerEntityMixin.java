@@ -43,11 +43,9 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerD
             PlayerEntity player = (PlayerEntity) (Object) this;
             PlayerData playerData1 =this.getPlayerData();
             //实现对空中眺时对速度的操作
-                PlayerJumpHandler.toJump(player,  playerData1);
-            if (!this.getWorld().isClient) {
+            PlayerJumpHandler.toJump(player,  playerData1);
 
-                //System.out.println("JumpKeySyncHandler.wasPressed = false");
-            }
+
 
             JumpKeySyncHandler.wasPressed = false;
         }

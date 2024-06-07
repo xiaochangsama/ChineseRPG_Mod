@@ -10,10 +10,8 @@ import top.xcyyds.chineserpg.player.data.IPlayerDataProvider;
 import top.xcyyds.chineserpg.player.data.PlayerData;
 import top.xcyyds.chineserpg.player.jump.PlayerJumpHandler;
 
-/**
- * 用于处理玩家的Tick事件
- */
-public class PlayerTickEvent {
+
+public class EndServerTickEvent {
 
     public static void register() {
         ServerTickEvents.END_SERVER_TICK.register(server -> {
