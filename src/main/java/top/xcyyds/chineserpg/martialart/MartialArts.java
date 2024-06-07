@@ -32,10 +32,10 @@ public class MartialArts {
         MartialArtEntry entry = new MartialArtEntry(
                 "左脚蹬右脚", // 名称
                 1, // 等级
-                PlayerJumpHandler.DOUBLE_JUMP, // 跳跃类型
-                1, // 跳跃次数
-                0.0f, // 内力消耗
-                0.5, // 跳跃力度
+                PlayerJumpHandler.Multi_JUMP, // 跳跃类型
+                3, // 跳跃次数
+                10.0f, // 内力消耗
+                5, // 跳跃力度
                 10, // 气团数量
                 0.0f, // 减伤高度
                 0.0f, // 减伤比例
