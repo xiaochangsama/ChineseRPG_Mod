@@ -34,6 +34,12 @@
       "velocityYIncrease": 0.7,
       "particleCount": 10,
       "directionalVelocity": 0.15
+    },
+    {
+      "name": "冲刺加速",
+      "level": 1,
+      "jumpType": "冲刺加速",
+      "directionalVelocity": 0.1
     }
   ]
 }
