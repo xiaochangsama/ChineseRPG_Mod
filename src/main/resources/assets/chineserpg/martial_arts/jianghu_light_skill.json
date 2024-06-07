@@ -24,7 +24,7 @@
       "damageReductionHeight": 0.0,
       "damageReductionPercentage": 0.0,
       "dodgeRate": 0.0,
-      "directionalVelocity": 0.5
+      "directionalVelocity": 0.1
     }
   ]
 }
