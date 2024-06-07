@@ -38,7 +38,7 @@ public class PlayerTickEvent {
             MartialArt equippedMartialArt = playerData.getEquippedMartialArt();
             if (equippedMartialArt != null) {
                 for (MartialArtEntry entry : equippedMartialArt.getEntries()) {
-                    if (PlayerJumpHandler.DOUBLE_JUMP.equals(entry.getJumpType())) {
+                    if (PlayerJumpHandler.Multi_JUMP.equals(entry.getJumpType())) {
                         playerData.setJumpCount(entry.getJumpCount());
                         break;
                     }
