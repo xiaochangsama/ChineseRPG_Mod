@@ -8,9 +8,14 @@ import java.util.List;
 import java.util.UUID;
 
 public class MartialArts {
-    public static final MartialArt JIANGHU_LIGHT_SKILL;
+    private static MartialArt jianghuLightSkill;
 
-    static {
+    public static void registerAll() {
+        jianghuLightSkill = createJianghuLightSkill();
+        MartialArtRegistry.registerMartialArt(jianghuLightSkill);
+    }
+
+    private static MartialArt createJianghuLightSkill() {
         List<String> description = Arrays.asList(
                 "不知是何人所创的轻功，广为流传。", // 描述的第一行
                 "该轻功能够使人如履平地，飞檐走壁。", // 描述的第二行
@@ -18,13 +23,13 @@ public class MartialArts {
                 "习之者可轻盈跃起，浮空而行。", // 描述的第四行
                 "——此功由江湖人士创作，流传甚广。" // 描述的第五行
         );
-        JIANGHU_LIGHT_SKILL = new MartialArt(
+        MartialArt jianghuLightSkill = new MartialArt(
                 "江湖轻功", // 名称
                 "轻功", // 类型
                 1, // 等级
                 100.0f, // 完整度
                 description, // 描述
-                "江湖人士" ,// 作者
+                "江湖人士", // 作者
                 UUID.fromString("56A528D5-CC8A-64A0-4EC8-79B7B8F20D9E")
         );
 
@@ -42,10 +47,15 @@ public class MartialArts {
                 0.0f // 闪避率
         );
 
-        JIANGHU_LIGHT_SKILL.addEntry(entry);
+        jianghuLightSkill.addEntry(entry);
+        return jianghuLightSkill;
     }
 
-    public static void registerAll() {
-        MartialArtRegistry.registerMartialArt(JIANGHU_LIGHT_SKILL);
+    public static MartialArt getJianghuLightSkill() {
+        if (jianghuLightSkill == null) {
+            jianghuLightSkill = createJianghuLightSkill();
+            MartialArtRegistry.registerMartialArt(jianghuLightSkill);
+        }
+        return jianghuLightSkill;
     }
 }

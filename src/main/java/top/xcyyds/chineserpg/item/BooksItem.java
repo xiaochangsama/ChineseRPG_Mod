@@ -29,7 +29,7 @@ public class BooksItem extends ChineseRPGItem {
     public static final Item FIRE_BOOK_LOW = new BooksItem();
     public static final Item GOLD_BOOK_LOW = new BooksItem();
     public static final Item WOOD_BOOK_LOW = new BooksItem();
-    public static final Item JIANGHU_LIGHT_SKILL_BOOK = new JianghuLightSkillBook();
+    public static final Item LIGHT_SKILL_BOOK = new LightSkillBook();
 
     // 第一种构造函数
     public BooksItem() {
@@ -43,7 +43,7 @@ public class BooksItem extends ChineseRPGItem {
         Registry.register(Registries.ITEM, "chineserpg:fire_book_low", FIRE_BOOK_LOW);
         Registry.register(Registries.ITEM, "chineserpg:gold_book_low", GOLD_BOOK_LOW);
         Registry.register(Registries.ITEM, "chineserpg:wood_book_low", WOOD_BOOK_LOW);
-        JianghuLightSkillBook.registryItem();
+        LightSkillBook.registryItem();
     }
 
     @Override

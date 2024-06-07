@@ -11,17 +11,18 @@ import net.minecraft.world.World;
 import top.xcyyds.chineserpg.martialart.MartialArt;
 import top.xcyyds.chineserpg.martialart.MartialArts;
 
-public class JianghuLightSkillBook extends BooksItem {
+public class LightSkillBook extends BooksItem {
 
-    public JianghuLightSkillBook() {
+    public LightSkillBook() {
         super();
     }
 
-    public static ItemStack createJianghuLightSkillBook() {
-        ItemStack itemStack = new ItemStack(BooksItem.JIANGHU_LIGHT_SKILL_BOOK);
+    // 创建随机的江湖轻功
+    public static ItemStack createRandomLightSkillBook() {
+        ItemStack itemStack = new ItemStack(BooksItem.LIGHT_SKILL_BOOK);
 
         // 获取预定义的江湖轻功武功实例
-        MartialArt jianghuLightSkill = MartialArts.JIANGHU_LIGHT_SKILL;
+        MartialArt jianghuLightSkill = MartialArts.getJianghuLightSkill();
 
         // 将武功数据存入书籍的 NBT
         NbtCompound nbt = new NbtCompound();
@@ -37,15 +38,15 @@ public class JianghuLightSkillBook extends BooksItem {
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         super.inventoryTick(stack, world, entity, slot, selected);
-        if (!stack.hasNbt() && stack.getItem() instanceof JianghuLightSkillBook) {
+        if (!stack.hasNbt() && stack.getItem() instanceof LightSkillBook) {
             // 初始化江湖轻功书籍数据
-            ItemStack initializedStack = JianghuLightSkillBook.createJianghuLightSkillBook();
+            ItemStack initializedStack = LightSkillBook.createRandomLightSkillBook();
             stack.setNbt(initializedStack.getNbt());
         }
     }
 
     // 用物品的实例注册
     public static void registryItem() {
-        Registry.register(Registries.ITEM, "chineserpg:jianghu_light_skill", BooksItem.JIANGHU_LIGHT_SKILL_BOOK);
+        Registry.register(Registries.ITEM, "chineserpg:jianghu_light_skill", BooksItem.LIGHT_SKILL_BOOK);
     }
 }

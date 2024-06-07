@@ -8,7 +8,6 @@ import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import top.xcyyds.chineserpg.item.BooksItem;
-import top.xcyyds.chineserpg.item.ChineseRPGItem;
 
         /* 有两种方式可以将物品放到物品组：
         一种是用putItemIntoItemGroup()加入原版物品组
@@ -22,7 +21,7 @@ public class ChineseRPGItemGroup {
             .displayName(Text.translatable("itemGroup.chineserpg.kung_fu_item_group"))
             .entries((context, entries) -> {
                 entries.add(BooksItem.WATER_BOOK_LOW);
-                entries.add(BooksItem.JIANGHU_LIGHT_SKILL_BOOK);
+                entries.add(BooksItem.LIGHT_SKILL_BOOK);
             })
             .build();
     public static void registryItemGroup(){
