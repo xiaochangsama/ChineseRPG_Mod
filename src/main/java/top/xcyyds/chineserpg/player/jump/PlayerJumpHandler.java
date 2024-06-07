@@ -24,6 +24,7 @@ public class PlayerJumpHandler {
 
     //跳跃类型
     public static final String Multi_JUMP = "多段跳";
+    public static final String Big_JUMP = "大跳";
 
     //根据玩家跳跃类型，选择不同的跳跃方法
     public static void toJump(PlayerEntity player, PlayerData playerData){
@@ -34,17 +35,30 @@ public class PlayerJumpHandler {
             List<MartialArtEntry> martialArtEntries = martialArt.getEntries();
             for (MartialArtEntry martialArtEntry : martialArtEntries) {
                 if (martialArtEntry.getJumpType().equals(Multi_JUMP)) {
-                    basicJump(player, playerData, martialArtEntry.getVelocityYIncrease(), martialArtEntry.getParticleCount(), martialArtEntry.getInnerPowerConsumption(), martialArtEntry.getDirectionalVelocity());
+                    basicJump(player, playerData, martialArtEntry.getVelocityYIncrease(), martialArtEntry.getParticleCount(), martialArtEntry.getInnerPowerConsumption(), martialArtEntry.getDirectionalVelocity(),1);
+                }
+            }
+        }
+    }
+    public static void toJumpOnGround(PlayerEntity player, PlayerData playerData){
+
+        UUID equippedSkill = playerData.getEquippedSkill();
+        MartialArt martialArt = getMartialArt(equippedSkill);
+        if (martialArt != null) {
+            List<MartialArtEntry> martialArtEntries = martialArt.getEntries();
+            for (MartialArtEntry martialArtEntry : martialArtEntries) {
+                if (martialArtEntry.getJumpType().equals(Big_JUMP)) {
+                    basicJump(player, playerData, martialArtEntry.getVelocityYIncrease(), martialArtEntry.getParticleCount(), martialArtEntry.getInnerPowerConsumption(), martialArtEntry.getDirectionalVelocity(),0);
                 }
             }
         }
     }
 
     // 不确定目前该类型中的跳跃是否能成功
-    public static void basicJump(PlayerEntity player, PlayerData playerData, double newY, int particleCount, float innerPowerConsumption, double directionalVelocity) {
+    public static void basicJump(PlayerEntity player, PlayerData playerData, double newY, int particleCount, float innerPowerConsumption, double directionalVelocity,int consumeJumpCount) {
 
         //默认消耗连跳力1
-        if(PlayerJumpHelper.consumeJumpCount(playerData, 1)){
+        if(PlayerJumpHelper.consumeJumpCount(playerData, consumeJumpCount)){
             //消耗内力
             if (PlayerJumpHelper.consumeInnerPower(playerData, innerPowerConsumption)) {
 
