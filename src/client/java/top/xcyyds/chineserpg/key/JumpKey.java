@@ -19,11 +19,12 @@ public class JumpKey {
                 boolean isOnGround = MinecraftClient.getInstance().player.isOnGround();
 
 
-            if (isPressed && !wasPressed && (isOnGround == wasOnGround ) ) {
+            if (isPressed && !wasPressed && !isOnGround && !wasOnGround ) {
                 if (MinecraftClient.getInstance().player != null && MinecraftClient.getInstance().getNetworkHandler() != null) {
                     //发包
                     ClientJumpKeySyncHandler.sendJumpKeyStatus();
-                }
+
+                                    }
             }
             wasPressed = isPressed;
             wasOnGround = isOnGround;
