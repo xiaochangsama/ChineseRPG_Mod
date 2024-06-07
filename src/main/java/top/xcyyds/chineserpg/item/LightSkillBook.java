@@ -21,16 +21,18 @@ public class LightSkillBook extends BooksItem {
     public static ItemStack createRandomLightSkillBook() {
         ItemStack itemStack = new ItemStack(BooksItem.LIGHT_SKILL_BOOK);
 
-        // 获取预定义的江湖轻功武功实例
-        MartialArt jianghuLightSkill = MartialArts.getJianghuLightSkill();
+//        // 获取预定义的江湖轻功武功实例
+//        MartialArt jianghuLightSkill = MartialArts.getJianghuLightSkill();
+        //原本是上面那玩意
+        MartialArt randomLightSkill = MartialArts.getRandomLightSkill();
 
         // 将武功数据存入书籍的 NBT
         NbtCompound nbt = new NbtCompound();
-        jianghuLightSkill.writeToNbt(nbt);
+        randomLightSkill.writeToNbt(nbt);
         itemStack.setNbt(nbt);
 
         // 设置物品的名称为武功的名称，并且为金色
-        itemStack.setCustomName(Text.literal(jianghuLightSkill.getName()).formatted(Formatting.GOLD, Formatting.BOLD));
+        itemStack.setCustomName(Text.literal(randomLightSkill.getName()).formatted(Formatting.GOLD, Formatting.BOLD));
 
         return itemStack;
     }

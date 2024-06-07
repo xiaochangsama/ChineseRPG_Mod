@@ -1,0 +1,29 @@
+{
+  "name": "江湖轻功",
+  "type": "轻功",
+  "level": 1,
+  "completeness": 100.0,
+  "description": [
+    "不知是何人所创的轻功，广为流传。",
+    "该轻功能够使人如履平地，飞檐走壁。",
+    "轻功之妙，妙在一个“轻”字。",
+    "习之者可轻盈跃起，浮空而行。",
+    "——此功由江湖人士创作，流传甚广。"
+  ],
+  "author": "江湖人士",
+  "uuid": "56A528D5-CC8A-64A0-4EC8-79B7B8F20D9E",
+  "entries": [
+    {
+      "name": "左脚蹬右脚",
+      "level": 1,
+      "jumpType": "多段跳",
+      "jumpCount": 3,
+      "innerPowerConsumption": 10.0,
+      "velocityYIncrease": 0.5,
+      "particleCount": 1,
+      "damageReductionHeight": 0.0,
+      "damageReductionPercentage": 0.0,
+      "dodgeRate": 0.0
+    }
+  ]
+}

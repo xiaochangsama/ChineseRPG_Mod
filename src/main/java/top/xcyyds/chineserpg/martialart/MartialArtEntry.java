@@ -1,17 +1,28 @@
 package top.xcyyds.chineserpg.martialart;
 
+import com.google.gson.annotations.SerializedName;
 import net.minecraft.nbt.NbtCompound;
 
 public class MartialArtEntry {
+    @SerializedName("name")
     private String name;
+    @SerializedName("level")
     private int level;
+    @SerializedName("jumpType")
     private String jumpType;
+    @SerializedName("jumpCount")
     private int jumpCount;
+    @SerializedName("innerPowerConsumption")
     private float innerPowerConsumption;
+    @SerializedName("velocityYIncrease")
     private double velocityYIncrease; // 跳跃的力度
+    @SerializedName("particleCount")
     private int particleCount; // 跳跃产生的气团数量
+    @SerializedName("damageReductionHeight")
     private float damageReductionHeight;
+    @SerializedName("damageReductionPercentage")
     private float damageReductionPercentage;
+    @SerializedName("dodgeRate")
     private float dodgeRate;
 
     // 构造函数
@@ -58,7 +69,7 @@ public class MartialArtEntry {
         nbt.putString("JumpType", jumpType);
         nbt.putInt("JumpCount", jumpCount);
         nbt.putFloat("InnerPowerConsumption", innerPowerConsumption);
-        nbt.putDouble("VelocityIncrease", velocityYIncrease);
+        nbt.putDouble("VelocityYIncrease", velocityYIncrease);
         nbt.putInt("ParticleCount", particleCount);
         nbt.putFloat("DamageReductionHeight", damageReductionHeight);
         nbt.putFloat("DamageReductionPercentage", damageReductionPercentage);
@@ -71,7 +82,7 @@ public class MartialArtEntry {
         String jumpType = nbt.getString("JumpType");
         int jumpCount = nbt.getInt("JumpCount");
         float innerPowerConsumption = nbt.getFloat("InnerPowerConsumption");
-        double velocityIncrease = nbt.getDouble("VelocityIncrease");
+        double velocityIncrease = nbt.getDouble("VelocityYIncrease");
         int particleCount = nbt.getInt("ParticleCount");
         float damageReductionHeight = nbt.getFloat("DamageReductionHeight");
         float damageReductionPercentage = nbt.getFloat("DamageReductionPercentage");
