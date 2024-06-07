@@ -53,7 +53,9 @@ public class PlayerJumpHandler {
 
                 //设置新的速度，包括朝向的加速度
                 Vec3d newVelocity = new Vec3d(vec3d.x + direction.x * directionalVelocity, newY, vec3d.z + direction.z * directionalVelocity);
-                player.setVelocity(newVelocity);
+                // 这里一定要用playerData.setPlayerVelocity(newVelocity)这个方法，因为这个方法能避免服务端和客户端逻辑的冲突，
+                // 而player.setVelocity(newVelocity)会在客户端和服务端执行并导致不同步和飞天
+                playerData.setPlayerVelocity(newVelocity);
 
                 //生成跳跃气团
                 PlayerJumpHelper.generateJumpParticles(player, particleCount);
