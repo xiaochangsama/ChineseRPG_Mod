@@ -14,16 +14,25 @@
   "uuid": "56A528D5-CC8A-64A0-4EC8-79B7B8F20D9E",
   "entries": [
     {
-      "name": "左脚蹬右脚",
+      "name": "扑腾",
       "level": 1,
       "jumpType": "多段跳",
       "jumpCount": 1,
       "innerPowerConsumption": 10.0,
-      "velocityYIncrease": 0.5,
+      "velocityYIncrease": 0.2,
       "particleCount": 5,
       "damageReductionHeight": 1.0,
       "damageReductionPercentage": 0.0,
       "dodgeRate": 5.0,
+      "directionalVelocity": 0.15
+    },
+    {
+      "name": "大跳",
+      "level": 1,
+      "jumpType": "大跳",
+      "innerPowerConsumption": 30.0,
+      "velocityYIncrease": 0.7,
+      "particleCount": 10,
       "directionalVelocity": 0.15
     }
   ]
