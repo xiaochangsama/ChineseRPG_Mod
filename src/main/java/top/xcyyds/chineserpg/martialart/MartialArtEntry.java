@@ -8,6 +8,9 @@ public class MartialArtEntry {
     private String name = "";
     @SerializedName("level")
     private int level = 1;
+    /**
+     * 【注意】很神奇的是，跑步加速，也被算作跳跃类型
+     */
     @SerializedName("jumpType")
     private String jumpType = "";
     @SerializedName("jumpCount")

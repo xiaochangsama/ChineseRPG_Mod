@@ -26,6 +26,7 @@ public class PlayerJumpHandler {
     public static final String Multi_JUMP = "多段跳";
     public static final String Big_JUMP = "大跳";
 
+
     //根据玩家跳跃类型，选择不同的跳跃方法
     public static void toJump(PlayerEntity player, PlayerData playerData){
 
