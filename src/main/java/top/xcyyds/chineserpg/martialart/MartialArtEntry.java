@@ -25,7 +25,7 @@ public class MartialArtEntry {
     @SerializedName("dodgeRate")
     private float dodgeRate = 0;
     @SerializedName("directionalVelocity")
-    private double directionalVelocity = 0; // 朝向加速度
+    private double directionalVelocity = 0; // 朝向加速度，玩家加速度
 
     // 构造函数
     public MartialArtEntry(String name, int level, String jumpType, int jumpCount, float innerPowerConsumption, double velocityYIncrease, int particleCount, float damageReductionHeight, float damageReductionPercentage, float dodgeRate, double directionalVelocity) {
