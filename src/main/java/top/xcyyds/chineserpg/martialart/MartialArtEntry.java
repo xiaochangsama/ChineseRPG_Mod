@@ -103,4 +103,14 @@ public class MartialArtEntry {
 
         return new MartialArtEntry(name, level, jumpType, jumpCount, innerPowerConsumption, velocityIncrease, particleCount, damageReductionHeight, damageReductionPercentage, dodgeRate, directionalVelocity);
     }
+
+    public float getDamageReductionHeight() {
+        return damageReductionHeight;
+    }
+
+    public float getDamageReductionPercentage() {
+        return damageReductionPercentage;
+    }
+
+
 }
