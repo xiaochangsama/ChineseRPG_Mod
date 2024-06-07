@@ -7,7 +7,7 @@ import net.minecraft.server.world.ServerWorld;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import top.xcyyds.chineserpg.event.EndServerTickEvent;
-import top.xcyyds.chineserpg.event.FallDamageEvent;
+import top.xcyyds.chineserpg.event.PlayerFallEvent;
 import top.xcyyds.chineserpg.event.PlayerJoinEvent;
 import top.xcyyds.chineserpg.event.PlayerTravelEvent;
 import top.xcyyds.chineserpg.item.BooksItem;
@@ -35,7 +35,7 @@ public class ChineseRPG implements ModInitializer {
 		// 注册玩家移动前，可操作玩家速度的安全区逻辑
 		PlayerTravelEvent.register();
 
-		FallDamageEvent.register();
+		PlayerFallEvent.register();
 
 		// 注册注册表
 		ServerLifecycleEvents.SERVER_STARTED.register(this::onServerStarted);

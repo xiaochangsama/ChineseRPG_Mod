@@ -8,9 +8,9 @@ import top.xcyyds.chineserpg.registry.MartialArtRegistry;
 
 import java.util.UUID;
 
-public class FallDamageEvent {
+public class PlayerFallEvent {
     public static void register() {
-        FallDamageCallback.EVENT.register((player, fallDistance) -> {
+        PlayerFallCallback.EVENT.register((player, fallDistance, damageMultiplier, damageSource) -> {
             PlayerData playerData = ((IPlayerDataProvider) player).getPlayerData();
             float reductionHeight = 0.0f;
             float reductionPercentage = 0.0f;
@@ -23,11 +23,16 @@ public class FallDamageEvent {
                     break;
                 }
             }
+
+            // 应用高度减免
             float adjustedFallDistance = Math.max(0.0f, fallDistance - reductionHeight);
             if (adjustedFallDistance <= 3.0f) {
-                return 0.0f;
+                return 0.0f; // 不造成伤害
             }
-            return adjustedFallDistance * (1 - reductionPercentage);
+
+            // 计算减免后的伤害
+            float damage = adjustedFallDistance * damageMultiplier * (1 - reductionPercentage / 100);
+            return damage;
         });
     }
 }
