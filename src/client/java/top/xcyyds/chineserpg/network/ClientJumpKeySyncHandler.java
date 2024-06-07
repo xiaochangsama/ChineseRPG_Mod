@@ -16,10 +16,10 @@ public class ClientJumpKeySyncHandler {
     public static final Identifier JUMP_KEY_SYNC = new Identifier(ChineseRPG.MOD_ID, "jump_key_sync");
 
     //只会在空中的时候发包，所以发送空包
-    public static void sendJumpKeyStatus() {
+    public static void sendJumpKeyStatus(boolean onGround) {
         if (MinecraftClient.getInstance().getNetworkHandler() != null) {
             PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
-
+                buf.writeBoolean(onGround);
             ClientPlayNetworking.send(JUMP_KEY_SYNC, buf);
         }
     }
