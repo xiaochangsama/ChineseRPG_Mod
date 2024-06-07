@@ -26,7 +26,7 @@ public class PlayerMartialArtHandler {
             if (user instanceof ServerPlayerEntity) {
                 PlayerSpeedHelper.resetSpeed((ServerPlayerEntity) user);
                 for (MartialArtEntry entry : martialArt.getEntries()) {
-                    if (PlayerSpeedHandler.SPRINT_SPEED_UP.equals(entry.getJumpType())) {
+                   if (PlayerSpeedHandler.SPRINT_SPEED_UP.equals(entry.getJumpType())) {
                         PlayerSpeedHelper.increaseSpeed((ServerPlayerEntity) user, entry.getDirectionalVelocity());
                         break;
                     }

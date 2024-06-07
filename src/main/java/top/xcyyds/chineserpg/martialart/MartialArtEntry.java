@@ -25,6 +25,15 @@ public class MartialArtEntry {
     private float damageReductionHeight = 0;
     @SerializedName("damageReductionPercentage")
     private float damageReductionPercentage = 0;
+
+    public float getDodgeRate() {
+        return dodgeRate;
+    }
+
+    public void setDodgeRate(float dodgeRate) {
+        this.dodgeRate = dodgeRate;
+    }
+
     @SerializedName("dodgeRate")
     private float dodgeRate = 0;
     @SerializedName("directionalVelocity")
