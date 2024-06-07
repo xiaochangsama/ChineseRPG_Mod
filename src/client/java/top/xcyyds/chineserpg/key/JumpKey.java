@@ -22,11 +22,20 @@ public class JumpKey {
             if (isPressed && !wasPressed && !isOnGround && !wasOnGround ) {
                 if (MinecraftClient.getInstance().player != null && MinecraftClient.getInstance().getNetworkHandler() != null) {
                     //发包
-                    ClientJumpKeySyncHandler.sendJumpKeyStatus();
+                    ClientJumpKeySyncHandler.sendJumpKeyStatus(false);
 
-                                    }
+                }
+            } else {
+                if(isPressed && !wasPressed){
+                    if (MinecraftClient.getInstance().player != null && MinecraftClient.getInstance().getNetworkHandler() != null) {
+                    //发包
+                    ClientJumpKeySyncHandler.sendJumpKeyStatus(true);
+
+                }
+                }
+
             }
-            wasPressed = isPressed;
+                wasPressed = isPressed;
             wasOnGround = isOnGround;
             }
         });

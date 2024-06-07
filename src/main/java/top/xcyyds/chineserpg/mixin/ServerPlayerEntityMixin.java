@@ -10,9 +10,17 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import top.xcyyds.chineserpg.martialart.MartialArt;
+import top.xcyyds.chineserpg.martialart.MartialArtEntry;
 import top.xcyyds.chineserpg.player.data.IPlayerDataProvider;
 import top.xcyyds.chineserpg.player.data.PlayerData;
 import top.xcyyds.chineserpg.player.data.PlayerDataStorage;
+import top.xcyyds.chineserpg.player.speed.PlayerSpeedHandler;
+import top.xcyyds.chineserpg.player.speed.PlayerSpeedHelper;
+
+import java.util.UUID;
+
+import static top.xcyyds.chineserpg.registry.MartialArtRegistry.getMartialArt;
 
 /*
 先前通过将数据写入玩家的datatracker中，现在通过PlayerPersistentData来实现；
@@ -51,10 +59,20 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements IP
     @Inject(method = "onSpawn", at = @At("HEAD"))
     private void onSpawn(CallbackInfo info) {
         ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
+        UUID equippedSkill = playerData.getEquippedSkill();
+        MartialArt martialArt = getMartialArt(equippedSkill);
+            PlayerSpeedHelper.resetSpeed( player);
+        if (martialArt != null) {
+            for (MartialArtEntry entry : martialArt.getEntries()) {
+                if (PlayerSpeedHandler.SPRINT_SPEED_UP.equals(entry.getJumpType())) {
+                    PlayerSpeedHelper.increaseSpeed( player, entry.getDirectionalVelocity());
+                    break;
+                }
+            }
+        }
 
 
-
-            NbtCompound nbt = PlayerDataStorage.get(player.getUuid());
+        NbtCompound nbt = PlayerDataStorage.get(player.getUuid());
             //如果nbt数据存在
             if (nbt != null) {
                 player.readCustomDataFromNbt(nbt);

@@ -5,28 +5,33 @@ import net.minecraft.nbt.NbtCompound;
 
 public class MartialArtEntry {
     @SerializedName("name")
-    private String name;
+    private String name = "";
     @SerializedName("level")
-    private int level;
+    private int level = 1;
+    /**
+     * 【注意】很神奇的是，跑步加速，也被算作跳跃类型
+     */
     @SerializedName("jumpType")
-    private String jumpType;
+    private String jumpType = "";
     @SerializedName("jumpCount")
-    private int jumpCount;
+    private int jumpCount = 0;
     @SerializedName("innerPowerConsumption")
-    private float innerPowerConsumption;
+    private float innerPowerConsumption= 0;
     @SerializedName("velocityYIncrease")
-    private double velocityYIncrease; // 跳跃的力度
+    private double velocityYIncrease = 0; // 跳跃的力度
     @SerializedName("particleCount")
-    private int particleCount; // 跳跃产生的气团数量
+    private int particleCount = 0; // 跳跃产生的气团数量
     @SerializedName("damageReductionHeight")
-    private float damageReductionHeight;
+    private float damageReductionHeight = 0;
     @SerializedName("damageReductionPercentage")
-    private float damageReductionPercentage;
+    private float damageReductionPercentage = 0;
     @SerializedName("dodgeRate")
-    private float dodgeRate;
+    private float dodgeRate = 0;
+    @SerializedName("directionalVelocity")
+    private double directionalVelocity = 0; // 朝向加速度，玩家加速度
 
     // 构造函数
-    public MartialArtEntry(String name, int level, String jumpType, int jumpCount, float innerPowerConsumption, double velocityYIncrease, int particleCount, float damageReductionHeight, float damageReductionPercentage, float dodgeRate) {
+    public MartialArtEntry(String name, int level, String jumpType, int jumpCount, float innerPowerConsumption, double velocityYIncrease, int particleCount, float damageReductionHeight, float damageReductionPercentage, float dodgeRate, double directionalVelocity) {
         this.name = name;
         this.level = level;
         this.jumpType = jumpType;
@@ -37,6 +42,7 @@ public class MartialArtEntry {
         this.damageReductionHeight = damageReductionHeight;
         this.damageReductionPercentage = damageReductionPercentage;
         this.dodgeRate = dodgeRate;
+        this.directionalVelocity = directionalVelocity;
     }
 
     // Getters and Setters
@@ -61,6 +67,14 @@ public class MartialArtEntry {
         return particleCount;
     }
 
+    public double getDirectionalVelocity() {
+        return directionalVelocity;
+    }
+
+    public void setDirectionalVelocity(double directionalVelocity) {
+        this.directionalVelocity = directionalVelocity;
+    }
+
     // 序列化和反序列化方法
 
     public void writeToNbt(NbtCompound nbt) {
@@ -74,6 +88,7 @@ public class MartialArtEntry {
         nbt.putFloat("DamageReductionHeight", damageReductionHeight);
         nbt.putFloat("DamageReductionPercentage", damageReductionPercentage);
         nbt.putFloat("DodgeRate", dodgeRate);
+        nbt.putDouble("DirectionalVelocity", directionalVelocity);
     }
 
     public static MartialArtEntry readFromNbt(NbtCompound nbt) {
@@ -87,7 +102,18 @@ public class MartialArtEntry {
         float damageReductionHeight = nbt.getFloat("DamageReductionHeight");
         float damageReductionPercentage = nbt.getFloat("DamageReductionPercentage");
         float dodgeRate = nbt.getFloat("DodgeRate");
+        double directionalVelocity = nbt.getDouble("DirectionalVelocity");
 
-        return new MartialArtEntry(name, level, jumpType, jumpCount, innerPowerConsumption, velocityIncrease, particleCount, damageReductionHeight, damageReductionPercentage, dodgeRate);
+        return new MartialArtEntry(name, level, jumpType, jumpCount, innerPowerConsumption, velocityIncrease, particleCount, damageReductionHeight, damageReductionPercentage, dodgeRate, directionalVelocity);
     }
+
+    public float getDamageReductionHeight() {
+        return damageReductionHeight;
+    }
+
+    public float getDamageReductionPercentage() {
+        return damageReductionPercentage;
+    }
+
+
 }

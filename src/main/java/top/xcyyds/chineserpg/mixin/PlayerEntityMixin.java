@@ -39,15 +39,18 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerD
     }
     @Inject(method = "tick", at = @At("TAIL"))
     private void playerTick(CallbackInfo ci){
+        PlayerEntity player = (PlayerEntity) (Object) this;
+        PlayerData playerData1 =this.getPlayerData();
+        //空中跳跃
         if(JumpKeySyncHandler.wasPressed){
-            PlayerEntity player = (PlayerEntity) (Object) this;
-            PlayerData playerData1 =this.getPlayerData();
             //实现对空中眺时对速度的操作
             PlayerJumpHandler.toJump(player,  playerData1);
-
-
-
             JumpKeySyncHandler.wasPressed = false;
+        }
+        //地面跳跃
+        if(JumpKeySyncHandler.wasPressedOnGround){
+            PlayerJumpHandler.toJumpOnGround(player,  playerData1);
+            JumpKeySyncHandler.wasPressedOnGround = false;
         }
     }
 }

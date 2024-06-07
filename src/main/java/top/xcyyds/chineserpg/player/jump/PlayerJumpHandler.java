@@ -1,11 +1,14 @@
 package top.xcyyds.chineserpg.player.jump;
 
+
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Vec3d;
 import top.xcyyds.chineserpg.martialart.MartialArt;
 import top.xcyyds.chineserpg.martialart.MartialArtEntry;
+import top.xcyyds.chineserpg.network.ParticleSyncHandler;
 import top.xcyyds.chineserpg.player.data.PlayerData;
 
 import java.util.List;
@@ -21,6 +24,8 @@ public class PlayerJumpHandler {
 
     //跳跃类型
     public static final String Multi_JUMP = "多段跳";
+    public static final String Big_JUMP = "大跳";
+
 
     //根据玩家跳跃类型，选择不同的跳跃方法
     public static void toJump(PlayerEntity player, PlayerData playerData){
@@ -31,28 +36,56 @@ public class PlayerJumpHandler {
             List<MartialArtEntry> martialArtEntries = martialArt.getEntries();
             for (MartialArtEntry martialArtEntry : martialArtEntries) {
                 if (martialArtEntry.getJumpType().equals(Multi_JUMP)) {
-                    basicJump( player, playerData, martialArtEntry.getVelocityYIncrease(), martialArtEntry.getParticleCount(), martialArtEntry.getInnerPowerConsumption());
+                    basicJump(player, playerData, martialArtEntry.getVelocityYIncrease(), martialArtEntry.getParticleCount(), martialArtEntry.getInnerPowerConsumption(), martialArtEntry.getDirectionalVelocity(),1);
                 }
             }
         }
     }
+    public static void toJumpOnGround(PlayerEntity player, PlayerData playerData){
+
+        UUID equippedSkill = playerData.getEquippedSkill();
+        MartialArt martialArt = getMartialArt(equippedSkill);
+        if (martialArt != null) {
+            List<MartialArtEntry> martialArtEntries = martialArt.getEntries();
+            for (MartialArtEntry martialArtEntry : martialArtEntries) {
+                if (martialArtEntry.getJumpType().equals(Big_JUMP)) {
+                    basicJump(player, playerData, martialArtEntry.getVelocityYIncrease(), martialArtEntry.getParticleCount(), martialArtEntry.getInnerPowerConsumption(), martialArtEntry.getDirectionalVelocity(),0);
+                }
+            }
+        }
+    }
+
     // 不确定目前该类型中的跳跃是否能成功
-    public static void basicJump(PlayerEntity player, PlayerData playerData, double newY, int particleCount, float innerPowerConsumption) {
+    public static void basicJump(PlayerEntity player, PlayerData playerData, double newY, int particleCount, float innerPowerConsumption, double directionalVelocity,int consumeJumpCount) {
 
         //默认消耗连跳力1
-        if(PlayerJumpHelper.consumeJumpCount(playerData, 1)){
+        if(PlayerJumpHelper.consumeJumpCount(playerData, consumeJumpCount)){
             //消耗内力
             if (PlayerJumpHelper.consumeInnerPower(playerData, innerPowerConsumption)) {
 
-                //这里可能导致bug，因为get到的velocity不确定是什么时候的，可能导致循环等问题
-                Vec3d vec3d =player.getVelocity();
-                playerData.setPlayerVelocity(vec3d.getX(),newY, vec3d.getZ());
+                //获取当前速度
+                Vec3d vec3d = player.getVelocity();
 
-                // 生成跳跃气团
-                PlayerJumpHelper.generateJumpParticles(player, particleCount);
+                //获取玩家面朝的水平方向向量
+                Vec3d direction = PlayerJumpHelper.getPlayerHorizontalDirection(player);
+
+                //设置新的速度，包括朝向的加速度
+                Vec3d newVelocity = new Vec3d(vec3d.x + direction.x * directionalVelocity, newY, vec3d.z + direction.z * directionalVelocity);
+                // 这里一定要用playerData.setPlayerVelocity(newVelocity)这个方法，因为这个方法能避免服务端和客户端逻辑的冲突，
+                // 而player.setVelocity(newVelocity)会在客户端和服务端执行并导致不同步和飞天
+                playerData.setPlayerVelocity(newVelocity);
+
+
+                if (player instanceof ServerPlayerEntity) {
+                    ParticleSyncHandler.sendParticlePacket((ServerPlayerEntity) player, player.getPos(), particleCount, 1);
+                } else {
+                    PlayerJumpHelper.generateRingParticles(player, particleCount,0.1);
+                }
+
             }else{
                 player.sendMessage(Text.translatable("message.chineserpg.insufficient_inner_power").formatted(Formatting.DARK_RED, Formatting.BOLD), true);
             }
         }
     }
+
 }

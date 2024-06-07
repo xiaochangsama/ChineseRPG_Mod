@@ -21,6 +21,9 @@ import top.xcyyds.chineserpg.player.data.PlayerData;
 
 import java.util.List;
 
+import static top.xcyyds.chineserpg.martialart.PlayerMartialArtHandler.equipMartialArt;
+import static top.xcyyds.chineserpg.martialart.PlayerMartialArtHandler.learnMartialArt;
+
 public class BooksItem extends ChineseRPGItem {
 
     // 创建物品实例，之后去注册
@@ -62,12 +65,9 @@ public class BooksItem extends ChineseRPGItem {
             // 将武功存储到PlayerData中
             PlayerData playerData = ((IPlayerDataProvider) user).getPlayerData();
 
-            if (playerData.addSkill(martialArt.getUuid())) {
-                user.sendMessage(Text.translatable("message.chineserpg.learned_skill", martialArt.getName()).formatted(Formatting.AQUA, Formatting.BOLD), true);
+            if (learnMartialArt(playerData, martialArt, user)) {
                 return new TypedActionResult<>(ActionResult.SUCCESS, stack);
-            } else if (!martialArt.getUuid().equals(playerData.getEquippedSkill())) {
-                playerData.equipSkill(martialArt.getUuid());
-                user.sendMessage(Text.translatable("message.chineserpg.equipped_skill", martialArt.getName()).formatted(Formatting.GOLD, Formatting.BOLD), true);
+            } else if (equipMartialArt(playerData, martialArt, user)) {
                 return new TypedActionResult<>(ActionResult.SUCCESS, stack);
             } else {
                 user.sendMessage(Text.translatable("message.chineserpg.already_equipped_skill", martialArt.getName()).formatted(Formatting.DARK_RED, Formatting.BOLD), true);
@@ -75,6 +75,8 @@ public class BooksItem extends ChineseRPGItem {
         }
         return new TypedActionResult<>(ActionResult.PASS, stack);
     }
+
+
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
