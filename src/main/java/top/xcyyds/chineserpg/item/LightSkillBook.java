@@ -49,6 +49,6 @@ public class LightSkillBook extends BooksItem {
 
     // 用物品的实例注册
     public static void registryItem() {
-        Registry.register(Registries.ITEM, "chineserpg:jianghu_light_skill", BooksItem.LIGHT_SKILL_BOOK);
+        Registry.register(Registries.ITEM, "chineserpg:light_skill_book", BooksItem.LIGHT_SKILL_BOOK);
     }
 }
