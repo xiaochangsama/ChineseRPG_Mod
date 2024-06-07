@@ -5,27 +5,27 @@ import net.minecraft.nbt.NbtCompound;
 
 public class MartialArtEntry {
     @SerializedName("name")
-    private String name;
+    private String name = "";
     @SerializedName("level")
-    private int level;
+    private int level = 1;
     @SerializedName("jumpType")
-    private String jumpType;
+    private String jumpType = "";
     @SerializedName("jumpCount")
-    private int jumpCount;
+    private int jumpCount = 0;
     @SerializedName("innerPowerConsumption")
-    private float innerPowerConsumption;
+    private float innerPowerConsumption= 0;
     @SerializedName("velocityYIncrease")
-    private double velocityYIncrease; // 跳跃的力度
+    private double velocityYIncrease = 0; // 跳跃的力度
     @SerializedName("particleCount")
-    private int particleCount; // 跳跃产生的气团数量
+    private int particleCount = 0; // 跳跃产生的气团数量
     @SerializedName("damageReductionHeight")
-    private float damageReductionHeight;
+    private float damageReductionHeight = 0;
     @SerializedName("damageReductionPercentage")
-    private float damageReductionPercentage;
+    private float damageReductionPercentage = 0;
     @SerializedName("dodgeRate")
-    private float dodgeRate;
+    private float dodgeRate = 0;
     @SerializedName("directionalVelocity")
-    private double directionalVelocity; // 朝向加速度
+    private double directionalVelocity = 0; // 朝向加速度
 
     // 构造函数
     public MartialArtEntry(String name, int level, String jumpType, int jumpCount, float innerPowerConsumption, double velocityYIncrease, int particleCount, float damageReductionHeight, float damageReductionPercentage, float dodgeRate, double directionalVelocity) {
