@@ -12,6 +12,7 @@ import top.xcyyds.chineserpg.itemgroup.ChineseRPGItemGroup;
 import top.xcyyds.chineserpg.network.JumpKeySyncHandler;
 import top.xcyyds.chineserpg.network.MouseKeySyncHandler;
 import top.xcyyds.chineserpg.registry.MartialArtRegistry;
+import top.xcyyds.chineserpg.trade.TradeRegistry;
 
 public class ChineseRPG implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger("chineserpg");
@@ -44,7 +45,7 @@ public class ChineseRPG implements ModInitializer {
 		JumpKeySyncHandler.register();
 		MouseKeySyncHandler.register();
 
-
+		TradeRegistry.registerTrades();
 
 		LOGGER.info("Hello Fabric world! I'm ChineseRPG!");
 	}
