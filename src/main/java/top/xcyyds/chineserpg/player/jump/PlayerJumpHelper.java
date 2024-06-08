@@ -2,8 +2,11 @@ package top.xcyyds.chineserpg.player.jump;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import top.xcyyds.chineserpg.martialart.MartialArt;
+import top.xcyyds.chineserpg.martialart.MartialArtEntry;
 import top.xcyyds.chineserpg.player.data.PlayerData;
 
 public class PlayerJumpHelper {
@@ -34,6 +37,10 @@ public class PlayerJumpHelper {
         return false;
     }
 
+    public static boolean isPlayerInWater(PlayerEntity player){
+        return player.isTouchingWater();
+    }
+
     static Vec3d getPlayerHorizontalDirection(PlayerEntity player) {
         //计算玩家面朝的水平方向向量
         float yaw = player.getYaw() * 0.017453292F; //将角度转换为弧度
@@ -61,6 +68,20 @@ public class PlayerJumpHelper {
             double xOffset = radius * Math.cos(angle);
             double zOffset = radius * Math.sin(angle);
             world.addParticle(ParticleTypes.CLOUD, pos.x + xOffset, pos.y, pos.z + zOffset, 0, 0, 0);
+        }
+    }
+
+    public static void updateJumpCount(ServerPlayerEntity player, PlayerData playerData) {
+        if (player.isOnGround()) {
+            MartialArt equippedMartialArt = playerData.getEquippedMartialArt();
+            if (equippedMartialArt != null) {
+                for (MartialArtEntry entry : equippedMartialArt.getEntries()) {
+                    if (PlayerJumpHandler.MULTI_JUMP.equals(entry.getJumpType()) || PlayerJumpHandler.WATER_SKIMMING.equals(entry.getJumpType())) {
+                        playerData.setJumpCount(entry.getJumpCount());
+                        break;
+                    }
+                }
+            }
         }
     }
 }
