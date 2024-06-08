@@ -8,9 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * 注意，在entries中，同一种跳跃类型只能出现一次，所以要在构造方法中添加检查，如果重复采取一定措施
- */
 public class MartialArt {
     private UUID uuid;
     private String name;
@@ -21,7 +18,7 @@ public class MartialArt {
     private String author;
     private List<MartialArtEntry> entries;
 
-    public MartialArt(String name, String type, int level, float completeness, List<String> description, String author,UUID  uuid) {
+    public MartialArt(String name, String type, int level, float completeness, List<String> description, String author, UUID uuid) {
         this.uuid = uuid;
         this.name = name;
         this.type = type;
@@ -31,17 +28,10 @@ public class MartialArt {
         this.author = author != null ? author : "江湖人士";
         this.entries = new ArrayList<>();
     }
-    public MartialArt(String name, String type, int level, float completeness, List<String> description, String author) {
-        this.uuid = UUID.randomUUID();
-        this.name = name;
-        this.type = type;
-        this.level = level;
-        this.completeness = completeness;
-        this.description = description;
-        this.author = author != null ? author : "江湖人士";
-        this.entries = new ArrayList<>();
-    }
 
+    public MartialArt(String name, String type, int level, float completeness, List<String> description, String author) {
+        this(name, type, level, completeness, description, author, UUID.randomUUID());
+    }
 
     public UUID getUuid() {
         return uuid;
@@ -51,61 +41,6 @@ public class MartialArt {
         this.uuid = uuid;
     }
 
-    public void addEntry(MartialArtEntry entry) {
-        this.entries.add(entry);
-    }
-
-    public void writeToNbt(NbtCompound nbt) {
-        nbt.putUuid("UUID", uuid);
-        nbt.putString("Name", name);
-        nbt.putString("Type", type);
-        nbt.putInt("Level", level);
-        nbt.putFloat("Completeness", completeness);
-
-        NbtList descriptionNbt = new NbtList();
-        for (String line : description) {
-            descriptionNbt.add(NbtString.of(line));
-        }
-        nbt.put("Description", descriptionNbt);
-
-        nbt.putString("Author", author);
-
-        NbtList entriesNbt = new NbtList();
-        for (MartialArtEntry entry : entries) {
-            NbtCompound entryNbt = new NbtCompound();
-            entry.writeToNbt(entryNbt);
-            entriesNbt.add(entryNbt);
-        }
-        nbt.put("Entries", entriesNbt);
-    }
-
-    public static MartialArt readFromNbt(NbtCompound nbt) {
-        UUID uuid = nbt.getUuid("UUID");
-        String name = nbt.getString("Name");
-        String type = nbt.getString("Type");
-        int level = nbt.getInt("Level");
-        float completeness = nbt.getFloat("Completeness");
-
-        NbtList descriptionNbt = nbt.getList("Description", 8);
-        List<String> description = new ArrayList<>();
-        for (int i = 0; i < descriptionNbt.size(); i++) {
-            description.add(descriptionNbt.getString(i));
-        }
-
-        String author = nbt.getString("Author");
-
-        MartialArt martialArt = new MartialArt(name, type, level, completeness, description, author);
-        martialArt.setUuid(uuid);
-
-        NbtList entriesNbt = nbt.getList("Entries", 10);
-        for (int i = 0; i < entriesNbt.size(); i++) {
-            NbtCompound entryNbt = entriesNbt.getCompound(i);
-            martialArt.addEntry(MartialArtEntry.readFromNbt(entryNbt));
-        }
-        return martialArt;
-    }
-
-    // Getters and Setters
     public String getName() {
         return name;
     }
@@ -160,5 +95,68 @@ public class MartialArt {
 
     public void setEntries(List<MartialArtEntry> entries) {
         this.entries = entries;
+    }
+
+    public void addEntry(MartialArtEntry entry) {
+        this.entries.add(entry);
+    }
+
+    public void writeToNbt(NbtCompound nbt) {
+        nbt.putUuid("UUID", uuid);
+        nbt.putString("Name", name);
+        nbt.putString("Type", type);
+        nbt.putInt("Level", level);
+        nbt.putFloat("Completeness", completeness);
+
+        NbtList descriptionNbt = new NbtList();
+        for (String line : description) {
+            descriptionNbt.add(NbtString.of(line));
+        }
+        nbt.put("Description", descriptionNbt);
+
+        nbt.putString("Author", author);
+
+        NbtList entriesNbt = new NbtList();
+        for (MartialArtEntry entry : entries) {
+            NbtCompound entryNbt = new NbtCompound();
+            entry.writeToNbt(entryNbt);
+            entriesNbt.add(entryNbt);
+        }
+        nbt.put("Entries", entriesNbt);
+    }
+
+    public static MartialArt readFromNbt(NbtCompound nbt) {
+        UUID uuid = nbt.getUuid("UUID");
+        String name = nbt.getString("Name");
+        String type = nbt.getString("Type");
+        int level = nbt.getInt("Level");
+        float completeness = nbt.getFloat("Completeness");
+
+        NbtList descriptionNbt = nbt.getList("Description", 8);
+        List<String> description = new ArrayList<>();
+        for (int i = 0; i < descriptionNbt.size(); i++) {
+            description.add(descriptionNbt.getString(i));
+        }
+
+        String author = nbt.getString("Author");
+
+        MartialArt martialArt;
+        if (type.equals("轻功")) {
+            martialArt = new LightSkill(name, level, completeness, description, author, uuid);
+        } else if (type.equals("内功")) {
+            martialArt = new InnerSkill(name, level, completeness, description, author, uuid);
+        } else if (type.equals("外功")) {
+            martialArt = new OuterSkill(name, level, completeness, description, author, uuid);
+        } else {
+            throw new IllegalArgumentException("Unknown martial art type: " + type);
+        }
+
+        NbtList entriesNbt = nbt.getList("Entries", 10);
+        for (int i = 0; i < entriesNbt.size(); i++) {
+            NbtCompound entryNbt = entriesNbt.getCompound(i);
+            martialArt.addEntry(MartialArtEntry.readFromNbt(entryNbt));
+        }
+
+        return martialArt;
     }
 }

@@ -3,126 +3,47 @@ package top.xcyyds.chineserpg.martialart;
 import com.google.gson.annotations.SerializedName;
 import net.minecraft.nbt.NbtCompound;
 
-public class MartialArtEntry {
+public abstract class MartialArtEntry {
     @SerializedName("name")
     private String name = "";
     @SerializedName("level")
     private int level = 1;
-    /**
-     * 【注意】很神奇的是，跑步加速，也被算作跳跃类型
-     */
-    @SerializedName("jumpType")
-    private String jumpType = "";
-    @SerializedName("jumpCount")
-    private int jumpCount = 0;
-    @SerializedName("innerPowerConsumption")
-    private float innerPowerConsumption= 0;
-    @SerializedName("velocityYIncrease")
-    private double velocityYIncrease = 0; // 跳跃的力度
-    @SerializedName("particleCount")
-    private int particleCount = 0; // 跳跃产生的气团数量
-    @SerializedName("damageReductionHeight")
-    private float damageReductionHeight = 0;
-    @SerializedName("damageReductionPercentage")
-    private float damageReductionPercentage = 0;
 
-    public float getDodgeRate() {
-        return dodgeRate;
-    }
-
-    public void setDodgeRate(float dodgeRate) {
-        this.dodgeRate = dodgeRate;
-    }
-
-    @SerializedName("dodgeRate")
-    private float dodgeRate = 0;
-    @SerializedName("directionalVelocity")
-    private double directionalVelocity = 0; // 朝向加速度，玩家加速度
-
-    // 构造函数
-    public MartialArtEntry(String name, int level, String jumpType, int jumpCount, float innerPowerConsumption, double velocityYIncrease, int particleCount, float damageReductionHeight, float damageReductionPercentage, float dodgeRate, double directionalVelocity) {
+    public MartialArtEntry(String name, int level) {
         this.name = name;
         this.level = level;
-        this.jumpType = jumpType;
-        this.jumpCount = jumpCount;
-        this.innerPowerConsumption = innerPowerConsumption;
-        this.velocityYIncrease = velocityYIncrease;
-        this.particleCount = particleCount;
-        this.damageReductionHeight = damageReductionHeight;
-        this.damageReductionPercentage = damageReductionPercentage;
-        this.dodgeRate = dodgeRate;
-        this.directionalVelocity = directionalVelocity;
     }
 
-    // Getters and Setters
-
-    public String getJumpType() {
-        return jumpType;
+    public String getName() {
+        return name;
     }
 
-    public int getJumpCount() {
-        return jumpCount;
+    public int getLevel() {
+        return level;
     }
 
-    public float getInnerPowerConsumption() {
-        return innerPowerConsumption;
-    }
-
-    public double getVelocityYIncrease() {
-        return velocityYIncrease;
-    }
-
-    public int getParticleCount() {
-        return particleCount;
-    }
-
-    public double getDirectionalVelocity() {
-        return directionalVelocity;
-    }
-
-    public void setDirectionalVelocity(double directionalVelocity) {
-        this.directionalVelocity = directionalVelocity;
-    }
-
-    // 序列化和反序列化方法
-
-    public void writeToNbt(NbtCompound nbt) {
-        nbt.putString("Name", name);
-        nbt.putInt("Level", level);
-        nbt.putString("JumpType", jumpType);
-        nbt.putInt("JumpCount", jumpCount);
-        nbt.putFloat("InnerPowerConsumption", innerPowerConsumption);
-        nbt.putDouble("VelocityYIncrease", velocityYIncrease);
-        nbt.putInt("ParticleCount", particleCount);
-        nbt.putFloat("DamageReductionHeight", damageReductionHeight);
-        nbt.putFloat("DamageReductionPercentage", damageReductionPercentage);
-        nbt.putFloat("DodgeRate", dodgeRate);
-        nbt.putDouble("DirectionalVelocity", directionalVelocity);
-    }
+    public abstract void writeToNbt(NbtCompound nbt);
 
     public static MartialArtEntry readFromNbt(NbtCompound nbt) {
         String name = nbt.getString("Name");
         int level = nbt.getInt("Level");
-        String jumpType = nbt.getString("JumpType");
-        int jumpCount = nbt.getInt("JumpCount");
-        float innerPowerConsumption = nbt.getFloat("InnerPowerConsumption");
-        double velocityIncrease = nbt.getDouble("VelocityYIncrease");
-        int particleCount = nbt.getInt("ParticleCount");
-        float damageReductionHeight = nbt.getFloat("DamageReductionHeight");
-        float damageReductionPercentage = nbt.getFloat("DamageReductionPercentage");
-        float dodgeRate = nbt.getFloat("DodgeRate");
-        double directionalVelocity = nbt.getDouble("DirectionalVelocity");
 
-        return new MartialArtEntry(name, level, jumpType, jumpCount, innerPowerConsumption, velocityIncrease, particleCount, damageReductionHeight, damageReductionPercentage, dodgeRate, directionalVelocity);
+        String type = nbt.getString("Type");
+        switch (type) {
+            case "LightSkillEntry":
+                return new LightSkillEntry(name, level,
+                        nbt.getString("JumpType"),
+                        nbt.getInt("JumpCount"),
+                        nbt.getFloat("InnerPowerConsumption"),
+                        nbt.getDouble("VelocityYIncrease"),
+                        nbt.getInt("ParticleCount"),
+                        nbt.getFloat("DamageReductionHeight"),
+                        nbt.getFloat("DamageReductionPercentage"),
+                        nbt.getFloat("DodgeRate"),
+                        nbt.getDouble("DirectionalVelocity"));
+            // 其他类型的处理
+            default:
+                throw new IllegalArgumentException("Unknown martial art entry type: " + type);
+        }
     }
-
-    public float getDamageReductionHeight() {
-        return damageReductionHeight;
-    }
-
-    public float getDamageReductionPercentage() {
-        return damageReductionPercentage;
-    }
-
-
 }

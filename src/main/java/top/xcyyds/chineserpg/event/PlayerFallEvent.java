@@ -1,5 +1,6 @@
 package top.xcyyds.chineserpg.event;
 
+import top.xcyyds.chineserpg.martialart.LightSkillEntry;
 import top.xcyyds.chineserpg.martialart.MartialArt;
 import top.xcyyds.chineserpg.martialart.MartialArtEntry;
 import top.xcyyds.chineserpg.player.data.IPlayerDataProvider;
@@ -17,18 +18,12 @@ public class PlayerFallEvent {
             UUID equippedSkill = playerData.getEquippedSkill();
             MartialArt martialArt = MartialArtRegistry.getMartialArt(equippedSkill);
             if (martialArt != null) {
-//                //取首个词条的这些数据
-//                for (MartialArtEntry entry : martialArt.getEntries()) {
-//                    reductionHeight = entry.getDamageReductionHeight();
-//                    reductionPercentage = entry.getDamageReductionPercentage();
-//                    break;
-//                }
-                //叠加所有词条
                 for (MartialArtEntry entry : martialArt.getEntries()) {
-                    reductionHeight += entry.getDamageReductionHeight();
-                    reductionPercentage += entry.getDamageReductionPercentage();
+                    if (entry instanceof LightSkillEntry lightSkillEntry) {
+                        reductionHeight += lightSkillEntry.getDamageReductionHeight();
+                        reductionPercentage += lightSkillEntry.getDamageReductionPercentage();
+                    }
                 }
-
             }
 
             // 应用高度减免
