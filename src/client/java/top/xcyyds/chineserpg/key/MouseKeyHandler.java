@@ -22,14 +22,17 @@ public class MouseKeyHandler {
                 }
 
                 if (button == GLFW.GLFW_MOUSE_BUTTON_LEFT) {
+                    boolean previousLeftPressed = isLeftPressed;
                     isLeftPressed = action == GLFW.GLFW_PRESS;
-                }
-                else if (button == GLFW.GLFW_MOUSE_BUTTON_RIGHT) {
+                    if (isLeftPressed != previousLeftPressed) {
+                        ClientMouseKeySyncHandler.sendLeftMouseKeyStatus(isLeftPressed);
+                    }
+                } else if (button == GLFW.GLFW_MOUSE_BUTTON_RIGHT) {
+                    boolean previousRightPressed = isRightPressed;
                     isRightPressed = action == GLFW.GLFW_PRESS;
-                }
-
-                if (MinecraftClient.getInstance().player != null && MinecraftClient.getInstance().getNetworkHandler() != null) {
-                    ClientMouseKeySyncHandler.sendMouseKeyStatus(isLeftPressed, isRightPressed);
+                    if (isRightPressed != previousRightPressed) {
+                        ClientMouseKeySyncHandler.sendRightMouseKeyStatus(isRightPressed);
+                    }
                 }
             });
         });

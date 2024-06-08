@@ -9,12 +9,12 @@ import top.xcyyds.chineserpg.ChineseRPG;
  */
 public class MouseKeySyncHandler {
 
-    public static final Identifier MOUSE_KEY_SYNC = new Identifier(ChineseRPG.MOD_ID, "mouse_key_sync");
+    public static final Identifier LEFT_MOUSE_KEY_SYNC = new Identifier(ChineseRPG.MOD_ID, "left_mouse_key_sync");
+    public static final Identifier RIGHT_MOUSE_KEY_SYNC = new Identifier(ChineseRPG.MOD_ID, "right_mouse_key_sync");
 
     public static void register() {
-        ServerPlayNetworking.registerGlobalReceiver(MOUSE_KEY_SYNC, (server, player, handler, buf, responseSender) -> {
+        ServerPlayNetworking.registerGlobalReceiver(LEFT_MOUSE_KEY_SYNC, (server, player, handler, buf, responseSender) -> {
             boolean leftPressed = buf.readBoolean();
-            boolean rightPressed = buf.readBoolean();
 
             server.execute(() -> {
                 if (player != null) {
@@ -22,11 +22,26 @@ public class MouseKeySyncHandler {
                     if (leftPressed) {
                         // 你的逻辑
                         player.sendMessage(net.minecraft.text.Text.literal("左键按下"), false);
+                    } else {
+                        // 你的逻辑
+                        player.sendMessage(net.minecraft.text.Text.literal("左键释放"), false);
                     }
+                }
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(RIGHT_MOUSE_KEY_SYNC, (server, player, handler, buf, responseSender) -> {
+            boolean rightPressed = buf.readBoolean();
+
+            server.execute(() -> {
+                if (player != null) {
                     // 处理右键按下
                     if (rightPressed) {
                         // 你的逻辑
                         player.sendMessage(net.minecraft.text.Text.literal("右键按下"), false);
+                    } else {
+                        // 你的逻辑
+                        player.sendMessage(net.minecraft.text.Text.literal("右键释放"), false);
                     }
                 }
             });
