@@ -10,6 +10,7 @@ import top.xcyyds.chineserpg.event.*;
 import top.xcyyds.chineserpg.item.BooksItem;
 import top.xcyyds.chineserpg.itemgroup.ChineseRPGItemGroup;
 import top.xcyyds.chineserpg.network.JumpKeySyncHandler;
+import top.xcyyds.chineserpg.network.MouseKeySyncHandler;
 import top.xcyyds.chineserpg.registry.MartialArtRegistry;
 
 public class ChineseRPG implements ModInitializer {
@@ -41,6 +42,7 @@ public class ChineseRPG implements ModInitializer {
 
 		// 注册服务器接收同步数据包
 		JumpKeySyncHandler.register();
+		MouseKeySyncHandler.register();
 
 
 
