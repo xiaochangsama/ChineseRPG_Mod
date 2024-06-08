@@ -1,4 +1,4 @@
-package top.xcyyds.chineserpg.martialart;
+package top.xcyyds.chineserpg.martialart.artentry;
 
 import com.google.gson.annotations.SerializedName;
 import net.minecraft.nbt.NbtCompound;

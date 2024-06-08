@@ -2,6 +2,9 @@ package top.xcyyds.chineserpg.martialart;
 
 import com.google.gson.*;
 import net.fabricmc.loader.api.FabricLoader;
+import top.xcyyds.chineserpg.martialart.artentry.LightSkillEntry;
+import top.xcyyds.chineserpg.martialart.artentry.MartialArtEntry;
+import top.xcyyds.chineserpg.martialart.skill.MartialArt;
 
 import java.io.BufferedReader;
 import java.io.IOException;

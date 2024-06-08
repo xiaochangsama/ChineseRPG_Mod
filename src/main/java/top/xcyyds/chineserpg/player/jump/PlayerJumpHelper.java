@@ -5,9 +5,9 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import top.xcyyds.chineserpg.martialart.LightSkillEntry;
-import top.xcyyds.chineserpg.martialart.MartialArt;
-import top.xcyyds.chineserpg.martialart.MartialArtEntry;
+import top.xcyyds.chineserpg.martialart.artentry.LightSkillEntry;
+import top.xcyyds.chineserpg.martialart.artentry.MartialArtEntry;
+import top.xcyyds.chineserpg.martialart.skill.MartialArt;
 import top.xcyyds.chineserpg.player.data.PlayerData;
 
 public class PlayerJumpHelper {

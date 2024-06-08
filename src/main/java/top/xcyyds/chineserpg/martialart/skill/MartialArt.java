@@ -1,8 +1,9 @@
-package top.xcyyds.chineserpg.martialart;
+package top.xcyyds.chineserpg.martialart.skill;
 
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
+import top.xcyyds.chineserpg.martialart.artentry.MartialArtEntry;
 
 import java.util.ArrayList;
 import java.util.List;

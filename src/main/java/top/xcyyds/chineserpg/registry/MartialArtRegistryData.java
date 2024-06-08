@@ -3,7 +3,7 @@ package top.xcyyds.chineserpg.registry;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.PersistentState;
-import top.xcyyds.chineserpg.martialart.MartialArt;
+import top.xcyyds.chineserpg.martialart.skill.MartialArt;
 
 import java.util.Collection;
 import java.util.HashMap;

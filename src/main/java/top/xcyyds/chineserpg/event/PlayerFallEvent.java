@@ -1,8 +1,8 @@
 package top.xcyyds.chineserpg.event;
 
-import top.xcyyds.chineserpg.martialart.LightSkillEntry;
-import top.xcyyds.chineserpg.martialart.MartialArt;
-import top.xcyyds.chineserpg.martialart.MartialArtEntry;
+import top.xcyyds.chineserpg.martialart.artentry.LightSkillEntry;
+import top.xcyyds.chineserpg.martialart.artentry.MartialArtEntry;
+import top.xcyyds.chineserpg.martialart.skill.MartialArt;
 import top.xcyyds.chineserpg.player.data.IPlayerDataProvider;
 import top.xcyyds.chineserpg.player.data.PlayerData;
 import top.xcyyds.chineserpg.registry.MartialArtRegistry;

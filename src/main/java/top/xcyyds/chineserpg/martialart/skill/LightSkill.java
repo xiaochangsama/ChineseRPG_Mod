@@ -1,4 +1,4 @@
-package top.xcyyds.chineserpg.martialart;
+package top.xcyyds.chineserpg.martialart.skill;
 
 import java.util.List;
 import java.util.UUID;

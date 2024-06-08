@@ -8,9 +8,9 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import top.xcyyds.chineserpg.martialart.LightSkillEntry;
-import top.xcyyds.chineserpg.martialart.MartialArt;
-import top.xcyyds.chineserpg.martialart.MartialArtEntry;
+import top.xcyyds.chineserpg.martialart.artentry.LightSkillEntry;
+import top.xcyyds.chineserpg.martialart.artentry.MartialArtEntry;
+import top.xcyyds.chineserpg.martialart.skill.MartialArt;
 import top.xcyyds.chineserpg.network.ParticleSyncHandler;
 import top.xcyyds.chineserpg.player.data.PlayerData;
 
