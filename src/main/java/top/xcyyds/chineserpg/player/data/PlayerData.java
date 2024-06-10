@@ -187,4 +187,10 @@ public class PlayerData {
     public void setVelocityDirty() {
         this.velocityDirty = true;
     }
+
+    public void resetJumpCount() {
+        this.jumpCount = 0;
+    }
+
 }
+

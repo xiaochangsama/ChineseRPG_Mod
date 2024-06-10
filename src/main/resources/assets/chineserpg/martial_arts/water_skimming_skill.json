@@ -18,12 +18,12 @@
       "jumpType": "水上漂",
       "jumpCount": 8,
       "innerPowerConsumption": 15.0,
-      "velocityYIncrease": 0.5,
+      "velocityYIncrease": 0.4,
       "particleCount": 10,
       "damageReductionHeight": 0.0,
       "damageReductionPercentage": 0.0,
       "dodgeRate": 5.0,
-      "directionalVelocity": 0.3
+      "directionalVelocity": 0.35
     }
   ]
 }
