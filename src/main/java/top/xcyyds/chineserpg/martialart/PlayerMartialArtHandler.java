@@ -25,6 +25,7 @@ public class PlayerMartialArtHandler {
     public static boolean equipMartialArt(PlayerData playerData, MartialArt martialArt, PlayerEntity user) {
         if (!martialArt.getUuid().equals(playerData.getEquippedSkill())) {
             playerData.equipSkill(martialArt.getUuid()); // 在这里装备了武功
+            playerData.resetJumpCount(); // 重置跳跃计数
             // 根据装备的武功处理玩家速度
             if (user instanceof ServerPlayerEntity) {
                 PlayerSpeedHelper.resetSpeed((ServerPlayerEntity) user);
