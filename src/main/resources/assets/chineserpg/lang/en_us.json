@@ -25,5 +25,7 @@
   "message.chineserpg.equipped_skill": "You have equipped %s!",
   "message.chineserpg.already_equipped_skill": "You have already equipped %s!",
   "message.chineserpg.insufficient_inner_power":"InnerPower insufficient!",
-  "message.chineserpg.dodge_success": "You successfully dodged the attack!"
+  "message.chineserpg.dodge_success": "You successfully dodged the attack!",
+  "key.chineserpg.function": "Function Key",
+  "key.categories.chineserpg": "[ChineseRPG] Keys"
 }
