@@ -1,5 +1,6 @@
 package top.xcyyds.chineserpg.martialart;
 
+import top.xcyyds.chineserpg.martialart.skill.MartialArt;
 import top.xcyyds.chineserpg.registry.MartialArtRegistry;
 
 import java.util.List;

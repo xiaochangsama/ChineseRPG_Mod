@@ -8,8 +8,8 @@ import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
-import top.xcyyds.chineserpg.martialart.MartialArt;
 import top.xcyyds.chineserpg.martialart.MartialArts;
+import top.xcyyds.chineserpg.martialart.skill.MartialArt;
 
 public class LightSkillBook extends BooksItem {
 

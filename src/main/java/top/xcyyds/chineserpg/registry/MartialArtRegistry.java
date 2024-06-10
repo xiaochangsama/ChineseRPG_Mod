@@ -1,8 +1,8 @@
 package top.xcyyds.chineserpg.registry;
 
 import net.minecraft.server.world.ServerWorld;
-import top.xcyyds.chineserpg.martialart.MartialArt;
 import top.xcyyds.chineserpg.martialart.MartialArts;
+import top.xcyyds.chineserpg.martialart.skill.MartialArt;
 
 import java.util.Collection;
 import java.util.Random;

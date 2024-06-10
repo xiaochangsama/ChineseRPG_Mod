@@ -22,7 +22,9 @@ public class ClientPlayerDataSyncHandler {
             client.execute(() -> {
                 // 此 lambda 中的所有内容都在渲染线程上运行
                 if (client.player instanceof IPlayerDataProvider) {
-                    ((IPlayerDataProvider) client.player).getPlayerData().readFromNbt(data);
+                    if (data != null) {
+                        ((IPlayerDataProvider) client.player).getPlayerData().readFromNbt(data);
+                    }
                     client.player.readCustomDataFromNbt(data);
                 }
             });

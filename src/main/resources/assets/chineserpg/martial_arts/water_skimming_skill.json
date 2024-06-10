@@ -1,0 +1,29 @@
+{
+  "name": "轻功水上漂",
+  "type": "轻功",
+  "level": 1,
+  "completeness": 100.0,
+  "description": [
+    "这是一门神奇的轻功，能够使人在水面上轻松跳跃。",
+    "练成此功后，习之者可在水面上如履平地。",
+    "轻功之妙，妙在一个“漂”字。",
+    "——此功由高手所创，威力无穷。"
+  ],
+  "author": "高手",
+  "uuid": "F86518E9-F3F2-AE2A-213B-7EC8546AE9F8",
+  "entries": [
+    {
+      "name": "水上漂跃",
+      "level": 1,
+      "jumpType": "水上漂",
+      "jumpCount": 8,
+      "innerPowerConsumption": 15.0,
+      "velocityYIncrease": 0.5,
+      "particleCount": 10,
+      "damageReductionHeight": 0.0,
+      "damageReductionPercentage": 0.0,
+      "dodgeRate": 5.0,
+      "directionalVelocity": 0.3
+    }
+  ]
+}
