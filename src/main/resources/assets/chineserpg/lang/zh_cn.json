@@ -25,5 +25,7 @@
   "tooltip.chineserpg.tattered_pages": "§8破烂残页",
   "tooltip.chineserpg.third_rate_skill": "§a三流武功",
   "tooltip.chineserpg.top_skill": "§5顶尖武功",
-  "tooltip.chineserpg.unknown_level": "§6未知等级"
+  "tooltip.chineserpg.unknown_level": "§6未知等级",
+  "key.chineserpg.function": "功能键-释放/选择武功",
+  "key.categories.chineserpg": "[ChineseRPG] 键位设置"
 }

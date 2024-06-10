@@ -5,6 +5,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 import top.xcyyds.chineserpg.network.ClientJumpKeySyncHandler;
+import top.xcyyds.chineserpg.network.JumpKeySyncHandler;
 
 //每一tick检测，只会在空中点按空格的时候发包
 public class JumpKey {
@@ -23,14 +24,14 @@ public class JumpKey {
                 if (MinecraftClient.getInstance().player != null && MinecraftClient.getInstance().getNetworkHandler() != null) {
                     //发包
                     ClientJumpKeySyncHandler.sendJumpKeyStatus(false);
-
+                    JumpKeySyncHandler.wasPressed = true;
                 }
             } else {
                 if(isPressed && !wasPressed){
                     if (MinecraftClient.getInstance().player != null && MinecraftClient.getInstance().getNetworkHandler() != null) {
                     //发包
                     ClientJumpKeySyncHandler.sendJumpKeyStatus(true);
-
+                    JumpKeySyncHandler.wasPressedOnGround = true;
                 }
                 }
 
