@@ -9,10 +9,12 @@ import top.xcyyds.chineserpg.entity.ReplacedPlayerEntity;
 import top.xcyyds.chineserpg.model.ReplacedPlayerModel;
 
 public class ReplacedPlayerRenderer extends GeoReplacedEntityRenderer<PlayerEntity, ReplacedPlayerEntity> {
+    // 构造函数，初始化渲染器
     public ReplacedPlayerRenderer(EntityRendererFactory.Context renderManager) {
-        super(renderManager, new ReplacedPlayerModel(), new ReplacedPlayerEntity(null)); // 用null简化构造
+        super(renderManager, new ReplacedPlayerModel(), new ReplacedPlayerEntity(null));
     }
 
+    // 渲染方法，将原始的 PlayerEntity 替换为 ReplacedPlayerEntity 进行渲染
     @Override
     public void render(PlayerEntity entity, float entityYaw, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn) {
         ReplacedPlayerEntity replacedEntity = new ReplacedPlayerEntity(entity);
