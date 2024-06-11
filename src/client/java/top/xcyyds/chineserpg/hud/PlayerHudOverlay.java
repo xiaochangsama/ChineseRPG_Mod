@@ -15,7 +15,7 @@ public class PlayerHudOverlay implements HudRenderCallback {
     @Override
     public void onHudRender(DrawContext drawContext, float tickDelta) {
         MinecraftClient client = MinecraftClient.getInstance();
-        if (client.player != null && client.player instanceof IPlayerDataProvider) {
+        if (client.player instanceof IPlayerDataProvider) {
             PlayerData playerData = ((IPlayerDataProvider) client.player).getPlayerData();
             renderInnerPowerBar(drawContext, playerData);
             renderMartialArtName(drawContext, playerData);
