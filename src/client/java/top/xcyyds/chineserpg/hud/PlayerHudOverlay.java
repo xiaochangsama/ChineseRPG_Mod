@@ -4,111 +4,80 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.util.Identifier;
 import top.xcyyds.chineserpg.player.data.IPlayerDataProvider;
 import top.xcyyds.chineserpg.player.data.PlayerData;
 
 public class PlayerHudOverlay implements HudRenderCallback {
 
-    private static final Identifier ICON_TEXTURE = new Identifier("chineserpg", "textures/gui/icons.png");
-    private static final int INNER_POWER_BAR_X = 10;
-    private static final int INNER_POWER_BAR_Y = 10;
-    private static final int INNER_POWER_BAR_WIDTH = 100;
-    private static final int INNER_POWER_BAR_HEIGHT = 10;
-    private static final int TEXT_COLOR = 0xFFFFFF;
-    private static final int BACKGROUND_COLOR = 0xFF555555;
-    private static final int FOREGROUND_START_COLOR = 0xFF00FF00;
-    private static final int FOREGROUND_END_COLOR = 0xFF0000FF; // 渐变色结束颜色
-    private static final int BORDER_COLOR = 0xFF000000;
-    private static final int BORDER_WIDTH = 1;
 
     @Override
     public void onHudRender(DrawContext drawContext, float tickDelta) {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.player instanceof IPlayerDataProvider) {
             PlayerData playerData = ((IPlayerDataProvider) client.player).getPlayerData();
-            renderInnerPowerBar(drawContext, client, playerData);
-            renderMartialArtName(drawContext, client, playerData);
+            renderInnerPowerBar(drawContext, playerData, 3, 1, 34); // 设置格子宽度为3，间隔为1，格子数量为34
+            renderMartialArtName(drawContext, playerData);
         }
     }
 
-    /**
-     * Renders the inner power bar on the HUD.
-     *
-     * @param drawContext The draw context.
-     * @param client      The Minecraft client instance.
-     * @param playerData  The player data.
-     */
-    private void renderInnerPowerBar(DrawContext drawContext, MinecraftClient client, PlayerData playerData) {
+    private void renderInnerPowerBar(DrawContext drawContext, PlayerData playerData, int segmentWidth, int segmentSpacing, int segmentCount) {
+        int x = 10;
+        int y = 10;
+        int width = segmentCount * (segmentWidth + segmentSpacing) - segmentSpacing;
+        int height = 10;
+
         int maxInnerPower = (int) playerData.getInnerPowerMax();
         int currentInnerPower = (int) playerData.getInnerPower();
 
-        // Draw background bar with border
-        drawContext.fill(INNER_POWER_BAR_X - BORDER_WIDTH, INNER_POWER_BAR_Y - BORDER_WIDTH,
-                INNER_POWER_BAR_X + INNER_POWER_BAR_WIDTH + BORDER_WIDTH, INNER_POWER_BAR_Y + INNER_POWER_BAR_HEIGHT + BORDER_WIDTH, BORDER_COLOR);
-        drawContext.fill(INNER_POWER_BAR_X, INNER_POWER_BAR_Y,
-                INNER_POWER_BAR_X + INNER_POWER_BAR_WIDTH, INNER_POWER_BAR_Y + INNER_POWER_BAR_HEIGHT, BACKGROUND_COLOR);
 
-        // Draw foreground bar with gradient
+        // 前景条和颜色渐变
         if (maxInnerPower > 0) {
-            int barWidth = (int) ((currentInnerPower / (float) maxInnerPower) * INNER_POWER_BAR_WIDTH);
-            drawGradientRect(drawContext, INNER_POWER_BAR_X, INNER_POWER_BAR_Y, INNER_POWER_BAR_X + barWidth, INNER_POWER_BAR_Y + INNER_POWER_BAR_HEIGHT,
-                    FOREGROUND_START_COLOR, FOREGROUND_END_COLOR);
+            int fullSegments = (currentInnerPower * segmentCount) / maxInnerPower;
+            for (int i = 0; i < fullSegments; i++) {
+                int color = interpolateColor(0xFF00FF00, 0xFF336633, i / (float) segmentCount);
+                drawContext.fill(x + i * (segmentWidth + segmentSpacing), y + 1, x + i * (segmentWidth + segmentSpacing) + segmentWidth, y + height - 1, color);
+            }
         }
 
-        // Render inner power text
-        String innerPowerText = "内力: " + currentInnerPower + "/" + maxInnerPower;
-        drawContext.drawTextWithShadow(client.textRenderer, innerPowerText, INNER_POWER_BAR_X, INNER_POWER_BAR_Y + INNER_POWER_BAR_HEIGHT + 2, TEXT_COLOR);
+        // 渲染内力值文本
+        String innerPowerText = currentInnerPower + "/" + maxInnerPower;
+        MinecraftClient client = MinecraftClient.getInstance();
+        drawContext.drawTextWithShadow(client.textRenderer, innerPowerText, x + width / 2 - client.textRenderer.getWidth(innerPowerText) / 2, y + 1, 0xFFFFFF);
     }
 
-    /**
-     * Draws a gradient rectangle.
-     *
-     * @param drawContext The draw context.
-     * @param left        The left position.
-     * @param top         The top position.
-     * @param right       The right position.
-     * @param bottom      The bottom position.
-     * @param startColor  The start color.
-     * @param endColor    The end color.
-     */
-    private void drawGradientRect(DrawContext drawContext, int left, int top, int right, int bottom, int startColor, int endColor) {
-        // Custom gradient drawing implementation can be added here
-        // This is a placeholder for the gradient drawing logic
-        drawContext.fill(left, top, right, bottom, startColor); // Placeholder, replace with gradient logic
+    private int interpolateColor(int startColor, int endColor, float ratio) {
+        int startA = (startColor >> 24) & 0xFF;
+        int startR = (startColor >> 16) & 0xFF;
+        int startG = (startColor >> 8) & 0xFF;
+        int startB = startColor & 0xFF;
+
+        int endA = (endColor >> 24) & 0xFF;
+        int endR = (endColor >> 16) & 0xFF;
+        int endG = (endColor >> 8) & 0xFF;
+        int endB = endColor & 0xFF;
+
+        int a = (int) (startA + ratio * (endA - startA));
+        int r = (int) (startR + ratio * (endR - startR));
+        int g = (int) (startG + ratio * (endG - startG));
+        int b = (int) (startB + ratio * (endB - startB));
+
+        return (a << 24) | (r << 16) | (g << 8) | b;
     }
 
-    /**
-     * Renders the name of the equipped martial art on the HUD.
-     *
-     * @param drawContext The draw context.
-     * @param client      The Minecraft client instance.
-     * @param playerData  The player data.
-     */
-    private void renderMartialArtName(DrawContext drawContext, MinecraftClient client, PlayerData playerData) {
+    private void renderMartialArtName(DrawContext drawContext, PlayerData playerData) {
         if (playerData.getEquippedMartialArt() != null) {
             String martialArtName = playerData.getEquippedMartialArt().getName();
-            int nameX = INNER_POWER_BAR_X;
-            int nameY = INNER_POWER_BAR_Y + INNER_POWER_BAR_HEIGHT + 20;
-
-            // Draw background box with border
-            drawContext.fill(nameX - BORDER_WIDTH, nameY - BORDER_WIDTH,
-                    nameX + client.textRenderer.getWidth(martialArtName) + BORDER_WIDTH, nameY + client.textRenderer.fontHeight + BORDER_WIDTH, BORDER_COLOR);
-            drawContext.fill(nameX, nameY,
-                    nameX + client.textRenderer.getWidth(martialArtName), nameY + client.textRenderer.fontHeight, BACKGROUND_COLOR);
-
-            // Render martial art name text
-            drawContext.drawTextWithShadow(client.textRenderer, martialArtName, nameX, nameY, TEXT_COLOR);
+            MinecraftClient client = MinecraftClient.getInstance();
+            int x = 10;
+            int y = 30; // 调整 y 位置以更好地间隔
+            drawContext.drawTextWithShadow(client.textRenderer, martialArtName, x, y, 0xFFFFFF);
         }
     }
 
-    /**
-     * Registers the HUD overlay and client tick events.
-     */
     public static void register() {
         HudRenderCallback.EVENT.register(new PlayerHudOverlay());
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            // Handle other client tick events here if needed
+            // 可以在这里处理其他客户端tick事件
         });
     }
 }
