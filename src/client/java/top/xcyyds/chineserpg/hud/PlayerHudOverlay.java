@@ -4,45 +4,38 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.util.Identifier;
 import top.xcyyds.chineserpg.player.data.IPlayerDataProvider;
 import top.xcyyds.chineserpg.player.data.PlayerData;
 
 public class PlayerHudOverlay implements HudRenderCallback {
 
-    private static final Identifier ICON_TEXTURE = new Identifier("chineserpg", "textures/gui/icons.png");
 
     @Override
     public void onHudRender(DrawContext drawContext, float tickDelta) {
         MinecraftClient client = MinecraftClient.getInstance();
-        if (client.player != null && client.player instanceof IPlayerDataProvider) {
+        if (client.player instanceof IPlayerDataProvider) {
             PlayerData playerData = ((IPlayerDataProvider) client.player).getPlayerData();
-            renderInnerPowerBar(drawContext, playerData);
+            renderInnerPowerBar(drawContext, playerData, 3, 1, 34); // 设置格子宽度为3，间隔为1，格子数量为34
             renderMartialArtName(drawContext, playerData);
         }
     }
 
-    private void renderInnerPowerBar(DrawContext drawContext, PlayerData playerData) {
+    private void renderInnerPowerBar(DrawContext drawContext, PlayerData playerData, int segmentWidth, int segmentSpacing, int segmentCount) {
         int x = 10;
         int y = 10;
-        int width = 101;
+        int width = segmentCount * (segmentWidth + segmentSpacing) - segmentSpacing;
         int height = 10;
-        int segmentCount = 34; // 将内力条分成34份
-        int segmentSpacing = 1; // 每个格子之间的间隔
-        int segmentWidth = (width - (segmentSpacing * (segmentCount - 1))) / segmentCount; // 每个格子的宽度
 
         int maxInnerPower = (int) playerData.getInnerPowerMax();
         int currentInnerPower = (int) playerData.getInnerPower();
 
-        // 背景条
-        drawContext.fill(x, y, x + width, y + height, 0xFF555555);
 
         // 前景条和颜色渐变
         if (maxInnerPower > 0) {
             int fullSegments = (currentInnerPower * segmentCount) / maxInnerPower;
             for (int i = 0; i < fullSegments; i++) {
-                int color = interpolateColor(0xFF00FF00, 0xFF003300, i / (float) segmentCount);
-                drawContext.fill(x + i * (segmentWidth + segmentSpacing), y, x + i * (segmentWidth + segmentSpacing) + segmentWidth, y + height, color);
+                int color = interpolateColor(0xFF00FF00, 0xFF336633, i / (float) segmentCount);
+                drawContext.fill(x + i * (segmentWidth + segmentSpacing), y + 1, x + i * (segmentWidth + segmentSpacing) + segmentWidth, y + height - 1, color);
             }
         }
 

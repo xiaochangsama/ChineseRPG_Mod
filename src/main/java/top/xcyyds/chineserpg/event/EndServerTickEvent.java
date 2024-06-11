@@ -3,12 +3,10 @@ package top.xcyyds.chineserpg.event;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
-import top.xcyyds.chineserpg.martialart.MartialArt;
-import top.xcyyds.chineserpg.martialart.MartialArtEntry;
 import top.xcyyds.chineserpg.network.PlayerDataSyncHandler;
 import top.xcyyds.chineserpg.player.data.IPlayerDataProvider;
 import top.xcyyds.chineserpg.player.data.PlayerData;
-import top.xcyyds.chineserpg.player.jump.PlayerJumpHandler;
+import top.xcyyds.chineserpg.player.jump.PlayerJumpHelper;
 
 
 public class EndServerTickEvent {
@@ -19,7 +17,7 @@ public class EndServerTickEvent {
 
                 PlayerData playerData = ((IPlayerDataProvider) player).getPlayerData();
                 // 调用updateJumpCount，玩家在地面上时更新跳跃次数
-                updateJumpCount(player, playerData);
+                PlayerJumpHelper.updateJumpCount(player, playerData);
                 // 调用内力恢复
                 playerData.tickRegenerateInnerPower();
 
@@ -31,17 +29,4 @@ public class EndServerTickEvent {
         });
     }
 
-    public static void updateJumpCount(ServerPlayerEntity player, PlayerData playerData) {
-        if (player.isOnGround()) {
-            MartialArt equippedMartialArt = playerData.getEquippedMartialArt();
-            if (equippedMartialArt != null) {
-                for (MartialArtEntry entry : equippedMartialArt.getEntries()) {
-                    if (PlayerJumpHandler.Multi_JUMP.equals(entry.getJumpType())) {
-                        playerData.setJumpCount(entry.getJumpCount());
-                        break;
-                    }
-                }
-            }
-        }
-    }
 }

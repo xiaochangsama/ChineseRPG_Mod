@@ -4,7 +4,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.util.math.Vec3d;
-import top.xcyyds.chineserpg.martialart.MartialArt;
+import top.xcyyds.chineserpg.martialart.skill.MartialArt;
 import top.xcyyds.chineserpg.registry.MartialArtRegistry;
 
 import java.util.ArrayList;
@@ -187,4 +187,10 @@ public class PlayerData {
     public void setVelocityDirty() {
         this.velocityDirty = true;
     }
+
+    public void resetJumpCount() {
+        this.jumpCount = 0;
+    }
+
 }
+

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "chineserpg:light_skill_book",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{display:{Name:'{\"text\":\"未知轻功\",\"color\":\"gold\",\"bold\":true}'}}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
