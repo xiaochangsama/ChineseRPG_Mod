@@ -25,6 +25,7 @@ public class ChineseRPGClient implements ClientModInitializer {
 		FunctionKeyHandler.registerFunctionKeyHandler();
 
 		HudRenderCallback.EVENT.register(new PlayerHudOverlay());
+
 		EntityRendererRegistry.register(EntityType.PLAYER, ReplacedPlayerRenderer::new);
 	}
 }
