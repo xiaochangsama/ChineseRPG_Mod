@@ -5,9 +5,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import software.bernie.geckolib.animatable.GeoReplacedEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.util.GeckoLibUtil;
+import top.xcyyds.chineserpg.animation.PlayerAnimationController;
 
-import java.util.UUID;
 
 public class ReplacedPlayerEntity implements GeoReplacedEntity {
     private final PlayerEntity player;
@@ -19,10 +20,6 @@ public class ReplacedPlayerEntity implements GeoReplacedEntity {
 
     public PlayerEntity getPlayer() {
         return player;
-    }
-
-    public UUID getPlayerUUID() {
-        return player.getUuid();
     }
 
     @Override
@@ -37,7 +34,7 @@ public class ReplacedPlayerEntity implements GeoReplacedEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        // 注册动画控制器
+        controllers.add(new AnimationController<>(this, "controller", 10, PlayerAnimationController::predicate));
     }
 
     @Override

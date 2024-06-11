@@ -18,6 +18,6 @@ public class ReplacedPlayerRenderer extends GeoReplacedEntityRenderer<PlayerEnti
     @Override
     public void render(PlayerEntity entity, float entityYaw, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn) {
         ReplacedPlayerEntity replacedEntity = new ReplacedPlayerEntity(entity);
-        super.render(entity, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+        super.render(replacedEntity.getPlayer(), entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
 }
