@@ -18,24 +18,25 @@ public class JumpKey {
 
             if (MinecraftClient.getInstance().player != null) {
                 boolean isOnGround = MinecraftClient.getInstance().player.isOnGround();
+                boolean isRiding = MinecraftClient.getInstance().player.hasVehicle(); // 检查玩家是否骑马
 
-
-            if (isPressed && !wasPressed && !isOnGround && !wasOnGround ) {
-                if (MinecraftClient.getInstance().player != null && MinecraftClient.getInstance().getNetworkHandler() != null) {
-                    //发包
-                    ClientJumpKeySyncHandler.sendJumpKeyStatus(false);
-                    JumpKeySyncHandler.wasPressed = true;
+                if (!isRiding) { // 如果玩家没有骑马
+                    if (isPressed && !wasPressed && !isOnGround && !wasOnGround) {
+                        if (MinecraftClient.getInstance().player != null && MinecraftClient.getInstance().getNetworkHandler() != null) {
+                            // 发包
+                            ClientJumpKeySyncHandler.sendJumpKeyStatus(false);
+                            JumpKeySyncHandler.wasPressed = true;
+                        }
+                    } else {
+                        if (isPressed && !wasPressed) {
+                            if (MinecraftClient.getInstance().player != null && MinecraftClient.getInstance().getNetworkHandler() != null) {
+                                // 发包
+                                ClientJumpKeySyncHandler.sendJumpKeyStatus(true);
+                                JumpKeySyncHandler.wasPressedOnGround = true;
+                            }
+                        }
+                    }
                 }
-            } else {
-                if(isPressed && !wasPressed){
-                    if (MinecraftClient.getInstance().player != null && MinecraftClient.getInstance().getNetworkHandler() != null) {
-                    //发包
-                    ClientJumpKeySyncHandler.sendJumpKeyStatus(true);
-                    JumpKeySyncHandler.wasPressedOnGround = true;
-                }
-                }
-
-            }
                 wasPressed = isPressed;
             wasOnGround = isOnGround;
             }
