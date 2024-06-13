@@ -6,8 +6,10 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import software.bernie.geckolib.GeckoLib;
 import top.xcyyds.chineserpg.event.*;
 import top.xcyyds.chineserpg.item.BooksItem;
+import top.xcyyds.chineserpg.item.ChineseRPGJianItem;
 import top.xcyyds.chineserpg.itemgroup.ChineseRPGItemGroup;
 import top.xcyyds.chineserpg.network.FunctionKeySyncHandler;
 import top.xcyyds.chineserpg.network.JumpKeySyncHandler;
@@ -21,8 +23,10 @@ public class ChineseRPG implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		GeckoLib.initialize();
 		// 注册物品
 		BooksItem.registryItem();
+		ChineseRPGJianItem.register();
 
 		// 注册物品组
 		ChineseRPGItemGroup.registryItemGroup();
