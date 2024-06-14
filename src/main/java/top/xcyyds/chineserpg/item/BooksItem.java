@@ -38,7 +38,14 @@ public class BooksItem extends ChineseRPGItem {
     public BooksItem() {
         super(new Settings().maxCount(1)); // 用这种方式来向构造函数传入基本修改
     }
-
+    public static ItemStack createLightSkillBook(MartialArt martialArt) {
+        ItemStack itemStack = new ItemStack(BooksItem.LIGHT_SKILL_BOOK);
+        NbtCompound nbt = new NbtCompound();
+        martialArt.writeToNbt(nbt);
+        itemStack.setNbt(nbt);
+        itemStack.setCustomName(Text.literal(martialArt.getName()).formatted(Formatting.GOLD, Formatting.BOLD));
+        return itemStack;
+    }
     // 用物品的实例注册
     public static void registryItem() {
         Registry.register(Registries.ITEM, "chineserpg:water_book_low", WATER_BOOK_LOW);
