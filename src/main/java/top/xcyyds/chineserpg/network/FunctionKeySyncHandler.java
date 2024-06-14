@@ -22,10 +22,10 @@ public class FunctionKeySyncHandler {
                     PlayerData playerData = ((IPlayerDataProvider) player).getPlayerData(); // 获取玩家数据
                     if (pressed) {
                         playerData.startRecordingActions();
-                        player.sendMessage(net.minecraft.text.Text.literal("功能键按下"), false);
+//                        player.sendMessage(net.minecraft.text.Text.literal("功能键按下"), false);
                     } else {
                         playerData.stopRecordingActions();
-                        player.sendMessage(net.minecraft.text.Text.literal("功能键释放"), false);
+//                        player.sendMessage(net.minecraft.text.Text.literal("功能键释放"), false);
                     }
                 }
             });
