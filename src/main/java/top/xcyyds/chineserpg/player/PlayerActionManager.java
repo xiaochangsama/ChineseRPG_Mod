@@ -5,6 +5,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ public class PlayerActionManager {
     public void startRecording() {
         this.recording = true;
         this.actions.clear(); // 开始记录时清空之前的记录
+        player.sendMessage(Text.literal(getActionSequence()).formatted(Formatting.GOLD), true);
     }
 
     public void stopRecording() {
@@ -32,33 +35,45 @@ public class PlayerActionManager {
     }
 
     public void recordAction(ActionType action) {
-        if (recording) {
-            if (actions.size() >= COMBINATION_LENGTH) {
-                actions.remove(0);
-            }
+        if (recording && actions.size() < COMBINATION_LENGTH) {
             actions.add(action);
+            player.sendMessage(Text.literal(getActionSequence()).formatted(Formatting.GOLD), true);
         }
     }
 
-    private void checkCombination() {
-        if (actions.size() < COMBINATION_LENGTH) {
-            return;
+    private String getActionSequence() {
+        StringBuilder sequence = new StringBuilder();
+        sequence.append("- ");
+        for (ActionType action : actions) {
+            sequence.append(action == ActionType.RIGHT_CLICK ? "R" : "L").append(" - ");
         }
+        while (sequence.length() < (COMBINATION_LENGTH * 4) - 1) {
+            sequence.append("  - ");
+        }
+        return sequence.toString();
+    }
 
-        // 示例: R-L-R-L
-        if (actions.get(0) == ActionType.RIGHT_CLICK &&
-                actions.get(1) == ActionType.LEFT_CLICK &&
-                actions.get(2) == ActionType.RIGHT_CLICK &&
-                actions.get(3) == ActionType.LEFT_CLICK) {
-            triggerSkill("Piercing Thrust");
+    private void checkCombination() {
+        if (actions.size() == 2) {
+            // 示例: R-L
+            if (actions.get(0) == ActionType.RIGHT_CLICK && actions.get(1) == ActionType.LEFT_CLICK) {
+                triggerSkill("Piercing Thrust");
+            }
+        } else if (actions.size() == 4) {
+            // 示例: R-L-R-L
+            if (actions.get(0) == ActionType.RIGHT_CLICK &&
+                    actions.get(1) == ActionType.LEFT_CLICK &&
+                    actions.get(2) == ActionType.RIGHT_CLICK &&
+                    actions.get(3) == ActionType.LEFT_CLICK) {
+                triggerSkill("Piercing Thrust");
+            }
         }
-        // 添加更多的组合判断
     }
 
     private void triggerSkill(String skillName) {
         ItemStack mainHandItem = player.getMainHandStack();
         if (mainHandItem.isIn(CAN_USE_SKILL_SWORDS)) {
-            System.out.println("Triggered skill: " + skillName);
+            player.sendMessage(Text.literal("释放 " + skillName).formatted(Formatting.GOLD), true);
             // 在这里添加触发技能的逻辑，例如显示特效或计算伤害
         }
     }
