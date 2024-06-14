@@ -19,7 +19,7 @@ import top.xcyyds.chineserpg.player.jump.PlayerJumpHandler;
 @SuppressWarnings("UnreachableCode")
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerDataProvider {
-    private final PlayerData playerData = new PlayerData();
+    private final PlayerData playerData = new PlayerData(  (PlayerEntity) (Object) this);
 
     @Override
     public PlayerData getPlayerData() {

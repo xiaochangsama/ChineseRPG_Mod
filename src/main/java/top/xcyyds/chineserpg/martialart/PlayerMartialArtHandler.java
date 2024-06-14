@@ -12,19 +12,28 @@ import top.xcyyds.chineserpg.player.speed.PlayerSpeedHandler;
 import top.xcyyds.chineserpg.player.speed.PlayerSpeedHelper;
 
 public class PlayerMartialArtHandler {
-    // 学习武功
-    public static boolean learnMartialArt(PlayerData playerData, MartialArt martialArt, PlayerEntity user) {
-        if (playerData.addSkill(martialArt.getUuid())) {
+    // 学习轻功
+    public static boolean learnLightSkill(PlayerData playerData, MartialArt martialArt, PlayerEntity user) {
+        if (playerData.addLightSkill(martialArt.getUuid())) {
             user.sendMessage(Text.translatable("message.chineserpg.learned_skill", martialArt.getName()).formatted(Formatting.AQUA, Formatting.BOLD), true);
             return true;
         }
         return false;
     }
 
-    // 装备武功
-    public static boolean equipMartialArt(PlayerData playerData, MartialArt martialArt, PlayerEntity user) {
-        if (!martialArt.getUuid().equals(playerData.getEquippedSkill())) {
-            playerData.equipSkill(martialArt.getUuid()); // 在这里装备了武功
+    // 学习外功
+    public static boolean learnOuterSkill(PlayerData playerData, MartialArt martialArt, PlayerEntity user) {
+        if (playerData.addOuterSkill(martialArt.getUuid())) {
+            user.sendMessage(Text.translatable("message.chineserpg.learned_skill", martialArt.getName()).formatted(Formatting.AQUA, Formatting.BOLD), true);
+            return true;
+        }
+        return false;
+    }
+
+    // 装备轻功
+    public static boolean equipLightSkill(PlayerData playerData, MartialArt martialArt, PlayerEntity user) {
+        if (!martialArt.getUuid().equals(playerData.getEquippedLightSkill())) {
+            playerData.equipLightSkill(martialArt.getUuid()); // 在这里装备了武功
             playerData.resetJumpCount(); // 重置跳跃计数
             // 根据装备的武功处理玩家速度
             if (user instanceof ServerPlayerEntity) {
@@ -38,6 +47,17 @@ public class PlayerMartialArtHandler {
                     }
                 }
             }
+            user.sendMessage(Text.translatable("message.chineserpg.equipped_skill", martialArt.getName()).formatted(Formatting.GOLD, Formatting.BOLD), true);
+            return true;
+        }
+        return false;
+    }
+
+    // 装备外功
+    public static boolean equipOuterSkill(PlayerData playerData, MartialArt martialArt, PlayerEntity user) {
+        if (!martialArt.getUuid().equals(playerData.getEquippedOuterSkill())) {
+            playerData.equipOuterSkill(martialArt.getUuid()); // 在这里装备了武功
+            // 处理外功相关逻辑
             user.sendMessage(Text.translatable("message.chineserpg.equipped_skill", martialArt.getName()).formatted(Formatting.GOLD, Formatting.BOLD), true);
             return true;
         }

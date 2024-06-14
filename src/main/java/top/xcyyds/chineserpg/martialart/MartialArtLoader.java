@@ -4,6 +4,7 @@ import com.google.gson.*;
 import net.fabricmc.loader.api.FabricLoader;
 import top.xcyyds.chineserpg.martialart.artentry.LightSkillEntry;
 import top.xcyyds.chineserpg.martialart.artentry.MartialArtEntry;
+import top.xcyyds.chineserpg.martialart.artentry.OuterSkillEntry;
 import top.xcyyds.chineserpg.martialart.skill.MartialArt;
 
 import java.io.BufferedReader;
@@ -22,17 +23,25 @@ public class MartialArtLoader {
             .registerTypeAdapter(MartialArt.class, new MartialArtDeserializer())
             .registerTypeAdapter(MartialArtEntry.class, new MartialArtEntryDeserializer())
             .create();
-    private static final String MARTIAL_ARTS_PATH = "assets/chineserpg/martial_arts/";
+    private static final String LIGHT_SKILLS_PATH = "assets/chineserpg/martial_arts/light_skills/";
+    private static final String OUTER_SKILLS_PATH = "assets/chineserpg/martial_arts/outer_skills/";
 
     public static List<MartialArt> loadMartialArts() {
         List<MartialArt> martialArts = new ArrayList<>();
         try {
-            List<Path> files = getFilesFromResource(MARTIAL_ARTS_PATH);
-            for (Path file : files) {
-                martialArts.add(loadMartialArtFromFile(file));
-            }
+            martialArts.addAll(loadMartialArtsFromPath(LIGHT_SKILLS_PATH));
+            martialArts.addAll(loadMartialArtsFromPath(OUTER_SKILLS_PATH));
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        return martialArts;
+    }
+
+    private static List<MartialArt> loadMartialArtsFromPath(String folderPath) throws IOException {
+        List<MartialArt> martialArts = new ArrayList<>();
+        List<Path> files = getFilesFromResource(folderPath);
+        for (Path file : files) {
+            martialArts.add(loadMartialArtFromFile(file));
         }
         return martialArts;
     }
@@ -123,17 +132,25 @@ public class MartialArtLoader {
             JsonObject jsonObject = json.getAsJsonObject();
             String name = getString(jsonObject, "name");
             int level = getInt(jsonObject, "level");
-            String jumpType = getString(jsonObject, "jumpType");
-            int jumpCount = getInt(jsonObject, "jumpCount");
-            float innerPowerConsumption = getFloat(jsonObject, "innerPowerConsumption");
-            double velocityYIncrease = getDouble(jsonObject, "velocityYIncrease");
-            int particleCount = getInt(jsonObject, "particleCount");
-            float damageReductionHeight = getFloat(jsonObject, "damageReductionHeight");
-            float damageReductionPercentage = getFloat(jsonObject, "damageReductionPercentage");
-            float dodgeRate = getFloat(jsonObject, "dodgeRate");
-            double directionalVelocity = getDouble(jsonObject, "directionalVelocity");
+            String entryType = getString(jsonObject, "type");
 
-            return new LightSkillEntry(name, level, jumpType, jumpCount, innerPowerConsumption, velocityYIncrease, particleCount, damageReductionHeight, damageReductionPercentage, dodgeRate, directionalVelocity);
+            return switch (entryType) {
+                case "轻功" -> new LightSkillEntry(name, level,
+                        getString(jsonObject, "jumpType"),
+                        getInt(jsonObject, "jumpCount"),
+                        getFloat(jsonObject, "innerPowerConsumption"),
+                        getDouble(jsonObject, "velocityYIncrease"),
+                        getInt(jsonObject, "particleCount"),
+                        getFloat(jsonObject, "damageReductionHeight"),
+                        getFloat(jsonObject, "damageReductionPercentage"),
+                        getFloat(jsonObject, "dodgeRate"),
+                        getDouble(jsonObject, "directionalVelocity"));
+                case "外功" -> new OuterSkillEntry(name, level,
+                        getFloat(jsonObject, "damage"),
+                        getInt(jsonObject, "cooldown"),
+                        getFloat(jsonObject, "range"));
+                default -> throw new IllegalArgumentException("Unknown martial art entry type: " + entryType);
+            };
         }
 
         private String getString(JsonObject jsonObject, String memberName) {

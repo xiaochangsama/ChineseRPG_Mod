@@ -1,16 +1,10 @@
 package top.xcyyds.chineserpg.item;
 
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.registry.Registry;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.world.World;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -53,16 +47,6 @@ public class ChineseRPGJianItem extends SwordItem implements GeoAnimatable {
         return 0;
     }
 
-    @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        if (!world.isClient) {
-            user.getItemCooldownManager().set(this, 20); // 冷却时间
-            // 播放动画
-            user.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, 1.0F, 1.0F);
-            // 触发动画
-            // 可以添加更多逻辑
-        }
-        return TypedActionResult.success(user.getStackInHand(hand));
-    }
+
 
 }

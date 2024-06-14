@@ -27,17 +27,17 @@ public class PlayerJumpHandler {
     public static final String WATER_SKIMMING = "水上漂";
 
     public static void toJump(PlayerEntity player, PlayerData playerData){
-        UUID equippedSkill = playerData.getEquippedSkill();
-        MartialArt martialArt = getMartialArt(equippedSkill);
-        if (martialArt != null) {
-            List<MartialArtEntry> martialArtEntries = martialArt.getEntries();
-            for (MartialArtEntry martialArtEntry : martialArtEntries) {
-                if (martialArtEntry instanceof LightSkillEntry lightSkillEntry) {
+        UUID equippedLightSkill = playerData.getEquippedLightSkill();
+        MartialArt lightSkill = getMartialArt(equippedLightSkill);
+        if (lightSkill != null) {
+            List<MartialArtEntry> lightSkillEntries = lightSkill.getEntries();
+            for (MartialArtEntry entry : lightSkillEntries) {
+                if (entry instanceof LightSkillEntry lightSkillEntry) {
                     if (lightSkillEntry.getJumpType().equals(MULTI_JUMP) && !isPlayerInWater(player)) {
-                        basicJump(player, playerData, lightSkillEntry.getVelocityYIncrease(), lightSkillEntry.getParticleCount(), lightSkillEntry.getInnerPowerConsumption(), lightSkillEntry.getDirectionalVelocity(),1);
+                        basicJump(player, playerData, lightSkillEntry.getVelocityYIncrease(), lightSkillEntry.getParticleCount(), lightSkillEntry.getInnerPowerConsumption(), lightSkillEntry.getDirectionalVelocity(), 1);
                     }
                     if (lightSkillEntry.getJumpType().equals(WATER_SKIMMING)) {
-                        waterSkimmingJump(player, playerData, lightSkillEntry,0.7f,0.5f);
+                        waterSkimmingJump(player, playerData, lightSkillEntry, 0.7f, 0.5f);
                     }
                 }
             }
@@ -45,28 +45,28 @@ public class PlayerJumpHandler {
     }
 
     public static void toJumpOnGround(PlayerEntity player, PlayerData playerData){
-        UUID equippedSkill = playerData.getEquippedSkill();
-        MartialArt martialArt = getMartialArt(equippedSkill);
-        if (martialArt != null) {
-            List<MartialArtEntry> martialArtEntries = martialArt.getEntries();
-            for (MartialArtEntry martialArtEntry : martialArtEntries) {
-                if (martialArtEntry instanceof LightSkillEntry lightSkillEntry) {
+        UUID equippedLightSkill = playerData.getEquippedLightSkill();
+        MartialArt lightSkill = getMartialArt(equippedLightSkill);
+        if (lightSkill != null) {
+            List<MartialArtEntry> lightSkillEntries = lightSkill.getEntries();
+            for (MartialArtEntry entry : lightSkillEntries) {
+                if (entry instanceof LightSkillEntry lightSkillEntry) {
                     if (lightSkillEntry.getJumpType().equals(BIG_JUMP) && !isPlayerInWater(player)) {
-                        basicJump(player, playerData, lightSkillEntry.getVelocityYIncrease(), lightSkillEntry.getParticleCount(), lightSkillEntry.getInnerPowerConsumption(), lightSkillEntry.getDirectionalVelocity(),0);
+                        basicJump(player, playerData, lightSkillEntry.getVelocityYIncrease(), lightSkillEntry.getParticleCount(), lightSkillEntry.getInnerPowerConsumption(), lightSkillEntry.getDirectionalVelocity(), 0);
                     }
                 }
             }
         }
     }
 
-    public static void waterSkimmingJump(PlayerEntity player, PlayerData playerData, LightSkillEntry lightSkillEntry,float underWater,float aboveWater) {
+    public static void waterSkimmingJump(PlayerEntity player, PlayerData playerData, LightSkillEntry lightSkillEntry, float underWater, float aboveWater) {
         Vec3d playerFeetPos = player.getPos();
         Vec3d posBelow = playerFeetPos.subtract(0, aboveWater, 0);
         Vec3d posAbove = playerFeetPos.add(0, underWater, 0);
-        BlockPos blockPosBelow = new BlockPos((int) posBelow.x, (int) Math.round(posBelow.y), (int) posBelow.z);
-        BlockPos blockPosAbove = new BlockPos((int) posAbove.x, (int) Math.round(posAbove.y), (int) posAbove.z);
-        if ((isWaterSurface(player, blockPosBelow) && isAir(player, blockPosAbove))) {
-                basicJump(player, playerData, lightSkillEntry.getVelocityYIncrease(), lightSkillEntry.getParticleCount(), lightSkillEntry.getInnerPowerConsumption(), lightSkillEntry.getDirectionalVelocity(), 1);
+        BlockPos blockPosBelow = new BlockPos((int) posBelow.x, (int)Math.round(posBelow.y), (int)posBelow.z);
+        BlockPos blockPosAbove = new BlockPos((int)posAbove.x,(int) Math.round(posAbove.y), (int)posAbove.z);
+        if (isWaterSurface(player, blockPosBelow) && isAir(player, blockPosAbove)) {
+            basicJump(player, playerData, lightSkillEntry.getVelocityYIncrease(), lightSkillEntry.getParticleCount(), lightSkillEntry.getInnerPowerConsumption(), lightSkillEntry.getDirectionalVelocity(), 1);
         }
     }
 
@@ -79,8 +79,8 @@ public class PlayerJumpHandler {
         return player.getEntityWorld().getBlockState(pos).getBlock() == Blocks.AIR;
     }
 
-    public static void basicJump(PlayerEntity player, PlayerData playerData, double newY, int particleCount, float innerPowerConsumption, double directionalVelocity,int consumeJumpCount) {
-        if(PlayerJumpHelper.consumeJumpCount(playerData, consumeJumpCount)){
+    public static void basicJump(PlayerEntity player, PlayerData playerData, double newY, int particleCount, float innerPowerConsumption, double directionalVelocity, int consumeJumpCount) {
+        if (PlayerJumpHelper.consumeJumpCount(playerData, consumeJumpCount)) {
             if (PlayerJumpHelper.consumeInnerPower(playerData, innerPowerConsumption)) {
                 Vec3d vec3d = player.getVelocity();
                 Vec3d direction = PlayerJumpHelper.getPlayerHorizontalDirection(player);

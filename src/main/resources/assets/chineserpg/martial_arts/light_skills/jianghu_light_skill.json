@@ -15,6 +15,7 @@
   "entries": [
     {
       "name": "扑腾",
+      "type": "轻功",
       "level": 1,
       "jumpType": "多段跳",
       "jumpCount": 1,
@@ -28,6 +29,7 @@
     },
     {
       "name": "大跳",
+      "type": "轻功",
       "level": 1,
       "jumpType": "大跳",
       "innerPowerConsumption": 30.0,
@@ -37,6 +39,7 @@
     },
     {
       "name": "冲刺加速",
+      "type": "轻功",
       "level": 1,
       "jumpType": "冲刺加速",
       "directionalVelocity": 0.1

@@ -31,6 +31,10 @@ public class MartialArtRegistry {
         return null;
     }
 
+    public static Collection<MartialArt> getMartialArts() {
+        return getAllMartialArts();
+    }
+
     public static MartialArt getRandomMartialArt() {
         Collection<MartialArt> martialArts = getAllMartialArts();
         if (martialArts != null && !martialArts.isEmpty()) {
