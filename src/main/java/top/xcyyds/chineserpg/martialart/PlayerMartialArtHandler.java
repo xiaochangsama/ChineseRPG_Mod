@@ -14,7 +14,7 @@ import top.xcyyds.chineserpg.player.speed.PlayerSpeedHelper;
 public class PlayerMartialArtHandler {
     // 学习武功
     public static boolean learnMartialArt(PlayerData playerData, MartialArt martialArt, PlayerEntity user) {
-        if (playerData.addSkill(martialArt.getUuid())) {
+        if (playerData.addLightSkill(martialArt.getUuid())) {
             user.sendMessage(Text.translatable("message.chineserpg.learned_skill", martialArt.getName()).formatted(Formatting.AQUA, Formatting.BOLD), true);
             return true;
         }
@@ -23,8 +23,8 @@ public class PlayerMartialArtHandler {
 
     // 装备武功
     public static boolean equipMartialArt(PlayerData playerData, MartialArt martialArt, PlayerEntity user) {
-        if (!martialArt.getUuid().equals(playerData.getEquippedSkill())) {
-            playerData.equipSkill(martialArt.getUuid()); // 在这里装备了武功
+        if (!martialArt.getUuid().equals(playerData.getEquippedLightSkill())) {
+            playerData.equipLightSkill(martialArt.getUuid()); // 在这里装备了武功
             playerData.resetJumpCount(); // 重置跳跃计数
             // 根据装备的武功处理玩家速度
             if (user instanceof ServerPlayerEntity) {

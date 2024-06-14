@@ -51,13 +51,12 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements IP
     @Inject(method = "onSpawn", at = @At("HEAD"))
     private void onSpawn(CallbackInfo info) {
         ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
-        UUID equippedSkill = playerData.getEquippedSkill();
+        UUID equippedSkill = playerData.getEquippedLightSkill();
         MartialArt martialArt = getMartialArt(equippedSkill);
         PlayerSpeedHelper.resetSpeed(player);
         if (martialArt != null) {
             for (MartialArtEntry entry : martialArt.getEntries()) {
-                if (entry instanceof LightSkillEntry) {
-                    LightSkillEntry lightSkillEntry = (LightSkillEntry) entry;
+                if (entry instanceof LightSkillEntry lightSkillEntry) {
                     if (PlayerSpeedHandler.SPRINT_SPEED_UP.equals(lightSkillEntry.getJumpType())) {
                         PlayerSpeedHelper.increaseSpeed(player, lightSkillEntry.getDirectionalVelocity());
                         break;

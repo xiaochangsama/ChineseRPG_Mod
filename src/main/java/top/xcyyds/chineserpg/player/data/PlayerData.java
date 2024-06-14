@@ -5,6 +5,8 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.util.math.Vec3d;
 import top.xcyyds.chineserpg.martialart.skill.MartialArt;
+import top.xcyyds.chineserpg.player.ActionType;
+import top.xcyyds.chineserpg.player.PlayerActionManager;
 import top.xcyyds.chineserpg.registry.MartialArtRegistry;
 
 import java.util.ArrayList;
@@ -13,14 +15,20 @@ import java.util.UUID;
 
 public class PlayerData {
     private float innerPower = 0;
-    private float innerPowerMax = 100; // 默认最大内力
+    private float innerPowerMax = 100;
     private int jumpCount = 0;
-    private float innerPowerRegenRate = 1; // 默认内力回复速度
-    private Vec3d playerVelocity = Vec3d.ZERO; // 默认速度矢量
-    private boolean velocityDirty = false; // 标志速度是否已被修改
+    private float innerPowerRegenRate = 1;
+    private Vec3d playerVelocity = Vec3d.ZERO;
+    private boolean velocityDirty = false;
 
-    private final List<UUID> learnedSkills = new ArrayList<>(); // 已学习轻功技能的列表
-    private UUID equippedSkill = null; // 当前装备的轻功技能
+    private final List<UUID> learnedLightSkills = new ArrayList<>();
+    private UUID equippedLightSkill = null;
+
+    private final List<UUID> learnedOuterSkills = new ArrayList<>();
+    private UUID equippedOuterSkill = null;
+
+    // 添加 PlayerActionManager 实例
+    private PlayerActionManager actionManager = new PlayerActionManager();
 
     public void writeToNbt(NbtCompound nbt) {
         nbt.putFloat("InnerPower", innerPower);
@@ -37,16 +45,28 @@ public class PlayerData {
 
         nbt.putBoolean("VelocityDirty", velocityDirty);
 
-        // 写入 learnedSkills 列表
-        NbtList skillList = new NbtList();
-        for (UUID skill : learnedSkills) {
-            skillList.add(NbtString.of(skill.toString()));
+        // 写入 learnedLightSkills 列表
+        NbtList lightSkillList = new NbtList();
+        for (UUID skill : learnedLightSkills) {
+            lightSkillList.add(NbtString.of(skill.toString()));
         }
-        nbt.put("LearnedSkills", skillList);
+        nbt.put("LearnedLightSkills", lightSkillList);
 
-        // 写入 equippedSkill
-        if (equippedSkill != null) {
-            nbt.putUuid("EquippedSkill", equippedSkill);
+        // 写入 equippedLightSkill
+        if (equippedLightSkill != null) {
+            nbt.putUuid("EquippedLightSkill", equippedLightSkill);
+        }
+
+        // 写入 learnedOuterSkills 列表
+        NbtList outerSkillList = new NbtList();
+        for (UUID skill : learnedOuterSkills) {
+            outerSkillList.add(NbtString.of(skill.toString()));
+        }
+        nbt.put("LearnedOuterSkills", outerSkillList);
+
+        // 写入 equippedOuterSkill
+        if (equippedOuterSkill != null) {
+            nbt.putUuid("EquippedOuterSkill", equippedOuterSkill);
         }
     }
 
@@ -62,56 +82,107 @@ public class PlayerData {
 
         velocityDirty = nbt.getBoolean("VelocityDirty");
 
-        // 读取 learnedSkills 列表
-        NbtList skillList = nbt.getList("LearnedSkills", 8); // 8 是 NbtString 的类型 ID
-        learnedSkills.clear();
-        for (int i = 0; i < skillList.size(); i++) {
-            learnedSkills.add(UUID.fromString(skillList.getString(i)));
+        // 读取 learnedLightSkills 列表
+        NbtList lightSkillList = nbt.getList("LearnedLightSkills", 8);
+        learnedLightSkills.clear();
+        for (int i = 0; i < lightSkillList.size(); i++) {
+            learnedLightSkills.add(UUID.fromString(lightSkillList.getString(i)));
         }
 
-        // 读取 equippedSkill
-        if (nbt.contains("EquippedSkill")) {
-            equippedSkill = nbt.getUuid("EquippedSkill");
+        // 读取 equippedLightSkill
+        if (nbt.contains("EquippedLightSkill")) {
+            equippedLightSkill = nbt.getUuid("EquippedLightSkill");
+        }
+
+        // 读取 learnedOuterSkills 列表
+        NbtList outerSkillList = nbt.getList("LearnedOuterSkills", 8);
+        learnedOuterSkills.clear();
+        for (int i = 0; i < outerSkillList.size(); i++) {
+            learnedOuterSkills.add(UUID.fromString(outerSkillList.getString(i)));
+        }
+
+        // 读取 equippedOuterSkill
+        if (nbt.contains("EquippedOuterSkill")) {
+            equippedOuterSkill = nbt.getUuid("EquippedOuterSkill");
         }
     }
 
     // 添加一个新的轻功技能
-    public boolean addSkill(UUID skill) {
-        if (!learnedSkills.contains(skill)) {
-            learnedSkills.add(skill);
+    public boolean addLightSkill(UUID skill) {
+        if (!learnedLightSkills.contains(skill)) {
+            learnedLightSkills.add(skill);
             return true;
         }
         return false;
     }
 
     // 批量添加轻功技能
-    public void addSkills(List<UUID> skills) {
+    public void addLightSkills(List<UUID> skills) {
         for (UUID skill : skills) {
-            addSkill(skill);
+            addLightSkill(skill);
         }
     }
 
     // 获取已学习的轻功技能
-    public List<UUID> getLearnedSkills() {
-        return learnedSkills;
+    public List<UUID> getLearnedLightSkills() {
+        return learnedLightSkills;
     }
 
     // 装备轻功技能
-    public void equipSkill(UUID skill) {
-        if (learnedSkills.contains(skill)) {
-            equippedSkill = skill;
+    public void equipLightSkill(UUID skill) {
+        if (learnedLightSkills.contains(skill)) {
+            equippedLightSkill = skill;
         }
     }
 
     // 获取当前装备的轻功技能
-    public UUID getEquippedSkill() {
-        return equippedSkill;
+    public UUID getEquippedLightSkill() {
+        return equippedLightSkill;
+    }
+
+    // 添加一个新的外功技能
+    public boolean addOuterSkill(UUID skill) {
+        if (!learnedOuterSkills.contains(skill)) {
+            learnedOuterSkills.add(skill);
+            return true;
+        }
+        return false;
+    }
+
+    // 批量添加外功技能
+    public void addOuterSkills(List<UUID> skills) {
+        for (UUID skill : skills) {
+            addOuterSkill(skill);
+        }
+    }
+
+    // 获取已学习的外功技能
+    public List<UUID> getLearnedOuterSkills() {
+        return learnedOuterSkills;
+    }
+
+    // 装备外功技能
+    public void equipOuterSkill(UUID skill) {
+        if (learnedOuterSkills.contains(skill)) {
+            equippedOuterSkill = skill;
+        }
+    }
+
+    // 获取当前装备的外功技能
+    public UUID getEquippedOuterSkill() {
+        return equippedOuterSkill;
     }
 
     // 获取已学习的武功详情
     public List<MartialArt> getLearnedMartialArts() {
         List<MartialArt> martialArts = new ArrayList<>();
-        for (UUID skill : learnedSkills) {
+        for (UUID skill : learnedLightSkills) {
+            MartialArt martialArt = MartialArtRegistry.getMartialArt(skill);
+            if (martialArt != null) {
+                martialArts.add(martialArt);
+            }
+        }
+        for (UUID skill : learnedOuterSkills) {
             MartialArt martialArt = MartialArtRegistry.getMartialArt(skill);
             if (martialArt != null) {
                 martialArts.add(martialArt);
@@ -122,7 +193,11 @@ public class PlayerData {
 
     // 获取当前装备的武功详情
     public MartialArt getEquippedMartialArt() {
-        return MartialArtRegistry.getMartialArt(equippedSkill);
+        MartialArt martialArt = MartialArtRegistry.getMartialArt(equippedLightSkill);
+        if (martialArt == null) {
+            martialArt = MartialArtRegistry.getMartialArt(equippedOuterSkill);
+        }
+        return martialArt;
     }
 
     public void tickRegenerateInnerPower() {
@@ -170,11 +245,7 @@ public class PlayerData {
 
     public void setPlayerVelocity(Vec3d playerVelocity) {
         this.playerVelocity = playerVelocity;
-        this.velocityDirty = true; // 设置标志
-    }
-    public void setPlayerVelocity(double x,double y,double z) {
-        this.playerVelocity = new Vec3d(x,y,z);
-        this.velocityDirty = true; // 设置标志
+        this.velocityDirty = true;
     }
 
     public boolean isVelocityDirty() {
@@ -184,7 +255,9 @@ public class PlayerData {
     public void setVelocityDirty(boolean velocityDirty) {
         this.velocityDirty = velocityDirty;
     }
-    public void setVelocityDirty() {
+
+    public void setPlayerVelocity(double x, double y, double z) {
+        this.playerVelocity = new Vec3d(x, y, z);
         this.velocityDirty = true;
     }
 
@@ -192,5 +265,16 @@ public class PlayerData {
         this.jumpCount = 0;
     }
 
-}
+    // 记录玩家动作
+    public void recordAction(ActionType action) {
+        actionManager.recordAction(action);
+    }
 
+    public void startRecordingActions() {
+        actionManager.startRecording();
+    }
+
+    public void stopRecordingActions() {
+        actionManager.stopRecording();
+    }
+}
