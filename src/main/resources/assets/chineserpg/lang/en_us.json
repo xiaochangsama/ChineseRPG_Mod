@@ -27,5 +27,7 @@
   "message.chineserpg.insufficient_inner_power":"InnerPower insufficient!",
   "message.chineserpg.dodge_success": "You successfully dodged the attack!",
   "key.chineserpg.function": "Function Key",
-  "key.categories.chineserpg": "[ChineseRPG] Keys"
+  "key.categories.chineserpg": "[ChineseRPG] Keys",
+  "itemGroup.chineserpg.light_skill_item_group": "[ChineseRPG] Light Skills",
+  "item.chineserpg.iron_jian": "Iron Jian"
 }

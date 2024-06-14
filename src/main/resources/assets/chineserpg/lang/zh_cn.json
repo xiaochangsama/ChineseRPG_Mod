@@ -27,5 +27,7 @@
   "tooltip.chineserpg.top_skill": "§5顶尖武功",
   "tooltip.chineserpg.unknown_level": "§6未知等级",
   "key.chineserpg.function": "功能键-释放/选择武功",
-  "key.categories.chineserpg": "[ChineseRPG] 键位设置"
+  "key.categories.chineserpg": "[ChineseRPG] 键位设置",
+  "itemGroup.chineserpg.light_skill_item_group": "[ChineseRPG] 轻功秘籍",
+  "item.chineserpg.iron_jian": "铁剑"
 }
