@@ -23,3 +23,4 @@ public class IronJianModel extends GeoModel<ChineseRPGJianItem> {
         return new Identifier(MOD_ID, "animations/iron_jian.animation.json");
     }
 }
+

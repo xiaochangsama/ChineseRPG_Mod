@@ -21,10 +21,10 @@ public class MouseKeySyncHandler {
                     // 处理左键按下
                     if (leftPressed) {
                         // 你的逻辑
-                        player.sendMessage(net.minecraft.text.Text.literal("左键按下"), false);
+//                        player.sendMessage(net.minecraft.text.Text.literal("左键按下"), false);
                     } else {
                         // 你的逻辑
-                        player.sendMessage(net.minecraft.text.Text.literal("左键释放"), false);
+//                        player.sendMessage(net.minecraft.text.Text.literal("左键释放"), false);
                     }
                 }
             });
@@ -38,10 +38,10 @@ public class MouseKeySyncHandler {
                     // 处理右键按下
                     if (rightPressed) {
                         // 你的逻辑
-                        player.sendMessage(net.minecraft.text.Text.literal("右键按下"), false);
+//                        player.sendMessage(net.minecraft.text.Text.literal("右键按下"), false);
                     } else {
                         // 你的逻辑
-                        player.sendMessage(net.minecraft.text.Text.literal("右键释放"), false);
+//                        player.sendMessage(net.minecraft.text.Text.literal("右键释放"), false);
                     }
                 }
             });
