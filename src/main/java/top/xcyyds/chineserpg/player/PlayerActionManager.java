@@ -31,6 +31,7 @@ public class PlayerActionManager {
 
     public void stopRecording() {
         this.recording = false;
+        player.sendMessage(Text.literal(getActionSequence()).formatted(Formatting.GOLD), true);
         checkCombination(); // 停止记录时检查组合
     }
 
@@ -47,11 +48,9 @@ public class PlayerActionManager {
         for (ActionType action : actions) {
             sequence.append(action == ActionType.RIGHT_CLICK ? "R" : "L").append(" - ");
         }
-        while (sequence.length() < (COMBINATION_LENGTH * 4) - 1) {
-            sequence.append("  - ");
-        }
         return sequence.toString();
     }
+
 
     private void checkCombination() {
         if (actions.size() == 2) {
@@ -79,4 +78,8 @@ public class PlayerActionManager {
     }
 
     public static final TagKey<Item> CAN_USE_SKILL_SWORDS = TagKey.of(Registries.ITEM.getKey(), new Identifier("chineserpg", "can_use_skill_swords"));
+
+    public boolean isRecording() {
+        return recording;
+    }
 }

@@ -1,7 +1,6 @@
 package top.xcyyds.chineserpg.item;
 
 
-
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.SwordItem;
@@ -57,4 +56,5 @@ public class ChineseRPGJianItem extends SwordItem implements GeoAnimatable {
             this.animationController.forceAnimationReset();
         }
     }
+
 }

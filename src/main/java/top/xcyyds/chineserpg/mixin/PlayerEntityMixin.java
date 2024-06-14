@@ -12,13 +12,14 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import top.xcyyds.chineserpg.event.PlayerTravelCallback;
 import top.xcyyds.chineserpg.network.JumpKeySyncHandler;
+import top.xcyyds.chineserpg.player.PlayerActionManagerAccess;
 import top.xcyyds.chineserpg.player.data.IPlayerDataProvider;
 import top.xcyyds.chineserpg.player.data.PlayerData;
 import top.xcyyds.chineserpg.player.jump.PlayerJumpHandler;
 
 @SuppressWarnings("UnreachableCode")
 @Mixin(PlayerEntity.class)
-public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerDataProvider {
+public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerDataProvider, PlayerActionManagerAccess {
     private final PlayerData playerData = new PlayerData(  (PlayerEntity) (Object) this);
 
     @Override

@@ -1,4 +1,4 @@
-package top.xcyyds.chineserpg.mixin.client;
+package top.xcyyds.chineserpg.mixin;
 
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,7 +16,7 @@ public class ClientPlayerEntityMixin implements IPlayerDataProvider {
     public PlayerData getPlayerData() {
         return playerData;
     }
-
+    //这一句很重要，不能删！！！！！！！！！！！！！！！！
     @Unique
     public void readCustomDataFromNbt(NbtCompound nbt) {
         playerData.readFromNbt(nbt);
