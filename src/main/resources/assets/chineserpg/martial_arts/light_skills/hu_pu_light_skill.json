@@ -19,10 +19,10 @@
       "type": "轻功",
       "level": 1,
       "jumpType": "大跳",
-      "innerPowerConsumption": 30.0,
+      "innerPowerConsumption": 45.0,
       "velocityYIncrease": 0.4,
       "particleCount": 12,
-      "directionalVelocity": 0.7
+      "directionalVelocity": 0.55
     },
     {
       "name": "突进",
