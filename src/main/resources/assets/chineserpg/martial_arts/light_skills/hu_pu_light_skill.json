@@ -1,0 +1,35 @@
+{
+  "name": "虎扑",
+  "type": "轻功",
+  "level": 1,
+  "completeness": 100.0,
+  "description": [
+    "虎扑是一种源自猛兽捕猎技巧的轻功，强调力量与速度。",
+    "习得此功者，能在短时间内爆发出惊人的速度与跳跃力。",
+    "此轻功常被江湖中追求速度与力量的武者所追捧。",
+    "习之者可迅捷如虎，凌空扑击。"
+
+  ],
+  "author": "江湖小生",
+  "uuid": "041986F9-B299-31E3-D24C-657B0A119EC1",
+  "entries": [
+
+    {
+      "name": "跃击",
+      "type": "轻功",
+      "level": 1,
+      "jumpType": "大跳",
+      "innerPowerConsumption": 30.0,
+      "velocityYIncrease": 0.4,
+      "particleCount": 12,
+      "directionalVelocity": 0.7
+    },
+    {
+      "name": "突进",
+      "type": "轻功",
+      "level": 1,
+      "jumpType": "冲刺加速",
+      "directionalVelocity": 0.12
+    }
+  ]
+}
