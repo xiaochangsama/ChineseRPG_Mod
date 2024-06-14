@@ -1,5 +1,6 @@
 package top.xcyyds.chineserpg.player.data;
 
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class PlayerData {
+    private final PlayerEntity player;
     private float innerPower = 0;
     private float innerPowerMax = 100;
     private int jumpCount = 0;
@@ -28,7 +30,13 @@ public class PlayerData {
     private UUID equippedOuterSkill = null;
 
     // 添加 PlayerActionManager 实例
-    private PlayerActionManager actionManager = new PlayerActionManager();
+    private PlayerActionManager actionManager;
+
+
+    public PlayerData(PlayerEntity player) {
+        this.player = player;
+        this.actionManager = new PlayerActionManager(player);
+    }
 
     public void writeToNbt(NbtCompound nbt) {
         nbt.putFloat("InnerPower", innerPower);
@@ -276,5 +284,9 @@ public class PlayerData {
 
     public void stopRecordingActions() {
         actionManager.stopRecording();
+    }
+
+    public PlayerEntity getPlayer() {
+        return player;
     }
 }

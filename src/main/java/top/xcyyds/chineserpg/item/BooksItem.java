@@ -21,8 +21,7 @@ import top.xcyyds.chineserpg.player.data.PlayerData;
 
 import java.util.List;
 
-import static top.xcyyds.chineserpg.martialart.PlayerMartialArtHandler.equipMartialArt;
-import static top.xcyyds.chineserpg.martialart.PlayerMartialArtHandler.learnMartialArt;
+import static top.xcyyds.chineserpg.martialart.PlayerMartialArtHandler.*;
 
 public class BooksItem extends ChineseRPGItem {
 
@@ -33,6 +32,7 @@ public class BooksItem extends ChineseRPGItem {
     public static final Item GOLD_BOOK_LOW = new BooksItem();
     public static final Item WOOD_BOOK_LOW = new BooksItem();
     public static final Item LIGHT_SKILL_BOOK = new LightSkillBook();
+    public static final Item OUTER_SKILL_BOOK = new OuterSkillBook();
 
     // 第一种构造函数
     public BooksItem() {
@@ -47,6 +47,7 @@ public class BooksItem extends ChineseRPGItem {
         Registry.register(Registries.ITEM, "chineserpg:gold_book_low", GOLD_BOOK_LOW);
         Registry.register(Registries.ITEM, "chineserpg:wood_book_low", WOOD_BOOK_LOW);
         LightSkillBook.registryItem();
+        OuterSkillBook.registryItem();
     }
 
     @Override
@@ -65,18 +66,24 @@ public class BooksItem extends ChineseRPGItem {
             // 将武功存储到PlayerData中
             PlayerData playerData = ((IPlayerDataProvider) user).getPlayerData();
 
-            if (learnMartialArt(playerData, martialArt, user)) {
-                return new TypedActionResult<>(ActionResult.SUCCESS, stack);
-            } else if (equipMartialArt(playerData, martialArt, user)) {
-                return new TypedActionResult<>(ActionResult.SUCCESS, stack);
+            if (martialArt.getType().equals("轻功")) {
+                if (learnLightSkill(playerData, martialArt, user)) {
+                    return new TypedActionResult<>(ActionResult.SUCCESS, stack);
+                } else if (equipLightSkill(playerData, martialArt, user)) {
+                    return new TypedActionResult<>(ActionResult.SUCCESS, stack);
+                }
+            } else if (martialArt.getType().equals("外功")) {
+                if (learnOuterSkill(playerData, martialArt, user)) {
+                    return new TypedActionResult<>(ActionResult.SUCCESS, stack);
+                } else if (equipOuterSkill(playerData, martialArt, user)) {
+                    return new TypedActionResult<>(ActionResult.SUCCESS, stack);
+                }
             } else {
                 user.sendMessage(Text.translatable("message.chineserpg.already_equipped_skill", martialArt.getName()).formatted(Formatting.DARK_RED, Formatting.BOLD), true);
             }
         }
         return new TypedActionResult<>(ActionResult.PASS, stack);
     }
-
-
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
@@ -91,7 +98,6 @@ public class BooksItem extends ChineseRPGItem {
             tooltip.add(createTooltipText("§7 《" + martialArt.getName() + "》", Formatting.GOLD));
             tooltip.add(createTooltipText("           §7——" + martialArt.getAuthor() + " 著", Formatting.GOLD));
             // 品质，完整度
-            //品质，完整度
             Text quality = Text.translatable(getDisplayLevelName(martialArt.getLevel(), martialArt.getCompleteness())).formatted(getDisplayLevelColor(martialArt.getLevel()));
             Text completeness = Text.translatable(getCompletenessDescription(martialArt.getCompleteness())).formatted(Formatting.GRAY);
             tooltip.add(createTooltipText("§8[外观]", Formatting.DARK_GRAY));

@@ -4,6 +4,7 @@ import top.xcyyds.chineserpg.martialart.skill.MartialArt;
 import top.xcyyds.chineserpg.registry.MartialArtRegistry;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MartialArts {
 
@@ -15,6 +16,16 @@ public class MartialArts {
     }
 
     public static MartialArt getRandomLightSkill() {
-        return MartialArtRegistry.getRandomMartialArt();
+        List<MartialArt> lightSkills = MartialArtRegistry.getMartialArts().stream()
+                .filter(martialArt -> "轻功".equals(martialArt.getType()))
+                .collect(Collectors.toList());
+        return lightSkills.isEmpty() ? null : lightSkills.get((int) (Math.random() * lightSkills.size()));
+    }
+
+    public static MartialArt getRandomOuterSkill() {
+        List<MartialArt> outerSkills = MartialArtRegistry.getMartialArts().stream()
+                .filter(martialArt -> "外功".equals(martialArt.getType()))
+                .collect(Collectors.toList());
+        return outerSkills.isEmpty() ? null : outerSkills.get((int) (Math.random() * outerSkills.size()));
     }
 }

@@ -1,5 +1,12 @@
 package top.xcyyds.chineserpg.player;
 
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.Identifier;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,9 +14,11 @@ public class PlayerActionManager {
     private List<ActionType> actions;
     private static final int COMBINATION_LENGTH = 4;
     private boolean recording = false;
+    private PlayerEntity player;
 
-    public PlayerActionManager() {
+    public PlayerActionManager(PlayerEntity player) {
         this.actions = new ArrayList<>();
+        this.player = player;
     }
 
     public void startRecording() {
@@ -47,7 +56,12 @@ public class PlayerActionManager {
     }
 
     private void triggerSkill(String skillName) {
-        System.out.println("Triggered skill: " + skillName);
-        // 在这里添加触发技能的逻辑，例如显示特效或计算伤害
+        ItemStack mainHandItem = player.getMainHandStack();
+        if (mainHandItem.isIn(CAN_USE_SKILL_SWORDS)) {
+            System.out.println("Triggered skill: " + skillName);
+            // 在这里添加触发技能的逻辑，例如显示特效或计算伤害
+        }
     }
+
+    public static final TagKey<Item> CAN_USE_SKILL_SWORDS = TagKey.of(Registries.ITEM.getKey(), new Identifier("chineserpg", "can_use_skill_swords"));
 }

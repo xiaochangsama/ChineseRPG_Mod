@@ -25,7 +25,7 @@ import static top.xcyyds.chineserpg.registry.MartialArtRegistry.getMartialArt;
 
 @Mixin(ServerPlayerEntity.class)
 public abstract class ServerPlayerEntityMixin extends PlayerEntity implements IPlayerDataProvider {
-    private final PlayerData playerData = new PlayerData();
+    private final PlayerData playerData = new PlayerData((PlayerEntity)  this);
 
     public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
         super(world, pos, yaw, gameProfile);
