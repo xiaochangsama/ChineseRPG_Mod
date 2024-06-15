@@ -70,8 +70,8 @@ public class PlayerHudOverlay implements HudRenderCallback {
         int y = 30;
 
         // 渲染装备的轻功名称
-        if (playerData.getEquippedLightSkill() != null) {
-            MartialArt lightSkill = MartialArtRegistry.getMartialArt(playerData.getEquippedLightSkill());
+        if (playerData.getEquippedLightSkillUUID() != null) {
+            MartialArt lightSkill = MartialArtRegistry.getMartialArt(playerData.getEquippedLightSkillUUID());
             if (lightSkill != null) {
                 String lightSkillName = lightSkill.getName();
                 drawContext.drawTextWithShadow(client.textRenderer, "轻功: " + lightSkillName, x, y, 0xFFFFFF);
@@ -80,8 +80,8 @@ public class PlayerHudOverlay implements HudRenderCallback {
         }
 
         // 渲染装备的外功名称
-        if (playerData.getEquippedOuterSkill() != null) {
-            MartialArt outerSkill = MartialArtRegistry.getMartialArt(playerData.getEquippedOuterSkill());
+        if (playerData.getEquippedJianSkill() != null) {
+            MartialArt outerSkill = MartialArtRegistry.getMartialArt(playerData.getEquippedJianSkill());
             if (outerSkill != null) {
                 String outerSkillName = outerSkill.getName();
                 drawContext.drawTextWithShadow(client.textRenderer, "外功: " + outerSkillName, x, y, 0xFFFFFF);

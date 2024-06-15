@@ -25,7 +25,7 @@ public class PlayerDamageEvent {
                 float totalDodgeRate = 0.0f;
 
                 // 获取装备的武功
-                UUID equippedSkill = playerData.getEquippedLightSkill();
+                UUID equippedSkill = playerData.getEquippedLightSkillUUID();
                 MartialArt martialArt = MartialArtRegistry.getMartialArt(equippedSkill);
                 if (martialArt != null) {
                     List<MartialArtEntry> entries = martialArt.getEntries();

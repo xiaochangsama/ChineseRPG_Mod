@@ -5,6 +5,8 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.util.math.Vec3d;
+import top.xcyyds.chineserpg.martialart.artentry.MartialArtEntry;
+import top.xcyyds.chineserpg.martialart.artentry.OuterSkillEntry;
 import top.xcyyds.chineserpg.martialart.skill.MartialArt;
 import top.xcyyds.chineserpg.player.ActionType;
 import top.xcyyds.chineserpg.player.PlayerActionManager;
@@ -27,7 +29,9 @@ public class PlayerData {
     private UUID equippedLightSkill = null;
 
     private final List<UUID> learnedOuterSkills = new ArrayList<>();
-    private UUID equippedOuterSkill = null;
+    //这些都属于OuterSkill
+    private UUID equippedJianSkill = null;
+    private UUID equippedQuanSkill = null;
 
     // 添加 PlayerActionManager 实例
     private final PlayerActionManager actionManager;
@@ -72,8 +76,8 @@ public class PlayerData {
         nbt.put("LearnedOuterSkills", outerSkillList);
 
         // 写入 equippedOuterSkill
-        if (equippedOuterSkill != null) {
-            nbt.putUuid("EquippedOuterSkill", equippedOuterSkill);
+        if (equippedJianSkill != null) {
+            nbt.putUuid("EquippedJianSkill", equippedJianSkill);
         }
     }
 
@@ -109,8 +113,8 @@ public class PlayerData {
         }
 
         // 读取 equippedOuterSkill
-        if (nbt.contains("EquippedOuterSkill")) {
-            equippedOuterSkill = nbt.getUuid("EquippedOuterSkill");
+        if (nbt.contains("EquippedJianSkill")) {
+            equippedJianSkill = nbt.getUuid("EquippedJianSkill");
         }
     }
 
@@ -143,7 +147,7 @@ public class PlayerData {
     }
 
     // 获取当前装备的轻功技能
-    public UUID getEquippedLightSkill() {
+    public UUID getEquippedLightSkillUUID() {
         return equippedLightSkill;
     }
 
@@ -169,15 +173,15 @@ public class PlayerData {
     }
 
     // 装备外功技能
-    public void equipOuterSkill(UUID skill) {
+    public void equipJianSkill(UUID skill) {
         if (learnedOuterSkills.contains(skill)) {
-            equippedOuterSkill = skill;
+            equippedJianSkill = skill;
         }
     }
 
     // 获取当前装备的外功技能
-    public UUID getEquippedOuterSkill() {
-        return equippedOuterSkill;
+    public UUID getEquippedJianSkill() {
+        return equippedJianSkill;
     }
 
     // 获取已学习的武功详情
@@ -199,15 +203,40 @@ public class PlayerData {
     }
 
     // 获取当前装备的武功详情
-    public MartialArt getEquippedMartialArt() {
+    public MartialArt getEquippedLightSkill() {
         MartialArt martialArt = null;
         if (equippedLightSkill != null) {
             martialArt = MartialArtRegistry.getMartialArt(equippedLightSkill);
         }
-        if (martialArt == null && equippedOuterSkill != null) {
-            martialArt = MartialArtRegistry.getMartialArt(equippedOuterSkill);
-        }
         return martialArt;
+    }
+    //获取装备的全部外功,之后会拓展
+    public List<OuterSkillEntry> getEquippedOuterSkills() {
+        List<OuterSkillEntry> equippedSkills = new ArrayList<>();
+
+        if (equippedJianSkill != null) {
+            MartialArt martialArt = MartialArtRegistry.getMartialArt(equippedJianSkill);
+            if (martialArt != null) {
+                for (MartialArtEntry entry : martialArt.getEntries()) {
+                    if (entry instanceof OuterSkillEntry) {
+                        equippedSkills.add((OuterSkillEntry) entry);
+                    }
+                }
+            }
+        }
+
+        if (equippedQuanSkill != null) {
+            MartialArt martialArt = MartialArtRegistry.getMartialArt(equippedQuanSkill);
+            if (martialArt != null) {
+                for (MartialArtEntry entry : martialArt.getEntries()) {
+                    if (entry instanceof OuterSkillEntry) {
+                        equippedSkills.add((OuterSkillEntry) entry);
+                    }
+                }
+            }
+        }
+
+        return equippedSkills;
     }
 
     public void tickRegenerateInnerPower() {
@@ -290,5 +319,13 @@ public class PlayerData {
 
     public PlayerEntity getPlayer() {
         return player;
+    }
+
+    public UUID getEquippedQuanSkill() {
+        return equippedQuanSkill;
+    }
+
+    public void setEquippedQuanSkill(UUID equippedQuanSkill) {
+        this.equippedQuanSkill = equippedQuanSkill;
     }
 }

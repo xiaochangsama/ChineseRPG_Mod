@@ -38,6 +38,15 @@ public class OuterSkillEntry extends MartialArtEntry {
     @SerializedName("minInnerPowerConsumption")
     private float minInnerPowerConsumption; // 最小消耗内力量
 
+    @SerializedName("outerType")
+    private String outerType; // 外功类型（剑法、拳法、枪法等）
+
+    @SerializedName("releaseMethod")
+    private String releaseMethod; // 释放方式（RL、LL、RLR、RRLL等）
+
+    @SerializedName("animationName")
+    private String animationName; // 动画名称
+
     /**
      * 构造一个新的 OuterSkillEntry 对象，并指定各属性的参数。
      *
@@ -52,10 +61,14 @@ public class OuterSkillEntry extends MartialArtEntry {
      * @param manualPowerMultiplier     手动加力加成
      * @param maxInnerPowerConsumption  最大消耗内力量
      * @param minInnerPowerConsumption  最小消耗内力量
+     * @param outerType                 外功类型
+     * @param releaseMethod             释放方式
+     * @param animationName             动画名称
      */
     public OuterSkillEntry(String name, int level, float damage, int cooldown, float range, DamageControl damageControl,
                            float maxInnerPowerMultiplier, float currentInnerPowerMultiplier, float manualPowerMultiplier,
-                           float maxInnerPowerConsumption, float minInnerPowerConsumption) {
+                           float maxInnerPowerConsumption, float minInnerPowerConsumption, String outerType,
+                           String releaseMethod, String animationName) {
         super(name, level);
         this.damage = damage;
         this.cooldown = cooldown;
@@ -66,6 +79,9 @@ public class OuterSkillEntry extends MartialArtEntry {
         this.manualPowerMultiplier = manualPowerMultiplier;
         this.maxInnerPowerConsumption = maxInnerPowerConsumption;
         this.minInnerPowerConsumption = minInnerPowerConsumption;
+        this.outerType = outerType;
+        this.releaseMethod = releaseMethod;
+        this.animationName = animationName;
     }
 
     public float getDamage() {
@@ -104,6 +120,18 @@ public class OuterSkillEntry extends MartialArtEntry {
         return minInnerPowerConsumption;
     }
 
+    public String getOuterType() {
+        return outerType;
+    }
+
+    public String getReleaseMethod() {
+        return releaseMethod;
+    }
+
+    public String getAnimationName() {
+        return animationName;
+    }
+
     @Override
     public void writeToNbt(NbtCompound nbt) {
         nbt.putString("Name", getName());
@@ -120,6 +148,9 @@ public class OuterSkillEntry extends MartialArtEntry {
         nbt.putFloat("ManualPowerMultiplier", manualPowerMultiplier);
         nbt.putFloat("MaxInnerPowerConsumption", maxInnerPowerConsumption);
         nbt.putFloat("MinInnerPowerConsumption", minInnerPowerConsumption);
+        nbt.putString("OuterType", outerType);
+        nbt.putString("ReleaseMethod", releaseMethod);
+        nbt.putString("AnimationName", animationName);
     }
 
     public static OuterSkillEntry readFromNbt(NbtCompound nbt) {
@@ -134,9 +165,12 @@ public class OuterSkillEntry extends MartialArtEntry {
         float manualPowerMultiplier = nbt.getFloat("ManualPowerMultiplier");
         float maxInnerPowerConsumption = nbt.getFloat("MaxInnerPowerConsumption");
         float minInnerPowerConsumption = nbt.getFloat("MinInnerPowerConsumption");
+        String outerType = nbt.getString("OuterType");
+        String releaseMethod = nbt.getString("ReleaseMethod");
+        String animationName = nbt.getString("AnimationName");
 
         return new OuterSkillEntry(name, level, damage, cooldown, range, damageControl, maxInnerPowerMultiplier,
                 currentInnerPowerMultiplier, manualPowerMultiplier, maxInnerPowerConsumption,
-                minInnerPowerConsumption);
+                minInnerPowerConsumption, outerType, releaseMethod, animationName);
     }
 }

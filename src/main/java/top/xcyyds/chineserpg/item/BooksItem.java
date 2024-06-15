@@ -20,6 +20,7 @@ import top.xcyyds.chineserpg.player.data.PlayerData;
 import java.util.List;
 
 import static top.xcyyds.chineserpg.item.Tooltips.*;
+import static top.xcyyds.chineserpg.martialart.PlayerMartialArtHandler.*;
 
 public class BooksItem extends ChineseRPGItem {
     // 创建物品实例，之后去注册
@@ -72,20 +73,20 @@ public class BooksItem extends ChineseRPGItem {
             PlayerData playerData = ((IPlayerDataProvider) user).getPlayerData();
 
             if (martialArt.getType().equals("轻功")) {
-                if (playerData.addLightSkill(martialArt.getUuid())) {
+                if (learnLightSkill(playerData,martialArt, user)) {
                     user.sendMessage(Text.translatable("message.chineserpg.learned_skill", martialArt.getName()).formatted(Formatting.AQUA, Formatting.BOLD), true);
-                } else if (playerData.getEquippedLightSkill() == null || !playerData.getEquippedLightSkill().equals(martialArt.getUuid())) {
-                    playerData.equipLightSkill(martialArt.getUuid());
+                } else if (playerData.getEquippedLightSkillUUID() == null || !playerData.getEquippedLightSkillUUID().equals(martialArt.getUuid())) {
+                    equipLightSkill(playerData,martialArt, user);
                     user.sendMessage(Text.translatable("message.chineserpg.equipped_skill", martialArt.getName()).formatted(Formatting.GOLD, Formatting.BOLD), true);
                 } else {
                     user.sendMessage(Text.translatable("message.chineserpg.already_equipped_skill", martialArt.getName()).formatted(Formatting.DARK_RED, Formatting.BOLD), true);
                 }
                 return new TypedActionResult<>(ActionResult.SUCCESS, stack);
             } else if (martialArt.getType().equals("外功")) {
-                if (playerData.addOuterSkill(martialArt.getUuid())) {
+                if (learnOuterSkill(playerData,martialArt, user)) {
                     user.sendMessage(Text.translatable("message.chineserpg.learned_skill", martialArt.getName()).formatted(Formatting.AQUA, Formatting.BOLD), true);
-                } else if (playerData.getEquippedOuterSkill() == null || !playerData.getEquippedOuterSkill().equals(martialArt.getUuid())) {
-                    playerData.equipOuterSkill(martialArt.getUuid());
+                } else if (playerData.getEquippedJianSkill() == null || !playerData.getEquippedJianSkill().equals(martialArt.getUuid())) {
+                    equipOuterSkill(playerData,martialArt, user);
                     user.sendMessage(Text.translatable("message.chineserpg.equipped_skill", martialArt.getName()).formatted(Formatting.GOLD, Formatting.BOLD), true);
                 } else {
                     user.sendMessage(Text.translatable("message.chineserpg.already_equipped_skill", martialArt.getName()).formatted(Formatting.DARK_RED, Formatting.BOLD), true);

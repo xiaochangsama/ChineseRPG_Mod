@@ -156,7 +156,10 @@ public class MartialArtLoader {
                         getFloat(jsonObject, "currentInnerPowerMultiplier"),
                         getFloat(jsonObject, "manualPowerMultiplier"),
                         getFloat(jsonObject, "maxInnerPowerConsumption"),
-                        getFloat(jsonObject, "minInnerPowerConsumption"));
+                        getFloat(jsonObject, "minInnerPowerConsumption"),
+                        getString(jsonObject, "outerType"),
+                        getString(jsonObject, "releaseMethod"),
+                        getString(jsonObject,"animationName"));
                 default -> throw new IllegalStateException("Unexpected value: " + entryType);
             };
         }

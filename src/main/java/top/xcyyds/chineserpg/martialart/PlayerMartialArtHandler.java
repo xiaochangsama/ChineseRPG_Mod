@@ -32,7 +32,7 @@ public class PlayerMartialArtHandler {
 
     // 装备轻功
     public static boolean equipLightSkill(PlayerData playerData, MartialArt martialArt, PlayerEntity user) {
-        if (!martialArt.getUuid().equals(playerData.getEquippedLightSkill())) {
+        if (!martialArt.getUuid().equals(playerData.getEquippedLightSkillUUID())) {
             playerData.equipLightSkill(martialArt.getUuid()); // 在这里装备了武功
             playerData.resetJumpCount(); // 重置跳跃计数
             // 根据装备的武功处理玩家速度
@@ -55,8 +55,8 @@ public class PlayerMartialArtHandler {
 
     // 装备外功
     public static boolean equipOuterSkill(PlayerData playerData, MartialArt martialArt, PlayerEntity user) {
-        if (!martialArt.getUuid().equals(playerData.getEquippedOuterSkill())) {
-            playerData.equipOuterSkill(martialArt.getUuid()); // 在这里装备了武功
+        if (!martialArt.getUuid().equals(playerData.getEquippedJianSkill())) {
+            playerData.equipJianSkill(martialArt.getUuid()); // 在这里装备了武功
             // 处理外功相关逻辑
             user.sendMessage(Text.translatable("message.chineserpg.equipped_skill", martialArt.getName()).formatted(Formatting.GOLD, Formatting.BOLD), true);
             return true;
