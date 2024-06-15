@@ -7,18 +7,21 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import top.xcyyds.chineserpg.event.PlayerTravelCallback;
 import top.xcyyds.chineserpg.network.JumpKeySyncHandler;
+import top.xcyyds.chineserpg.player.PlayerActionManagerAccess;
 import top.xcyyds.chineserpg.player.data.IPlayerDataProvider;
 import top.xcyyds.chineserpg.player.data.PlayerData;
 import top.xcyyds.chineserpg.player.jump.PlayerJumpHandler;
 
 @SuppressWarnings("UnreachableCode")
 @Mixin(PlayerEntity.class)
-public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerDataProvider {
+public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerDataProvider, PlayerActionManagerAccess {
+    @Unique
     private final PlayerData playerData = new PlayerData(  (PlayerEntity) (Object) this);
 
     @Override

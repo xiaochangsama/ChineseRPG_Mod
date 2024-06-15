@@ -3,6 +3,7 @@
 	"animations": {
 		"animation.iron_jian.piercing_thrust": {
 			"animation_length": 0.4583,
+			"loop": false,
 			"override_previous_animation": true,
 			"bones": {
 				"bone": {

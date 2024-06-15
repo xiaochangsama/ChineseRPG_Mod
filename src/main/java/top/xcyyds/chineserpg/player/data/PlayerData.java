@@ -30,7 +30,7 @@ public class PlayerData {
     private UUID equippedOuterSkill = null;
 
     // 添加 PlayerActionManager 实例
-    private PlayerActionManager actionManager;
+    private final PlayerActionManager actionManager;
 
 
     public PlayerData(PlayerEntity player) {

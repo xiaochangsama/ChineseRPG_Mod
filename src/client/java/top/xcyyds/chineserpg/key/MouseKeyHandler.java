@@ -26,12 +26,18 @@ public class MouseKeyHandler {
                     isLeftPressed = action == GLFW.GLFW_PRESS;
                     if (isLeftPressed != previousLeftPressed) {
                         ClientMouseKeySyncHandler.sendLeftMouseKeyStatus(isLeftPressed);
+
+
+
                     }
                 } else if (button == GLFW.GLFW_MOUSE_BUTTON_RIGHT) {
                     boolean previousRightPressed = isRightPressed;
                     isRightPressed = action == GLFW.GLFW_PRESS;
                     if (isRightPressed != previousRightPressed) {
                         ClientMouseKeySyncHandler.sendRightMouseKeyStatus(isRightPressed);
+
+
+
                     }
                 }
             });
