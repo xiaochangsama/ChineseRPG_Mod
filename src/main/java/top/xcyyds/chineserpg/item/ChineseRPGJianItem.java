@@ -20,7 +20,7 @@ import static net.minecraft.registry.Registries.ITEM;
 
 public class ChineseRPGJianItem extends SwordItem implements GeoAnimatable {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    private AnimationController<GeoAnimatable> animationController;
+    private final AnimationController<GeoAnimatable> animationController;
 
     public ChineseRPGJianItem(ToolMaterials material, int attackDamage, float attackSpeed, Settings settings) {
         super(material, attackDamage, attackSpeed, settings);

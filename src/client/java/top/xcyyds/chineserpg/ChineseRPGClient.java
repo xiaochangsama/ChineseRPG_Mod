@@ -26,9 +26,7 @@ public class ChineseRPGClient implements ClientModInitializer {
 
 		HudRenderCallback.EVENT.register(new PlayerHudOverlay());
 
-		BuiltinItemRendererRegistry.INSTANCE.register(ChineseRPGJianItem.IRON_JIAN, (stack, mode, matrices, vertexConsumers, light, overlay) -> {
-			IronJianRenderer.INSTANCE.render(stack, mode, matrices, vertexConsumers, light, overlay);
-		});
+		BuiltinItemRendererRegistry.INSTANCE.register(ChineseRPGJianItem.IRON_JIAN, IronJianRenderer.INSTANCE::render);
 
 	}
 }

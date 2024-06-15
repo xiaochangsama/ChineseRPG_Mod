@@ -10,6 +10,7 @@ import top.xcyyds.chineserpg.player.data.PlayerData;
 
 @Mixin(ClientPlayerEntity.class)
 public class ClientPlayerEntityMixin implements IPlayerDataProvider {
+    @Unique
     private final PlayerData playerData = new PlayerData((PlayerEntity) (Object) this);
 
     @Override

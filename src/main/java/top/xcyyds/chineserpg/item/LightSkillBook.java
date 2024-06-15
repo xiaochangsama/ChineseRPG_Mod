@@ -28,7 +28,9 @@ public class LightSkillBook extends BooksItem {
 
         // 将武功数据存入书籍的 NBT
         NbtCompound nbt = new NbtCompound();
-        randomLightSkill.writeToNbt(nbt);
+        if (randomLightSkill != null) {
+            randomLightSkill.writeToNbt(nbt);
+        }
         itemStack.setNbt(nbt);
 
         // 设置物品的名称为武功的名称，并且为金色

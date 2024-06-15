@@ -13,10 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerActionManager {
-    private List<ActionType> actions;
+    private final List<ActionType> actions;
     private static final int COMBINATION_LENGTH = 4;
     private boolean recording = false;
-    private PlayerEntity player;
+    private final PlayerEntity player;
 
     public PlayerActionManager(PlayerEntity player) {
         this.actions = new ArrayList<>();

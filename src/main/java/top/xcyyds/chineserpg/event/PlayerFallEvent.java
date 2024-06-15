@@ -33,8 +33,7 @@ public class PlayerFallEvent {
             }
 
             // 计算减免后的伤害
-            float damage = adjustedFallDistance * damageMultiplier * (1 - reductionPercentage / 100);
-            return damage;
+            return adjustedFallDistance * damageMultiplier * (1 - reductionPercentage / 100);
         });
     }
 }

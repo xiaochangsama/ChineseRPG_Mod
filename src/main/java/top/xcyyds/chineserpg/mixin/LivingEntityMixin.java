@@ -15,9 +15,8 @@ public abstract class LivingEntityMixin {
     @SuppressWarnings("UnreachableCode")
     @Inject(method = "handleFallDamage", at = @At("HEAD"), cancellable = true)
     private void handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {
-        if ((Object)this instanceof PlayerEntity) {
-             PlayerEntity player = (PlayerEntity) (Object) this;
-             // 广播事件
+        if ((Object) this instanceof PlayerEntity player) {
+            // 广播事件
             float adjustedFallDistance = PlayerFallCallback.EVENT.invoker().onFall(player, fallDistance,damageMultiplier,damageSource);
 
             //如果调整后的摔落距离为 0.0f，说明根据自定义逻辑（如轻功技能），玩家的摔落距离已经被完全减免，不会造成任何伤害。

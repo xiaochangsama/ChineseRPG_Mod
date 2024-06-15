@@ -26,7 +26,9 @@ public class OuterSkillBook extends BooksItem {
 
         // 将武功数据存入书籍的 NBT
         NbtCompound nbt = new NbtCompound();
-        randomOuterSkill.writeToNbt(nbt);
+        if (randomOuterSkill != null) {
+            randomOuterSkill.writeToNbt(nbt);
+        }
         itemStack.setNbt(nbt);
 
         // 设置物品的名称为武功的名称，并且为金色

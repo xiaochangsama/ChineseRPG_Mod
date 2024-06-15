@@ -69,7 +69,7 @@ public class PlayerHudOverlay implements HudRenderCallback {
             String martialArtName = playerData.getEquippedMartialArt().getName();
             MinecraftClient client = MinecraftClient.getInstance();
             int x = 10;
-            int y = 30; // 调整 y 位置以更好地间隔
+            int y = 30; // 调整 y 位置以更好的间隔
             drawContext.drawTextWithShadow(client.textRenderer, martialArtName, x, y, 0xFFFFFF);
         }
     }
