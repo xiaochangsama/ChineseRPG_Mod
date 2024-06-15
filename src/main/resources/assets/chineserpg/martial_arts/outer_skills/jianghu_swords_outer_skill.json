@@ -1,0 +1,99 @@
+{
+  "name": "江湖剑法",
+  "type": "外功",
+  "level": 1,
+  "completeness": 100.0,
+  "description": [
+    "江湖剑法是江湖中广为流传的一套剑术，包含四种基本剑招。",
+    "此剑法招式简单却威力不凡，是江湖人士的常用剑法。",
+    "剑法包含横扫、平刺、挑斩和劈砍四种招式。"
+  ],
+  "author": "无名剑客",
+  "uuid": "4EF239D4-B3C2-13E9-0A2A-734CE558849A",
+  "entries": [
+    {
+      "name": "横扫",
+      "type": "外功",
+      "level": 1,
+      "damage": 10.0,
+      "cooldown": 20,
+      "range": 3.0,
+      "damageControl": {
+        "type": "扇形",
+        "damageSourceCoordinates": [0, 0, 0],
+        "damageRadius": 3.0,
+        "damageStartPosition": [0, 0, 0],
+        "damageEndPosition": [0, 0, 0],
+        "skillAngle": 90.0
+      },
+      "maxInnerPowerMultiplier": 1.5,
+      "currentInnerPowerMultiplier": 1.2,
+      "manualPowerMultiplier": 2.0,
+      "maxInnerPowerConsumption": 30.0,
+      "minInnerPowerConsumption": 10.0
+    },
+    {
+      "name": "平刺",
+      "type": "外功",
+      "level": 1,
+      "damage": 12.0,
+      "cooldown": 15,
+      "range": 2.5,
+      "damageControl": {
+        "type": "射线",
+        "damageSourceCoordinates": [0, 0, 0],
+        "damageRadius": 2.5,
+        "damageStartPosition": [0, 0, 0],
+        "damageEndPosition": [0, 0, 0],
+        "skillAngle": 0.0
+      },
+      "maxInnerPowerMultiplier": 1.4,
+      "currentInnerPowerMultiplier": 1.1,
+      "manualPowerMultiplier": 1.8,
+      "maxInnerPowerConsumption": 25.0,
+      "minInnerPowerConsumption": 8.0
+    },
+    {
+      "name": "挑斩",
+      "type": "外功",
+      "level": 1,
+      "damage": 14.0,
+      "cooldown": 25,
+      "range": 3.5,
+      "damageControl": {
+        "type": "扇形",
+        "damageSourceCoordinates": [0, 0, 0],
+        "damageRadius": 3.5,
+        "damageStartPosition": [0, 0, 0],
+        "damageEndPosition": [0, 0, 0],
+        "skillAngle": 60.0
+      },
+      "maxInnerPowerMultiplier": 1.6,
+      "currentInnerPowerMultiplier": 1.3,
+      "manualPowerMultiplier": 2.2,
+      "maxInnerPowerConsumption": 35.0,
+      "minInnerPowerConsumption": 12.0
+    },
+    {
+      "name": "劈砍",
+      "type": "外功",
+      "level": 1,
+      "damage": 16.0,
+      "cooldown": 30,
+      "range": 4.0,
+      "damageControl": {
+        "type": "立方体",
+        "damageSourceCoordinates": [0, 0, 0],
+        "damageRadius": 4.0,
+        "damageStartPosition": [0, 0, 0],
+        "damageEndPosition": [0, 0, 0],
+        "skillAngle": 0.0
+      },
+      "maxInnerPowerMultiplier": 1.8,
+      "currentInnerPowerMultiplier": 1.5,
+      "manualPowerMultiplier": 2.5,
+      "maxInnerPowerConsumption": 40.0,
+      "minInnerPowerConsumption": 15.0
+    }
+  ]
+}

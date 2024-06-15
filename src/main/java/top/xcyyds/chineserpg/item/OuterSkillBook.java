@@ -7,6 +7,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import top.xcyyds.chineserpg.martialart.MartialArts;
 import top.xcyyds.chineserpg.martialart.skill.MartialArt;
@@ -24,11 +25,14 @@ public class OuterSkillBook extends BooksItem {
         // 获取随机的外功武功实例
         MartialArt randomOuterSkill = MartialArts.getRandomOuterSkill();
 
+        // 如果没有外功武功实例，返回一个空的 ItemStack
+        if (randomOuterSkill == null) {
+            return ItemStack.EMPTY;
+        }
+
         // 将武功数据存入书籍的 NBT
         NbtCompound nbt = new NbtCompound();
-        if (randomOuterSkill != null) {
-            randomOuterSkill.writeToNbt(nbt);
-        }
+        randomOuterSkill.writeToNbt(nbt);
         itemStack.setNbt(nbt);
 
         // 设置物品的名称为武功的名称，并且为金色
@@ -43,12 +47,14 @@ public class OuterSkillBook extends BooksItem {
         if (!stack.hasNbt() && stack.getItem() instanceof OuterSkillBook) {
             // 初始化外功书本数据
             ItemStack initializedStack = OuterSkillBook.createRandomOuterSkillBook();
-            stack.setNbt(initializedStack.getNbt());
+            if (!initializedStack.isEmpty()) {
+                stack.setNbt(initializedStack.getNbt());
+            }
         }
     }
 
     // 用物品的实例注册
     public static void registryItem() {
-        Registry.register(Registries.ITEM, "chineserpg:outer_skill_book", BooksItem.OUTER_SKILL_BOOK);
+        Registry.register(Registries.ITEM, new Identifier("chineserpg", "outer_skill_book"), BooksItem.OUTER_SKILL_BOOK);
     }
 }

@@ -1,10 +1,6 @@
 {
-  "item.chineserpg.water_book_low": "Book",
-  "item.chineserpg.earth_book_low": "Book",
-  "item.chineserpg.fire_book_low": "Book",
-  "item.chineserpg.gold_book_low": "Book",
-  "item.chineserpg.wood_book_low": "Book",
-  "item.chineserpg.light_skill_book": "Jianghu Light Skill",
+  "item.chineserpg.outer_skill_book": "Unknown Outer Skill Book",
+  "item.chineserpg.light_skill_book": "Unknown Light Skill Book",
   "itemGroup.chineserpg.kung_fu_item_group": "[ChineseRPG] Items",
   "tooltip.chineserpg.scrap": "§8Scrap",
   "tooltip.chineserpg.basic_skill": "§7Basic Skill",
@@ -29,5 +25,6 @@
   "key.chineserpg.function": "Function Key",
   "key.categories.chineserpg": "[ChineseRPG] Keys",
   "itemGroup.chineserpg.light_skill_item_group": "[ChineseRPG] Light Skills",
+  "itemGroup.chineserpg.outer_skill_item_group": "[ChineseRPG] Outer Skills",
   "item.chineserpg.iron_jian": "Iron Jian"
 }

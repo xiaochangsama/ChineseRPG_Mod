@@ -18,7 +18,7 @@ import top.xcyyds.chineserpg.item.ChineseRPGJianItem;
 //直接在这里创建物品组，之后去注册
 public class ChineseRPGItemGroup {
     public static final ItemGroup KUNG_FU_ITEM_GROUP = FabricItemGroup.builder()
-            .icon(() -> new ItemStack(BooksItem.WATER_BOOK_LOW))
+            .icon(() -> new ItemStack(BooksItem.LIGHT_SKILL_BOOK))
             .displayName(Text.translatable("itemGroup.chineserpg.kung_fu_item_group"))
             .entries((context, entries) -> {
                 entries.add(ChineseRPGJianItem.IRON_JIAN);

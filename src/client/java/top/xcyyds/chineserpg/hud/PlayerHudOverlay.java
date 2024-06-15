@@ -4,11 +4,12 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import top.xcyyds.chineserpg.martialart.skill.MartialArt;
 import top.xcyyds.chineserpg.player.data.IPlayerDataProvider;
 import top.xcyyds.chineserpg.player.data.PlayerData;
+import top.xcyyds.chineserpg.registry.MartialArtRegistry;
 
 public class PlayerHudOverlay implements HudRenderCallback {
-
 
     @Override
     public void onHudRender(DrawContext drawContext, float tickDelta) {
@@ -16,7 +17,7 @@ public class PlayerHudOverlay implements HudRenderCallback {
         if (client.player instanceof IPlayerDataProvider) {
             PlayerData playerData = ((IPlayerDataProvider) client.player).getPlayerData();
             renderInnerPowerBar(drawContext, playerData, 3, 1, 34); // 设置格子宽度为3，间隔为1，格子数量为34
-            renderMartialArtName(drawContext, playerData);
+            renderMartialArtNames(drawContext, playerData);
         }
     }
 
@@ -28,7 +29,6 @@ public class PlayerHudOverlay implements HudRenderCallback {
 
         int maxInnerPower = (int) playerData.getInnerPowerMax();
         int currentInnerPower = (int) playerData.getInnerPower();
-
 
         // 前景条和颜色渐变
         if (maxInnerPower > 0) {
@@ -64,13 +64,28 @@ public class PlayerHudOverlay implements HudRenderCallback {
         return (a << 24) | (r << 16) | (g << 8) | b;
     }
 
-    private void renderMartialArtName(DrawContext drawContext, PlayerData playerData) {
-        if (playerData.getEquippedMartialArt() != null) {
-            String martialArtName = playerData.getEquippedMartialArt().getName();
-            MinecraftClient client = MinecraftClient.getInstance();
-            int x = 10;
-            int y = 30; // 调整 y 位置以更好的间隔
-            drawContext.drawTextWithShadow(client.textRenderer, martialArtName, x, y, 0xFFFFFF);
+    private void renderMartialArtNames(DrawContext drawContext, PlayerData playerData) {
+        MinecraftClient client = MinecraftClient.getInstance();
+        int x = 10;
+        int y = 30;
+
+        // 渲染装备的轻功名称
+        if (playerData.getEquippedLightSkill() != null) {
+            MartialArt lightSkill = MartialArtRegistry.getMartialArt(playerData.getEquippedLightSkill());
+            if (lightSkill != null) {
+                String lightSkillName = lightSkill.getName();
+                drawContext.drawTextWithShadow(client.textRenderer, "轻功: " + lightSkillName, x, y, 0xFFFFFF);
+                y += 10; // 逐行显示，调整 y 位置
+            }
+        }
+
+        // 渲染装备的外功名称
+        if (playerData.getEquippedOuterSkill() != null) {
+            MartialArt outerSkill = MartialArtRegistry.getMartialArt(playerData.getEquippedOuterSkill());
+            if (outerSkill != null) {
+                String outerSkillName = outerSkill.getName();
+                drawContext.drawTextWithShadow(client.textRenderer, "外功: " + outerSkillName, x, y, 0xFFFFFF);
+            }
         }
     }
 

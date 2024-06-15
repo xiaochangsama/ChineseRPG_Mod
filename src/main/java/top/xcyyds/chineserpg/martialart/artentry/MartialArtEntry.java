@@ -3,6 +3,9 @@ package top.xcyyds.chineserpg.martialart.artentry;
 import com.google.gson.annotations.SerializedName;
 import net.minecraft.nbt.NbtCompound;
 
+/**
+ * MartialArtEntry 是一个抽象类，代表所有武术技能词条的基类。
+ */
 public abstract class MartialArtEntry {
     @SerializedName("name")
     private String name = "";
@@ -40,10 +43,7 @@ public abstract class MartialArtEntry {
                     nbt.getFloat("DamageReductionPercentage"),
                     nbt.getFloat("DodgeRate"),
                     nbt.getDouble("DirectionalVelocity"));
-            case "OuterSkillEntry" -> new OuterSkillEntry(name, level,
-                    nbt.getFloat("Damage"),
-                    nbt.getInt("Cooldown"),
-                    nbt.getFloat("Range"));
+            case "OuterSkillEntry" -> OuterSkillEntry.readFromNbt(nbt);
             // 其他类型的处理
             default -> throw new IllegalArgumentException("Unknown martial art entry type: " + type);
         };

@@ -32,7 +32,6 @@ public class PlayerData {
     // 添加 PlayerActionManager 实例
     private final PlayerActionManager actionManager;
 
-
     public PlayerData(PlayerEntity player) {
         this.player = player;
         this.actionManager = new PlayerActionManager(player);
@@ -201,8 +200,11 @@ public class PlayerData {
 
     // 获取当前装备的武功详情
     public MartialArt getEquippedMartialArt() {
-        MartialArt martialArt = MartialArtRegistry.getMartialArt(equippedLightSkill);
-        if (martialArt == null) {
+        MartialArt martialArt = null;
+        if (equippedLightSkill != null) {
+            martialArt = MartialArtRegistry.getMartialArt(equippedLightSkill);
+        }
+        if (martialArt == null && equippedOuterSkill != null) {
             martialArt = MartialArtRegistry.getMartialArt(equippedOuterSkill);
         }
         return martialArt;

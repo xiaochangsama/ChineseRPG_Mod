@@ -1,10 +1,6 @@
 {
-  "item.chineserpg.earth_book_low": "秘籍",
-  "item.chineserpg.fire_book_low": "秘籍",
-  "item.chineserpg.gold_book_low": "秘籍",
+  "item.chineserpg.outer_skill_book": "未知秘籍",
   "item.chineserpg.light_skill_book": "未知秘籍",
-  "item.chineserpg.water_book_low": "秘籍",
-  "item.chineserpg.wood_book_low": "秘籍",
   "itemGroup.chineserpg.kung_fu_item_group": "[ChineseRPG]物品",
   "message.chineserpg.already_equipped_skill": "你已经装备了 %s！",
   "message.chineserpg.dodge_success": "闪避",
@@ -29,5 +25,6 @@
   "key.chineserpg.function": "功能键-释放/选择武功",
   "key.categories.chineserpg": "[ChineseRPG] 键位设置",
   "itemGroup.chineserpg.light_skill_item_group": "[ChineseRPG] 轻功秘籍",
+  "itemGroup.chineserpg.outer_skill_item_group": "[ChineseRPG] 外功秘籍",
   "item.chineserpg.iron_jian": "铁剑"
 }
