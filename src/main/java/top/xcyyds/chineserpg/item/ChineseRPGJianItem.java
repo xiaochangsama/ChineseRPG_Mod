@@ -50,10 +50,12 @@ public class ChineseRPGJianItem extends SwordItem implements GeoAnimatable {
 
     // 添加一个方法来触发特定的动画
     public void playThrustAnimation(PlayerEntity player) {
-        // 设置并播放动画
+        // 设置并播放动画,用一种奇妙的方式解决了问题啊！！！！！！！！！
         if (player.getMainHandStack().getItem() == this) {
             this.animationController.setAnimation(RawAnimation.begin().thenPlay("animation.iron_jian.piercing_thrust"));
+            this.animationController.setAnimation(null);// 很奇妙
             this.animationController.forceAnimationReset();
+
         }
     }
 

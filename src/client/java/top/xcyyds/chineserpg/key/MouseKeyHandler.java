@@ -4,7 +4,6 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.minecraft.client.MinecraftClient;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWMouseButtonCallbackI;
-import top.xcyyds.chineserpg.item.ChineseRPGJianItem;
 import top.xcyyds.chineserpg.network.ClientMouseKeySyncHandler;
 
 public class MouseKeyHandler {
@@ -37,11 +36,7 @@ public class MouseKeyHandler {
                     if (isRightPressed != previousRightPressed) {
                         ClientMouseKeySyncHandler.sendRightMouseKeyStatus(isRightPressed);
 
-                        // test：假设你有一个 ChineseRPGJianItem 实例
-                        if (MinecraftClient.getInstance().player != null && MinecraftClient.getInstance().player.getMainHandStack().getItem() instanceof ChineseRPGJianItem item) {
-                            // 在满足特定条件时调用
-                            item.playThrustAnimation(MinecraftClient.getInstance().player);
-                        }
+
 
                     }
                 }

@@ -1,13 +1,16 @@
 package top.xcyyds.chineserpg.player;
 
+
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import top.xcyyds.chineserpg.network.AnimationSyncHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,21 +54,20 @@ public class PlayerActionManager {
         return sequence.toString();
     }
 
-
     private void checkCombination() {
         if (actions.size() == 2) {
-            // 示例: R-L
-            if (actions.get(0) == ActionType.RIGHT_CLICK && actions.get(1) == ActionType.LEFT_CLICK) {
+            // 示例: L-L
+            if (actions.get(0) == ActionType.LEFT_CLICK && actions.get(1) == ActionType.LEFT_CLICK) {
                 triggerSkill("Piercing Thrust");
+                if (player instanceof ServerPlayerEntity serverPlayer) {
+                    // 发送数据包到客户端
+                    AnimationSyncHandler.sendAnimationPacket(serverPlayer, new Identifier("chineserpg", "piercing_thrust"));
+                }
             }
+        } else if (actions.size() == 3) {
+            // 处理3个动作的组合逻辑
         } else if (actions.size() == 4) {
-            // 示例: R-L-R-L
-            if (actions.get(0) == ActionType.RIGHT_CLICK &&
-                    actions.get(1) == ActionType.LEFT_CLICK &&
-                    actions.get(2) == ActionType.RIGHT_CLICK &&
-                    actions.get(3) == ActionType.LEFT_CLICK) {
-                triggerSkill("Piercing Thrust");
-            }
+            // 处理4个动作的组合逻辑
         }
     }
 

@@ -7,6 +7,7 @@ import top.xcyyds.chineserpg.hud.PlayerHudOverlay;
 import top.xcyyds.chineserpg.item.ChineseRPGJianItem;
 import top.xcyyds.chineserpg.key.FunctionKeyHandler;
 import top.xcyyds.chineserpg.key.JumpKey;
+import top.xcyyds.chineserpg.network.ClientAnimationSyncHandler;
 import top.xcyyds.chineserpg.network.ClientParticleSyncHandler;
 import top.xcyyds.chineserpg.network.ClientPlayerDataSyncHandler;
 import top.xcyyds.chineserpg.renderer.IronJianRenderer;
@@ -19,7 +20,7 @@ public class ChineseRPGClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		ClientPlayerDataSyncHandler.registerClientReceiver();
 		ClientParticleSyncHandler.register();
-
+		ClientAnimationSyncHandler.registerClientHandler();
 		JumpKey.registryJumpKey();
 		registerMouseKeyHandler();
 		FunctionKeyHandler.registerFunctionKeyHandler();
