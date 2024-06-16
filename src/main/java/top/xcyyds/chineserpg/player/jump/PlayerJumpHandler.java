@@ -27,7 +27,7 @@ public class PlayerJumpHandler {
     public static final String WATER_SKIMMING = "水上漂";
 
     public static void toJump(PlayerEntity player, PlayerData playerData){
-        UUID equippedLightSkill = playerData.getEquippedLightSkill();
+        UUID equippedLightSkill = playerData.getEquippedLightSkillUUID();
         MartialArt lightSkill = getMartialArt(equippedLightSkill);
         if (lightSkill != null) {
             List<MartialArtEntry> lightSkillEntries = lightSkill.getEntries();
@@ -45,7 +45,7 @@ public class PlayerJumpHandler {
     }
 
     public static void toJumpOnGround(PlayerEntity player, PlayerData playerData){
-        UUID equippedLightSkill = playerData.getEquippedLightSkill();
+        UUID equippedLightSkill = playerData.getEquippedLightSkillUUID();
         MartialArt lightSkill = getMartialArt(equippedLightSkill);
         if (lightSkill != null) {
             List<MartialArtEntry> lightSkillEntries = lightSkill.getEntries();

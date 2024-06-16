@@ -62,7 +62,7 @@ public class PlayerJumpHelper {
 
     public static void updateJumpCount(ServerPlayerEntity player, PlayerData playerData) {
         if (player.isOnGround()) {
-            MartialArt equippedMartialArt = playerData.getEquippedMartialArt();
+            MartialArt equippedMartialArt = playerData.getEquippedLightSkill();
             if (equippedMartialArt != null) {
                 for (MartialArtEntry entry : equippedMartialArt.getEntries()) {
                     if (entry instanceof LightSkillEntry lightSkillEntry) {

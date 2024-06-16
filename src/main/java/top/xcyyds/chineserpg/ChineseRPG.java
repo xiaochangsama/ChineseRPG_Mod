@@ -12,6 +12,7 @@ import top.xcyyds.chineserpg.item.BooksItem;
 import top.xcyyds.chineserpg.item.ChineseRPGJianItem;
 import top.xcyyds.chineserpg.itemgroup.ChineseRPGItemGroup;
 import top.xcyyds.chineserpg.itemgroup.LightSkillItemGroup;
+import top.xcyyds.chineserpg.itemgroup.OuterSkillItemGroup;
 import top.xcyyds.chineserpg.network.FunctionKeySyncHandler;
 import top.xcyyds.chineserpg.network.JumpKeySyncHandler;
 import top.xcyyds.chineserpg.network.MouseKeySyncHandler;
@@ -32,6 +33,7 @@ public class ChineseRPG implements ModInitializer {
 		// 注册物品组
 		ChineseRPGItemGroup.registryItemGroup();
 		LightSkillItemGroup.registerItemGroup();
+		OuterSkillItemGroup.registerItemGroup();
 
 		// 注册事件
 		// 注册玩家（服务器每一刻结尾）每一刻的更新逻辑

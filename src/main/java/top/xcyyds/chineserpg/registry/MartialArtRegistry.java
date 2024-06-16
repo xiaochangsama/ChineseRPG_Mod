@@ -1,7 +1,7 @@
 package top.xcyyds.chineserpg.registry;
 
 import net.minecraft.server.world.ServerWorld;
-import top.xcyyds.chineserpg.martialart.MartialArts;
+import top.xcyyds.chineserpg.martialart.MartialArtLoader;
 import top.xcyyds.chineserpg.martialart.skill.MartialArt;
 
 import java.util.Collection;
@@ -46,6 +46,6 @@ public class MartialArtRegistry {
 
     public static void initializeRegistry(ServerWorld world) {
         registryData = MartialArtRegistryData.get(world);
-        MartialArts.registerAll();
+        MartialArtLoader.loadMartialArts().forEach(MartialArtRegistry::registerMartialArt);
     }
 }

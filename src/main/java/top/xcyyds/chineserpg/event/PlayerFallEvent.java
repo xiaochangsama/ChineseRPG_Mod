@@ -15,7 +15,7 @@ public class PlayerFallEvent {
             PlayerData playerData = ((IPlayerDataProvider) player).getPlayerData();
             float reductionHeight = 0.0f;
             float reductionPercentage = 0.0f;
-            UUID equippedSkill = playerData.getEquippedLightSkill();
+            UUID equippedSkill = playerData.getEquippedLightSkillUUID();
             MartialArt martialArt = MartialArtRegistry.getMartialArt(equippedSkill);
             if (martialArt != null) {
                 for (MartialArtEntry entry : martialArt.getEntries()) {

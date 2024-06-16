@@ -2,6 +2,7 @@ package top.xcyyds.chineserpg.martialart;
 
 import com.google.gson.*;
 import net.fabricmc.loader.api.FabricLoader;
+import top.xcyyds.chineserpg.martialart.artentry.DamageControl;
 import top.xcyyds.chineserpg.martialart.artentry.LightSkillEntry;
 import top.xcyyds.chineserpg.martialart.artentry.MartialArtEntry;
 import top.xcyyds.chineserpg.martialart.artentry.OuterSkillEntry;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,8 +55,8 @@ public class MartialArtLoader {
                 .findPath(folderPath)
                 .map(path -> {
                     try {
-                        return java.nio.file.Files.walk(path)
-                                .filter(java.nio.file.Files::isRegularFile)
+                        return Files.walk(path)
+                                .filter(Files::isRegularFile)
                                 .collect(Collectors.toList());
                     } catch (IOException e) {
                         throw new RuntimeException(e);
@@ -64,7 +66,7 @@ public class MartialArtLoader {
     }
 
     private static MartialArt loadMartialArtFromFile(Path filePath) throws IOException {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(java.nio.file.Files.newInputStream(filePath), StandardCharsets.UTF_8))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(Files.newInputStream(filePath), StandardCharsets.UTF_8))) {
             return GSON.fromJson(reader, MartialArt.class);
         }
     }
@@ -148,8 +150,17 @@ public class MartialArtLoader {
                 case "外功" -> new OuterSkillEntry(name, level,
                         getFloat(jsonObject, "damage"),
                         getInt(jsonObject, "cooldown"),
-                        getFloat(jsonObject, "range"));
-                default -> throw new IllegalArgumentException("Unknown martial art entry type: " + entryType);
+                        getFloat(jsonObject, "range"),
+                        context.deserialize(jsonObject.get("damageControl"), DamageControl.class),
+                        getFloat(jsonObject, "maxInnerPowerMultiplier"),
+                        getFloat(jsonObject, "currentInnerPowerMultiplier"),
+                        getFloat(jsonObject, "manualPowerMultiplier"),
+                        getFloat(jsonObject, "maxInnerPowerConsumption"),
+                        getFloat(jsonObject, "minInnerPowerConsumption"),
+                        getString(jsonObject, "outerType"),
+                        getString(jsonObject, "releaseMethod"),
+                        getString(jsonObject,"animationName"));
+                default -> throw new IllegalStateException("Unexpected value: " + entryType);
             };
         }
 
