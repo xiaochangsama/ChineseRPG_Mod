@@ -14,12 +14,13 @@ import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationFactory;
 import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationRegistry;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.util.Identifier;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
+
+import static com.mojang.text2speech.Narrator.LOGGER;
 
 public class PlayerAnimationController {
     public static final Identifier ANIMATION_IDENTIFIER = new Identifier("chineserpg", "animation");
-    private static final Logger LOGGER = LogManager.getLogger("ChineseRPG");
+
 
     public static void registerPlayerAnimation() {
         // 使用工厂方法为玩家注册动画层
