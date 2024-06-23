@@ -18,6 +18,8 @@ import top.xcyyds.chineserpg.player.data.PlayerData;
 import java.util.ArrayList;
 import java.util.List;
 
+import static top.xcyyds.chineserpg.ChineseRPG.MOD_ID;
+
 public class PlayerActionManager {
     private final List<ActionType> actions;
     private static final int COMBINATION_LENGTH = 4;
@@ -147,7 +149,7 @@ public class PlayerActionManager {
 
             if (player instanceof ServerPlayerEntity serverPlayer) {
                 // 发送数据包到客户端，通知播放指定的动画
-                AnimationSyncHandler.sendAnimationPacket(serverPlayer, new Identifier("chineserpg", skillEntry.getAnimationName()));
+                AnimationSyncHandler.sendAnimationPacket(serverPlayer, new Identifier(MOD_ID, skillEntry.getAnimationName()));
             }
 
             //根据技能词条释放技能
@@ -155,7 +157,7 @@ public class PlayerActionManager {
 
     }
 
-    public static final TagKey<Item> CAN_USE_SKILL_SWORDS = TagKey.of(Registries.ITEM.getKey(), new Identifier("chineserpg", "can_use_skill_swords"));
+    public static final TagKey<Item> CAN_USE_SKILL_SWORDS = TagKey.of(Registries.ITEM.getKey(), new Identifier(MOD_ID, "can_use_skill_swords"));
 
     public boolean isRecording() {
         return recording;

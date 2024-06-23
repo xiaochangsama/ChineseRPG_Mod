@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static top.xcyyds.chineserpg.ChineseRPG.MOD_ID;
+
 public class MartialArtLoader {
     private static final Gson GSON = new GsonBuilder()
             .registerTypeAdapter(MartialArt.class, new MartialArtDeserializer())
@@ -50,7 +52,7 @@ public class MartialArtLoader {
 
     private static List<Path> getFilesFromResource(String folderPath) throws IOException {
         return FabricLoader.getInstance()
-                .getModContainer("chineserpg")
+                .getModContainer(MOD_ID)
                 .orElseThrow(() -> new IOException("Mod container not found"))
                 .findPath(folderPath)
                 .map(path -> {

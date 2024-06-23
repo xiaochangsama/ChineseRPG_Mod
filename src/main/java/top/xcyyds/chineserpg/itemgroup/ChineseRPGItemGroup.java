@@ -10,6 +10,8 @@ import net.minecraft.util.Identifier;
 import top.xcyyds.chineserpg.item.BooksItem;
 import top.xcyyds.chineserpg.item.ChineseRPGJianItem;
 
+import static top.xcyyds.chineserpg.ChineseRPG.MOD_ID;
+
         /* 有两种方式可以将物品放到物品组：
         一种是用putItemIntoItemGroup()加入原版物品组
         一种是在ChineseRPGItemGroup类中加入自定义物品组
@@ -27,6 +29,6 @@ public class ChineseRPGItemGroup {
             })
             .build();
     public static void registryItemGroup(){
-        Registry.register(Registries.ITEM_GROUP, new Identifier("chineserpg", "kung_fu_item_group"), KUNG_FU_ITEM_GROUP);
+        Registry.register(Registries.ITEM_GROUP, new Identifier(MOD_ID, "kung_fu_item_group"), KUNG_FU_ITEM_GROUP);
     }
 }

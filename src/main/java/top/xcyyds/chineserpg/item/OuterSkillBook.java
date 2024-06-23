@@ -12,6 +12,8 @@ import net.minecraft.world.World;
 import top.xcyyds.chineserpg.martialart.MartialArts;
 import top.xcyyds.chineserpg.martialart.skill.MartialArt;
 
+import static top.xcyyds.chineserpg.ChineseRPG.MOD_ID;
+
 public class OuterSkillBook extends BooksItem {
 
     public OuterSkillBook() {
@@ -55,6 +57,6 @@ public class OuterSkillBook extends BooksItem {
 
     // 用物品的实例注册
     public static void registryItem() {
-        Registry.register(Registries.ITEM, new Identifier("chineserpg", "outer_skill_book"), BooksItem.OUTER_SKILL_BOOK);
+        Registry.register(Registries.ITEM, new Identifier(MOD_ID, "outer_skill_book"), BooksItem.OUTER_SKILL_BOOK);
     }
 }
