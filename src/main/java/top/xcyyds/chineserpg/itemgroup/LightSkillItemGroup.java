@@ -11,6 +11,8 @@ import top.xcyyds.chineserpg.item.BooksItem;
 import top.xcyyds.chineserpg.martialart.MartialArtLoader;
 import top.xcyyds.chineserpg.martialart.skill.MartialArt;
 
+import static top.xcyyds.chineserpg.ChineseRPG.MOD_ID;
+
 public class LightSkillItemGroup {
     public static final ItemGroup LIGHT_SKILL_ITEM_GROUP = FabricItemGroup.builder()
             .icon(() -> new ItemStack(BooksItem.LIGHT_SKILL_BOOK))
@@ -27,6 +29,6 @@ public class LightSkillItemGroup {
             .build();
 
     public static void registerItemGroup() {
-        Registry.register(Registries.ITEM_GROUP, new Identifier("chineserpg", "light_skill_item_group"), LIGHT_SKILL_ITEM_GROUP);
+        Registry.register(Registries.ITEM_GROUP, new Identifier(MOD_ID, "light_skill_item_group"), LIGHT_SKILL_ITEM_GROUP);
     }
 }

@@ -17,6 +17,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import software.bernie.geckolib.util.RenderUtils;
 
 import static net.minecraft.registry.Registries.ITEM;
+import static top.xcyyds.chineserpg.ChineseRPG.MOD_ID;
 
 public class ChineseRPGJianItem extends SwordItem implements GeoAnimatable {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
@@ -30,7 +31,7 @@ public class ChineseRPGJianItem extends SwordItem implements GeoAnimatable {
     public static final Item IRON_JIAN = new ChineseRPGJianItem(ToolMaterials.IRON, 3, -2.2F, new Item.Settings());
 
     public static void register() {
-        Registry.register(ITEM, new Identifier("chineserpg", "iron_jian"), IRON_JIAN);
+        Registry.register(ITEM, new Identifier(MOD_ID, "iron_jian"), IRON_JIAN);
     }
 
     @Override

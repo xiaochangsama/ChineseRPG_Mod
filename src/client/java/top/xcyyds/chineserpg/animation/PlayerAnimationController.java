@@ -15,11 +15,11 @@ import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationRegistry;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.util.Identifier;
 
-
 import static com.mojang.text2speech.Narrator.LOGGER;
+import static top.xcyyds.chineserpg.ChineseRPG.MOD_ID;
 
 public class PlayerAnimationController {
-    public static final Identifier ANIMATION_IDENTIFIER = new Identifier("chineserpg", "animation");
+    public static final Identifier ANIMATION_IDENTIFIER = new Identifier(MOD_ID, "animation");
 
 
     public static void registerPlayerAnimation() {
@@ -47,7 +47,7 @@ public class PlayerAnimationController {
         // 获取与玩家关联的动画层
         ModifierLayer<IAnimation> animationLayer = (ModifierLayer<IAnimation>) PlayerAnimationAccess.getPlayerAssociatedData(player).get(ANIMATION_IDENTIFIER);
         if (animationLayer != null) {
-            KeyframeAnimation animationData = PlayerAnimationRegistry.getAnimation(new Identifier("chineserpg", animationKey));
+            KeyframeAnimation animationData = PlayerAnimationRegistry.getAnimation(new Identifier(MOD_ID, animationKey));
 
             if (animationData != null) {
                 // 创建并配置关键帧动画播放器

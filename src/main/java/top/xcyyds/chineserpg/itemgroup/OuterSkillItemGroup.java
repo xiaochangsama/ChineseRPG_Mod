@@ -11,6 +11,8 @@ import top.xcyyds.chineserpg.item.BooksItem;
 import top.xcyyds.chineserpg.martialart.MartialArtLoader;
 import top.xcyyds.chineserpg.martialart.skill.MartialArt;
 
+import static top.xcyyds.chineserpg.ChineseRPG.MOD_ID;
+
 public class OuterSkillItemGroup {
     public static final ItemGroup OUTER_SKILL_ITEM_GROUP = FabricItemGroup.builder()
             .icon(() -> new ItemStack(BooksItem.OUTER_SKILL_BOOK))
@@ -27,6 +29,6 @@ public class OuterSkillItemGroup {
             .build();
 
     public static void registerItemGroup() {
-        Registry.register(Registries.ITEM_GROUP, new Identifier("chineserpg", "outer_skill_item_group"), OUTER_SKILL_ITEM_GROUP);
+        Registry.register(Registries.ITEM_GROUP, new Identifier(MOD_ID, "outer_skill_item_group"), OUTER_SKILL_ITEM_GROUP);
     }
 }
